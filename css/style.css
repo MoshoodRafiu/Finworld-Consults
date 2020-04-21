@@ -41,7 +41,12 @@ nav .navbar-nav .nav-link:hover{
     background-color: rgba(8, 24, 58, 0.6);
     padding: 10px;
 }
-
+.active {
+    border-bottom: 2px solid white;
+}
+.active:hover{
+    border: 0;
+}
 
 /* ------------------------------- 
             SITE BODY
@@ -140,7 +145,7 @@ form button, .login .card-title, .login .card-footer{
             MEDIAQUERIES
 -----------------------------------*/
 @media (max-width: 800px) {
-    nav .navbar-nav .nav-link:hover{
-        border-bottom: 0;
+    nav .navbar-nav .nav-link:hover, .active, .active:hover{
+        border: 0;
     }
 }
