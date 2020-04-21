@@ -37,10 +37,10 @@
                 <li>
                     <a href="users.html">Manage Users <i class="fas fa-users mx-1"></i></a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="admin.html">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="coupon.html">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
@@ -63,43 +63,22 @@
 
             <!-- dashboard body -->
             <div class="container-fluid">
-                <h4 class="text-center text-muted my-4">Coupon</h4>
-                <table class="table">
-                    <thead>
-                        <tr class="table-striped text-muted">
-                            <td><b>Coupon</b></td>
-                            <td><b>Status</b></td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>DCVSDYFVKBBHS2VH45HEKUHVB</td>
-                            <td>Available</td>
-                            <td><button class="btn btn-style px-3">Sell</button></td>
-                        </tr>
-                        <tr>
-                            <td>VGEFVK35NET677HVHHBV66SVD</td>
-                            <td>Available</td>
-                            <td><button class="btn btn-style px-3">Sell</button></td>
-                        </tr>
-                        <tr>
-                            <td>CGCHBUGK644UFJNFW728379YH</td>
-                            <td>Available</td>
-                            <td><button class="btn btn-style px-3">Sell</button></td>
-                        </tr>
-                        <tr>
-                            <td>JBRV34UJNJER7482823RV0UHN</td>
-                            <td>Available</td>
-                            <td><button class="btn btn-style px-3">Sell</button></td>
-                        </tr>
-                        <tr>
-                            <td>SEQW53Y2T3DT78OFGBFTGYC72</td>
-                            <td>Available</td>
-                            <td><button class="btn btn-style px-3">Sell</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <button class="btn btn-style"><a href="admin.html"><i class="fas fa-wrench mx-2"></i>Manage Admin</a></button>
+                <h4 class="text-center text-muted my-4">Add Admin</h4>
+                <form action="" method="POST" class="col-md-8 col-10 mx-auto">
+                    <input type="text" name="username" placeholder="UserId" required class="form-control my-3">
+                    <select name="role" class="form-control" required>
+                        <option value="">Select Role</option>
+                        <option value="Admin">Administrator</option>
+                        <option value="Contributor">Contributor</option>
+                        <option value="Finance">Financial Admin</option>
+                    </select>
+                    <input type="password" name="password" placeholder="Password" required class="form-control my-3">
+                    <input type="password" name="password" placeholder="Confirm Password" required class="form-control my-3">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-style">Add Admin</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
