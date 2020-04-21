@@ -15,8 +15,8 @@
 
     <!-- Font awesome icons -->
     <script src="../../js/all.js"></script>
+    
 </head>
-
 <body>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -25,7 +25,7 @@
 
             <ul class="list-unstyled components">
                 <h5 class="p-3 text-center mb-5 sidebar-header">Dashboard <i class="fas fa-tachometer-alt"></i></h5>
-                <li class="active">
+                <li>
                     <a href="dashboard.html">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
                 </li>
                 <li class="">
@@ -37,7 +37,7 @@
                 <li>
                     <a href="users.html">Manage Users <i class="fas fa-users mx-1"></i></a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="admin.html">Manage Admin <i class="fas fa-user mx-1"></i></a>
                 </li>
                 <li>
@@ -62,27 +62,39 @@
             </nav>
 
             <!-- dashboard body -->
-            <div class="container-fluid col-8 w-75">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <!-- first task -->
-                    <h5 class="text-center text-secondary">First Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
-
-                    <!-- second task -->
-                    <h5 class="text-center text-secondary mt-5">Second Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
-
-                    <!-- third task -->
-                    <h5 class="text-center text-secondary mt-5">Third Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
-
-                    <div class="text-center">
-                        <button type="submit" class="my-3 btn btn-style">Upload Tasks</button>
-                    </div>
-                </form>
+            <div class="container-fluid">
+                <h4 class="text-center text-muted my-4">Manage Admin</h4>
+                <table class="table">
+                    <thead>
+                        <tr class="table-striped text-muted">
+                            <td><b>Username</b></td>
+                            <td><b>Email</b></td>
+                            <td><b>Role</b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Admin 1</td>
+                            <td>admin@gmail.com</td>
+                            <td>Administrator</td>
+                            <td><button class="btn btn-style">Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>Admin 2</td>
+                            <td>admin@gmail.com</td>
+                            <td>Contributor</td>
+                            <td><button class="btn btn-style">Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>Admin 3</td>
+                            <td>admin@gmail.com</td>
+                            <td>Contributor</td>
+                            <td><button class="btn btn-style">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

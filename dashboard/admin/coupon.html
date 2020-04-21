@@ -15,8 +15,8 @@
 
     <!-- Font awesome icons -->
     <script src="../../js/all.js"></script>
+    
 </head>
-
 <body>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -25,7 +25,7 @@
 
             <ul class="list-unstyled components">
                 <h5 class="p-3 text-center mb-5 sidebar-header">Dashboard <i class="fas fa-tachometer-alt"></i></h5>
-                <li class="active">
+                <li>
                     <a href="dashboard.html">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
                 </li>
                 <li class="">
@@ -40,7 +40,7 @@
                 <li>
                     <a href="admin.html">Manage Admin <i class="fas fa-user mx-1"></i></a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="coupon.html">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
@@ -62,27 +62,44 @@
             </nav>
 
             <!-- dashboard body -->
-            <div class="container-fluid col-8 w-75">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <!-- first task -->
-                    <h5 class="text-center text-secondary">First Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
-
-                    <!-- second task -->
-                    <h5 class="text-center text-secondary mt-5">Second Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
-
-                    <!-- third task -->
-                    <h5 class="text-center text-secondary mt-5">Third Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
-
-                    <div class="text-center">
-                        <button type="submit" class="my-3 btn btn-style">Upload Tasks</button>
-                    </div>
-                </form>
+            <div class="container-fluid">
+                <h4 class="text-center text-muted my-4">Coupon</h4>
+                <table class="table">
+                    <thead>
+                        <tr class="table-striped text-muted">
+                            <td><b>Coupon</b></td>
+                            <td><b>Status</b></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DCVSDYFVKBBHS2VH45HEKUHVB</td>
+                            <td>Available</td>
+                            <td><button class="btn btn-style px-3">Sell</button></td>
+                        </tr>
+                        <tr>
+                            <td>VGEFVK35NET677HVHHBV66SVD</td>
+                            <td>Available</td>
+                            <td><button class="btn btn-style px-3">Sell</button></td>
+                        </tr>
+                        <tr>
+                            <td>CGCHBUGK644UFJNFW728379YH</td>
+                            <td>Available</td>
+                            <td><button class="btn btn-style px-3">Sell</button></td>
+                        </tr>
+                        <tr>
+                            <td>JBRV34UJNJER7482823RV0UHN</td>
+                            <td>Available</td>
+                            <td><button class="btn btn-style px-3">Sell</button></td>
+                        </tr>
+                        <tr>
+                            <td>SEQW53Y2T3DT78OFGBFTGYC72</td>
+                            <td>Available</td>
+                            <td><button class="btn btn-style px-3">Sell</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

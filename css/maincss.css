@@ -92,6 +92,15 @@ a:focus {
     background-color: rgb(19, 55, 133);
     color: #fff;
 }
+.btn-style {
+    background-color: rgb(8, 24, 58);
+    color: #fff;
+}
+.btn-style:hover {
+    color: #fff !important;
+    background-color: rgb(19, 55, 133);
+}
+
 
 /* ---------------------------------------------------
     CONTENT STYLE
