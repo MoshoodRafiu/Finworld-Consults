@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +20,13 @@
 
     <!-- internal style -->
     <style>
-        header{
-            background: url("../../images/dashboard-bg.jpg")center/cover no-repeat;  
+        header {
+            background: url("../../images/dashboard-bg.jpg")center/cover no-repeat;
         }
     </style>
 </head>
-<body> 
+
+<body>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -56,47 +58,78 @@
 
     <!-- main page content -->
 
+    <!-- upgrade  details -->
+
+    <div class="plan-details col-10 text-center mx-auto my-5">
+        <p>
+            Browse your plan on this page, click subscribe and you'll be redirected to our Whatsapp page to purchase your coupon. After your Coupon has been generated, paste your coupon in the field below to activate your upgrade
+        </p>
+    </div>
+    <!-- plan upgrade form -->
+    <div class="plan-form col-md-8 mx-auto my-3">
+        <h3 class="text-center mb-3">Enter you coupon to upgrade your plan</h3>
+        <form action="" method="post" class="text-center mx-auto">
+            <table class="text-center mx-auto w-100">
+                <tr>
+                    <td><input type="text" name="coupon" class="form-control" placeholder="Enter you coupon" required></td>
+                    <td>
+                        <select name="plan" class=" form-control" required>
+                            <option value="">Select Plan</option>
+                            <option value="Tier-1">Tier-1</option>
+                            <option value="Tier-2">Tier-2</option>
+                            <option value="Tier-3">Tier-3</option>
+                            <option value="Tier-4">Tier-4</option>
+                            <option value="Tier-5">Tier-5</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="text-center my-2">
+                <button type="submit" class="btn btn-style text-white  ">Change plan</button>
+            </div>
+        </form>
+    </div>
     <!-- subscription plan -->
     <div class="plan  my-5 mx-auto">
         <h3 class="text-center my-3 p-2">Change your plan</h3>
         <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Basic</h4>
                 </div>
                 <div class="card-body">
                     <h5><strong>Free:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #140</h5>
+                    <h5><strong>Earn:</strong> #120</h5>
                     <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 30+ Views</h5>
-                </div>
-                <div class="card-footer">
-                    <button class="btn w-100" disabled>Active</button>
-                </div>
-            </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
-                <div class="card-header">
-                    <h4>Basic</h4>
-                </div>
-                <div class="card-body">
-                    <h5><strong>Free:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #140</h5>
-                    <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 30+ Views</h5>
+                    <h5><strong>Requirement:</strong> 32+ Views</h5>
                 </div>
                 <div class="card-footer">
                     <button class="btn w-100">Subscribe</button>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
-                    <h4>Basic</h4>
+                    <h4>Tier 1</h4>
                 </div>
                 <div class="card-body">
-                    <h5><strong>Free:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #140</h5>
-                    <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 30+ Views</h5>
+                    <h5><strong>Free:</strong> #4,000</h5>
+                    <h5><strong>Earn:</strong> #250</h5>
+                    <h5><strong>Duration:</strong> 30 Days</h5>
+                    <h5><strong>Requirement:</strong> 32+ Views</h5>
+                </div>
+                <div class="card-footer">
+                    <button class="btn w-100">Subscribe</button>
+                </div>
+            </div>
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
+                <div class="card-header">
+                    <h4>Tier 2</h4>
+                </div>
+                <div class="card-body">
+                    <h5><strong>Free:</strong> #10,000</h5>
+                    <h5><strong>Earn:</strong> #600</h5>
+                    <h5><strong>Duration:</strong> 30 Days</h5>
+                    <h5><strong>Requirement:</strong> 50+ Views</h5>
                 </div>
                 <div class="card-footer">
                     <button class="btn w-100">Subscribe</button>
@@ -104,43 +137,43 @@
             </div>
         </div>
         <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
-                    <h4>Basic</h4>
+                    <h4>Tier 3</h4>
                 </div>
                 <div class="card-body">
-                    <h5><strong>Free:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #140</h5>
-                    <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 30+ Views</h5>
+                    <h5><strong>Free:</strong> #15,000</h5>
+                    <h5><strong>Earn:</strong> #950</h5>
+                    <h5><strong>Duration:</strong> 30 Days</h5>
+                    <h5><strong>Requirement:</strong> 50+ Views</h5>
                 </div>
                 <div class="card-footer">
                     <button class="btn w-100">Subscribe</button>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
-                    <h4>Basic</h4>
+                    <h4>Tier 4</h4>
                 </div>
                 <div class="card-body">
-                    <h5><strong>Free:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #140</h5>
-                    <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 30+ Views</h5>
+                    <h5><strong>Free:</strong> #25,000</h5>
+                    <h5><strong>Earn:</strong> #1,400</h5>
+                    <h5><strong>Duration:</strong> 30 Days</h5>
+                    <h5><strong>Requirement:</strong> 75+ Views</h5>
                 </div>
                 <div class="card-footer">
                     <button class="btn w-100">Subscribe</button>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
-                    <h4>Basic</h4>
+                    <h4>Tier 5</h4>
                 </div>
                 <div class="card-body">
-                    <h5><strong>Free:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #140</h5>
-                    <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 30+ Views</h5>
+                    <h5><strong>Free:</strong> #50,000</h5>
+                    <h5><strong>Earn:</strong> #3,000</h5>
+                    <h5><strong>Duration:</strong> 30 Days</h5>
+                    <h5><strong>Requirement:</strong> 100+ Views</h5>
                 </div>
                 <div class="card-footer">
                     <button class="btn w-100">Subscribe</button>
@@ -159,4 +192,5 @@
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -18,88 +18,113 @@ header {
     height: 80vh;
     background: url("../images/header-bg.jpg") center/cover no-repeat;
 }
-.header-logo img{
+
+.header-logo img {
     width: 40px;
 }
+
 nav button .icon {
     color: white;
 }
+
 .navbar {
     background-color: rgba(8, 24, 58, 0.6) !important;
 }
-nav .navbar-nav .nav-link{
+
+nav .navbar-nav .nav-link {
     color: white !important;
     padding: 10px 20px !important;
     font-size: 14px;
 }
-nav .navbar-nav .nav-link:hover{
+
+nav .navbar-nav .nav-link:hover {
     border-bottom: 2px solid white;
 }
+
 .site-description-text {
     color: white;
     margin: 100px 0px !important;
     background-color: rgba(8, 24, 58, 0.6);
     padding: 10px;
 }
+
 .active {
     border-bottom: 2px solid white;
 }
-.active:hover{
+
+.active:hover {
     border: 0;
 }
+
 
 /* ------------------------------- 
             SITE BODY
  ------------------------------- */
 
-
-.site-body{
+.site-body {
     padding: 0 30px;
 }
-.info, .withdrawal, .profile{
+
+.info,
+.withdrawal,
+.profile {
     background-color: rgb(253, 250, 250);
 }
-.site-body p{
+
+.site-body p {
     color: grey;
     font-size: 17px;
     text-align: justify !important;
 }
+
 .card-header {
     background-color: rgba(8, 24, 58, 1);
     color: white;
 }
+
 .faq {
     background: url("../images/side.jpg")center/cover fixed no-repeat;
     height: 65vh;
 }
+
 .login {
     border-radius: 20px;
 }
+
 .dashboard .icon {
     color: rgba(8, 24, 58, 1);
 }
+
 .dashboard {
     background-color: rgb(253, 250, 250);
 }
+
 .status {
     background-color: rgb(224, 46, 46);
     color: white;
 }
+
 .text {
     color: rgba(8, 24, 58, 1);
 }
+
 .main {
     background-color: rgba(8, 24, 58, 1) !important;
 }
 
+
 /* -------------------------------
             BUTTONS
  ------------------------------- */
-.card-footer button, .dashboard button{
+
+.card-footer button,
+.dashboard button {
     background-color: rgba(8, 24, 58, 1);
     color: white;
 }
-.card-footer button:hover, .dashboard button:hover{
+
+.card-footer button:hover,
+.dashboard button:hover {
     color: white;
     background-color: rgb(13, 48, 119);
 }
@@ -109,29 +134,40 @@ nav .navbar-nav .nav-link:hover{
             FORMS
 ------------------------------- */
 
-.contact input, .contact textarea{
+.contact input,
+.contact textarea {
     border-top: none;
     border-left: none;
     border-right: none;
-    font-size: 17px;;
+    font-size: 17px;
+    ;
 }
-.contact input:focus, .contact textarea:focus{
+
+.contact input:focus,
+.contact textarea:focus {
     outline: none;
 }
-form button, .login .card-title, .login .card-footer{
+
+form button,
+.login .card-title,
+.login .card-footer {
     background: rgba(8, 24, 58, 1) !important;
     color: white;
 }
 
-.login input, .withdrawal input{
+.login input,
+.withdrawal input,
+.login select {
     border-top: none;
     border-left: none;
     border-right: none;
     border-bottom: 2px solid gray;
 }
+
 .login input:active {
     outline: none !important;
 }
+
 
 /* ------------------------------- 
             FOOTER
@@ -141,11 +177,15 @@ form button, .login .card-title, .login .card-footer{
     height: 20vh;
 }
 
+
 /* ------------------------------- 
             MEDIAQUERIES
 -----------------------------------*/
+
 @media (max-width: 800px) {
-    nav .navbar-nav .nav-link:hover, .active, .active:hover{
+    nav .navbar-nav .nav-link:hover,
+    .active,
+    .active:hover {
         border: 0;
     }
 }

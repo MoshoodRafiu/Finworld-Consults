@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +20,13 @@
 
     <!-- internal style -->
     <style>
-        body{
+        body {
             background: url("images/login-bg.jpg")center/cover no-repeat;
         }
     </style>
 </head>
-<body> 
+
+<body>
     <!-- register form -->
     <div class="row">
         <div class="col-10 col-md-6 login col-lg-4 mx-auto text-center">
@@ -36,14 +38,15 @@
                 </div>
 
                 <!-- main register form -->
-                <form action="register.php"  class="mx-3 my-3"  method="post">
+                <form action="register.php" class="mx-3 my-3" method="post">
                     <input type="text" class="form-control mt-3" required="required" name="fname" placeholder="First Name*">
                     <input type="text" class="form-control mt-3" required="required" name="lname" placeholder="Last Name*">
                     <input type="text" class="form-control mt-3" name="uname" placeholder="Username">
                     <input type="email" class="form-control mt-3" required="required" name="email" placeholder="Email*">
+                    <input type="tel" class="form-control mt-3" required="required" name="phone" placeholder="Phone*">
                     <input type="password" class="form-control mt-3" required="required" name="password" placeholder="Password*">
                     <input type="password" class="form-control mt-3 mb-1" required="required" name="cpassword" placeholder=" Confirm Password*">
-                    <input type="text" class="form-control my-3" name="acctname" placeholder="Account Number">
+                    <input type="text" class="form-control my-3" name="acctname" placeholder="Account Number*">
                     <select type="text" class="form-control " required>
                         <option selected>Select Bank</option>
                         <option value="access">Access Bank</option>
@@ -80,4 +83,5 @@
         </div>
     </div>
 </body>
+
 </html>

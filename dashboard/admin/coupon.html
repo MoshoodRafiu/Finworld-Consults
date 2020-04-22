@@ -15,8 +15,9 @@
 
     <!-- Font awesome icons -->
     <script src="../../js/all.js"></script>
-    
+
 </head>
+
 <body>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -64,10 +65,31 @@
             <!-- dashboard body -->
             <div class="container-fluid">
                 <h4 class="text-center text-muted my-4">Coupon</h4>
+
+                <!-- generate coupon -->
+                <div class="my-3">
+                    <h5 class="text-muted">Generate new coupon</h5>
+                    <form action="" method="post" class=" form-check d-md-flex">
+                        <select name="plan" class=" form-control w-75 my-2" required>
+                                        <option value="">Select Plan</option>
+                                        <option value="Tier-1">Tier-1</option>
+                                        <option value="Tier-2">Tier-2</option>
+                                        <option value="Tier-3">Tier-3</option>
+                                        <option value="Tier-4">Tier-4</option>
+                                        <option value="Tier-5">Tier-5</option>
+                                    </select>
+                        <button type="submit" class="btn btn-style m-2">Generate New Coupon</button>
+                        </table>
+                    </form>
+                </div>
+
+                <!-- all available coupon -->
+                <h5 class="text-muted my-3">Sell coupon</h5>
                 <table class="table">
                     <thead>
                         <tr class="table-striped text-muted">
                             <td><b>Coupon</b></td>
+                            <td><b>Plan</b></td>
                             <td><b>Status</b></td>
                             <td></td>
                         </tr>
@@ -75,26 +97,31 @@
                     <tbody>
                         <tr>
                             <td>DCVSDYFVKBBHS2VH45HEKUHVB</td>
+                            <td>Tier-1</td>
                             <td>Available</td>
                             <td><button class="btn btn-style px-3">Sell</button></td>
                         </tr>
                         <tr>
                             <td>VGEFVK35NET677HVHHBV66SVD</td>
+                            <td>Tier-2</td>
                             <td>Available</td>
                             <td><button class="btn btn-style px-3">Sell</button></td>
                         </tr>
                         <tr>
                             <td>CGCHBUGK644UFJNFW728379YH</td>
+                            <td>Tier-3</td>
                             <td>Available</td>
                             <td><button class="btn btn-style px-3">Sell</button></td>
                         </tr>
                         <tr>
                             <td>JBRV34UJNJER7482823RV0UHN</td>
+                            <td>Tier-4</td>
                             <td>Available</td>
                             <td><button class="btn btn-style px-3">Sell</button></td>
                         </tr>
                         <tr>
                             <td>SEQW53Y2T3DT78OFGBFTGYC72</td>
+                            <td>Tier-5</td>
                             <td>Available</td>
                             <td><button class="btn btn-style px-3">Sell</button></td>
                         </tr>
@@ -110,10 +137,11 @@
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
-        document.querySelector('#sidebarCollapse').addEventListener('click', ()=>{
+        document.querySelector('#sidebarCollapse').addEventListener('click', () => {
             console.log("pressed")
             document.querySelector('#sidebar').classList.toggle('activate');
         });
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +20,13 @@
 
     <!-- internal style -->
     <style>
-        header{
-            background: url("../../images/dashboard-bg.jpg")center/cover no-repeat;  
+        header {
+            background: url("../../images/dashboard-bg.jpg")center/cover no-repeat;
         }
     </style>
 </head>
-<body> 
+
+<body>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -56,15 +58,60 @@
 
     <!-- main page content -->
 
+    <!-- User Details -->
+    <div class="mx-auto col-md-10 text-left mt-5 mb-3">
+        <h5>Logged in: <i class="fas fa-user"></i> UserName</h5>
+    </div>
+
     <!--daily task -->
-    <div class="task mt-5 text-center">
+    <div class="mt-2 col-md-10 mx-auto text-center">
         <h3>Today's task</h3>
-        <p class="text-left bg-success text-white py-4 px-2">Currently unavailable</p>
+        <p class="text-left bg-success text-white py-4 px-5">Please Complete the task, long press the image to save and copy the text</p>
+
+        <!-- All Task -->
+        <div class="">
+            <!-- First Task -->
+            <h4 class="mt-5">First Task</h4>
+            <div class="col-md-8 mx-auto bg-info task p-3 mb-5">
+                <!-- <div class="task-image">
+                    <img src="../../images/dashboard-bg.jpg" class="img img-fluid" alt="">
+                </div> -->
+                <p class="task-caption py-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut amet quia sequi quod! Atque fugiat eum architecto reiciendis ipsam excepturi aperiam animi, nulla delectus! Recusandae asperiores maxime fuga magni ullam repudiandae perferendis suscipit cupiditate
+                    voluptatem aliquam qui, sit rerum exercitationem debitis minus corporis similique placeat alias laboriosam minima quia adipisci. Perspiciatis architecto earum quaerat quam suscipit delectus autem inventore aliquid, impedit facere doloribus
+                    eius deleniti explicabo iure possimus, optio ut provident. Neque, nam ducimus. Provident earum facere accusamus ad ducimus eum sunt nesciunt, dicta odio inventore enim aut porro. Neque enim eligendi saepe deleniti quisquam eaque quis
+                    nam
+                </p>
+            </div>
+
+            <!-- Second Task -->
+            <h4>Second Task</h4>
+            <div class="col-md-8 mx-auto bg-info task p-3 mb-5">
+                <div class="task-image">
+                    <img src="../../images/dashboard-bg.jpg" class="img img-fluid" alt="">
+                </div>
+                <p class="task-caption py-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut amet quia sequi quod! Atque fugiat eum a
+                </p>
+            </div>
+
+            <!-- Third Task -->
+            <h4>Third Task</h4>
+            <div class="col-md-8 mx-auto bg-info task p-3 mb-5">
+                <div class="task-image">
+                    <img src="../../images/header-bg.jpg" class="img img-fluid" alt="">
+                </div>
+                <p class="task-caption py-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut amet quia sequi quod! Atque fugiat eum a
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <!-- task submission -->
     <h3 class="text-center mt-5">Submit task</h3>
-    <p class="text-center">You are required to upload a screenshot of your completed tasks</p>
+    <p class="text-center mx-3">You are required to upload a screenshot of your completed tasks</p>
     <form action="" method="post" class="col-md-8 mx-auto">
         <h5>first task</h5>
         <input type="file" name="task-1" class="form-control mb-3">
@@ -135,4 +182,5 @@
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

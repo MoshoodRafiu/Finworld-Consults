@@ -54,7 +54,7 @@
             <!-- sidebar toggler div -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <!-- sidebar roggler button -->
+                    <!-- sidebar toggler button -->
                     <button type="button" id="sidebarCollapse" class="btn btn-style">
                         <i class="fas fa-align-justify"></i>
                     </button>
@@ -63,6 +63,8 @@
 
             <!-- dashboard body -->
             <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-style my-2">Export All Withdrawal</button>
+                <button type="button" id="sidebarCollapse" class="btn btn-style my-2">Export Approved Withdrawal</button>
                 <h4 class="text-center text-muted my-4">Withdrawal List</h4>
                 <table class="table">
                     <thead>
@@ -85,6 +87,7 @@
                             <td>#4000</td>
                             <td>Pending</td>
                             <td><button class="btn btn-success px-3">Approve Payment</button></td>
+                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
                         </tr>
                         <tr>
                             <td>User 2</td>
@@ -94,6 +97,7 @@
                             <td>#3000</td>
                             <td>Pending</td>
                             <td><button class="btn btn-success px-3">Approve Payment</button></td>
+                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
                         </tr>
                         <tr>
                             <td>User 3</td>
@@ -103,6 +107,7 @@
                             <td>#40000</td>
                             <td>Pending</td>
                             <td><button class="btn btn-success px-3">Approve Payment</button></td>
+                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
                         </tr>
                         <tr>
                             <td>User 4</td>
@@ -112,6 +117,7 @@
                             <td>#20000</td>
                             <td>Pending</td>
                             <td><button class="btn btn-success px-3">Approve Payment</button></td>
+                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -125,10 +131,11 @@
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
-        document.querySelector('#sidebarCollapse').addEventListener('click', ()=>{
+        document.querySelector('#sidebarCollapse').addEventListener('click', () => {
             console.log("pressed")
             document.querySelector('#sidebar').classList.toggle('activate');
         });
     </script>
 </body>
+
 </html>

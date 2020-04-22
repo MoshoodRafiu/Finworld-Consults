@@ -15,8 +15,8 @@
 
     <!-- Font awesome icons -->
     <script src="../../js/all.js"></script>
-    
 </head>
+
 <body>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -64,6 +64,10 @@
             <!-- dashboard body -->
             <div class="container-fluid">
                 <h4 class="text-center text-muted my-4">Manage Registered Users</h4>
+                <form method='get' action="" class="row ml-2 my-3">
+                    <input type="search" name="search" class="form-control col-md-4 col-9" placeholder="Search username" required>
+                    <button type="submit" class="mx-3 btn btn-success"><i class="fas fa-search"></i></button>
+                </form>
                 <table class="table">
                     <thead>
                         <tr class="table-striped text-muted">
@@ -120,10 +124,11 @@
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
-        document.querySelector('#sidebarCollapse').addEventListener('click', ()=>{
+        document.querySelector('#sidebarCollapse').addEventListener('click', () => {
             console.log("pressed")
             document.querySelector('#sidebar').classList.toggle('activate');
         });
     </script>
 </body>
+
 </html>
