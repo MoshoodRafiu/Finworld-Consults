@@ -46,8 +46,8 @@
 
                 <!--  alt links -->
                 <div class="card-footer bg">
-                    <a href="register.html" class="text-white mx-3">Register</a>
-                    <a href="reset.html" class="text-white">Forgot Password?</a>
+                    <a href="register.php" class="text-white mx-3">Register</a>
+                    <a href="reset.php" class="text-white">Forgot Password?</a>
                 </div>
             </div>
         </div>

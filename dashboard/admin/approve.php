@@ -27,22 +27,22 @@
             <ul class="list-unstyled components">
                 <h5 class="p-3 text-center mb-5 sidebar-header">Dashboard <i class="fas fa-tachometer-alt"></i></h5>
                 <li>
-                    <a href="dashboard.html">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
+                    <a href="dashboard.php">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
                 </li>
                 <li class="active">
-                    <a href="approve.html">Approve Tasks <i class="fas fa-check mx-1"></i></a>
+                    <a href="approve.php">Approve Tasks <i class="fas fa-check mx-1"></i></a>
                 </li>
                 <li class="">
-                    <a href="list.html">Withdrawal List <i class="fas fa-list mx-1"></i></a>
+                    <a href="list.php">Withdrawal List <i class="fas fa-list mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="users.html">Manage Users <i class="fas fa-users mx-1"></i></a>
+                    <a href="users.php">Manage Users <i class="fas fa-users mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="admin.html">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
+                    <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="coupon.html">Coupon <i class="fas fa-key mx-1"></i></a>
+                    <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
                     <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>

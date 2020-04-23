@@ -33,7 +33,7 @@
             <!-- navbar -->
             <nav class="navbar navbar-expand-lg">
                 <div class="navbar-brand header-logo">
-                    <a href="home.html"><img src="../../images/logo.jpg" alt="logo"></a>
+                    <a href="home.php"><img src="../../images/logo.jpg" alt="logo"></a>
                 </div>
                 <!-- navbar toggler button -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,10 +43,10 @@
                     <!-- links -->
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item mx-2 active"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="profile.html">Profile</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="withdrawal.html">Withdrawal</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="plan.html">Change Plan</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="#">Logout</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="profile.php">Profile</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="plan.php">Change Plan</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="logout.php">Logout</a></li>
                     </ul>
                 </div>
             </nav>

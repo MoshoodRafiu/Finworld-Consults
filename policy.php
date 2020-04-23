@@ -34,10 +34,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                         <!-- links -->
-                        <li class="nav-item mx-2"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="login.html">Login</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="register.html">Register</a></li>
-                        <li class="nav-item mx-2 active"><a class="nav-link" href="policy.html">Policy</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="index.php">Home</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="login.php">Login</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="register.php">Register</a></li>
+                        <li class="nav-item mx-2 active"><a class="nav-link" href="policy.php">Policy</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>

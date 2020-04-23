@@ -27,22 +27,22 @@
             <ul class="list-unstyled components">
                 <h5 class="p-3 text-center mb-5 sidebar-header">Dashboard <i class="fas fa-tachometer-alt"></i></h5>
                 <li>
-                    <a href="dashboard.html">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
+                    <a href="dashboard.php">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
                 </li>
                 <li class="">
-                    <a href="approve.html">Approve Tasks <i class="fas fa-check mx-1"></i></a>
+                    <a href="approve.php">Approve Tasks <i class="fas fa-check mx-1"></i></a>
                 </li>
                 <li class="">
-                    <a href="list.html">Withdrawal List <i class="fas fa-list mx-1"></i></a>
+                    <a href="list.php">Withdrawal List <i class="fas fa-list mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="users.html">Manage Users <i class="fas fa-users mx-1"></i></a>
+                    <a href="users.php">Manage Users <i class="fas fa-users mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="admin.html">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
+                    <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
                 <li class="active">
-                    <a href="coupon.html">Coupon <i class="fas fa-key mx-1"></i></a>
+                    <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
                     <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
@@ -71,13 +71,13 @@
                     <h5 class="text-muted">Generate new coupon</h5>
                     <form action="" method="post" class=" form-check d-md-flex">
                         <select name="plan" class=" form-control w-75 my-2" required>
-                                        <option value="">Select Plan</option>
-                                        <option value="Tier-1">Tier-1</option>
-                                        <option value="Tier-2">Tier-2</option>
-                                        <option value="Tier-3">Tier-3</option>
-                                        <option value="Tier-4">Tier-4</option>
-                                        <option value="Tier-5">Tier-5</option>
-                                    </select>
+                            <option value="">Select Plan</option>
+                            <option value="Tier-1">Tier-1</option>
+                            <option value="Tier-2">Tier-2</option>
+                            <option value="Tier-3">Tier-3</option>
+                            <option value="Tier-4">Tier-4</option>
+                            <option value="Tier-5">Tier-5</option>
+                        </select>
                         <button type="submit" class="btn btn-style m-2">Generate New Coupon</button>
                         </table>
                     </form>

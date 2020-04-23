@@ -8,16 +8,22 @@
     <title>Finworld Consults</title>
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="../../images/logo.jpg" type="image/x-icon">
     <!-- bootstrap stylesheet -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <!-- external stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- googlr fonts -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Kanit:ital@1&display=swap" rel="stylesheet">
-    <!-- font awesome icon -->
-    <script src="js/all.js"></script>
+    <!-- font awesome icons -->
+    <script src="../../js/all.js"></script>
 
+    <!-- internal style -->
+    <style>
+        header {
+            background: url("../../images/dashboard-bg.jpg")center/cover no-repeat;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,19 +32,21 @@
         <div class="header-body">
             <!-- navbar -->
             <nav class="navbar navbar-expand-lg">
-                <div class="navbar-brand header-logo" href="#"><img src="images/logo.jpg" alt=""></div>
-                <!-- navbar collapse button -->
+                <div class="navbar-brand header-logo">
+                    <a href="home.php"><img src="../../images/logo.jpg" alt="logo"></a>
+                </div>
+                <!-- navbar toggler button -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <i class="fas fa-align-justify icon"></i>
+                    <i class="fas fa-align-justify icon"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- links -->
                     <ul class="navbar-nav mx-auto">
-                        <!-- links -->
-                        <li class="nav-item mx-2 active"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="login.html">Login</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="register.html">Register</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="policy.html">Policy</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="plan.php">Change Plan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
                     </ul>
                 </div>
             </nav>
@@ -217,9 +225,9 @@
     </div>
 
     <!-- jquery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
     <!-- bootstrap js -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
