@@ -18,6 +18,16 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+        // include action.php
+        include "../action/action.php";
+    ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -44,7 +54,7 @@
                     <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
         </nav>
@@ -61,7 +71,35 @@
                 </div>
             </nav>
 
+            <!-- upgrade plan dialog box -->
+            <div class="freeze-layer"></div>
+            <div class="withdrawal dialog-box">
+                <div class="dialog-box-header"><h2>Confirm Your Request</h2></div>
+                <div class="dialog-box-body"><p>Are you sure you want to delete this file?</p></div>
+                <div class="dialog-box-footer">
+                    <button class="btn-no">No</button>
+                    <button class="btn-yes">Yes</button>
+                </div>
+            </div>
             <!-- dashboard body -->
+            <?php
+                // Check if admin tries to approve or restrict account
+                if (isset($_GET['approve'])){
+                    $user = $_GET['user'];
+                    $con->approveuser($user);
+                    header("Location: users.php");
+
+                }else if (isset($_GET['restrict'])) {
+                    $user = $_GET['user'];
+                    $con->restrictuser($user);
+                    header("Location: users.php");
+                }else if (isset($_GET['upgrade'])) {
+                    $user = $_GET['user'];
+                    $plan = $_GET['plan'];
+                    $result = $con->upgradeplan($user, $plan);
+                    header("Location: users.php");
+                }
+            ?>
             <div class="container-fluid">
                 <h4 class="text-center text-muted my-4">Manage Registered Users</h4>
                 <form method='get' action="" class="row ml-2 my-3">
@@ -73,46 +111,79 @@
                         <tr class="table-striped text-muted">
                             <td><b>Username</b></td>
                             <td><b>Email</b></td>
+                            <td><b>Available Earning</b></td>
+                            <td><b>Account Status</b></td>
                             <td><b>Active Plan</b></td>
-                            <td><b>Total Earning</b></td>
+                            <td><b>Change Plan</b></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>User 1</td>
-                            <td>user@gmail.com</td>
-                            <td>Basic</td>
-                            <td>#5000</td>
-                            <td><button class="btn btn-style">Restrict Account</button></td>
-                            <td><button class="btn btn-success" disabled>Approve</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 2</td>
-                            <td>user@gmail.com</td>
-                            <td>Basic</td>
-                            <td>#7000</td>
-                            <td><button class="btn btn-style" disabled>Restrict Account</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 3</td>
-                            <td>user@gmail.com</td>
-                            <td>Premium</td>
-                            <td>#35000</td>
-                            <td><button class="btn btn-style">Restrict Account</button></td>
-                            <td><button class="btn btn-success" disabled>Approve</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 4</td>
-                            <td>user@gmail.com</td>
-                            <td>Premium</td>
-                            <td>#45000</td>
-                            <td><button class="btn btn-style" disabled>Restrict Account</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                        </tr>
+                        <?php
+                            $results = $con->displayallusers("user");
+                            if ($results){
+                                foreach ($results as $result) {
+                                ?>
+                                    <tr id="<?php echo $result['user_id'] ?>">
+                                        <td><?php echo $result['user_name']; ?></td>
+                                        <td><?php echo $result['email']; ?></td>
+                                        <td>#<?php echo $result['total_earning'] - $result['withdrawn_earning']; ?></td>
+                                        <td class="text-capitalize"><?php echo $result['account_status']; ?></td>
+                                        <td class="text-capitalize"><?php echo $result['plan']; ?></td>
+                                        <td><select name="plan" class="form-control new-plan-<?php echo $result['user_id'] ?>">
+                                            <option value="">Select Plan</option>
+                                            <option value="Tier-1">Tier-1</option>
+                                            <option value="Tier-2">Tier-2</option>
+                                            <option value="Tier-3">Tier-3</option>
+                                            <option value="Tier-4">Tier-4</option>
+                                            <option value="Tier-5">Tier-5</option>
+                                        </select></td>
+                                        <td><button class="btn btn-primary" onclick="run('<?php echo $result['user_id'] ?>')">Upgrade Account</button></td>
+                                        <?php
+                                            if ($result['account_status'] == "approved") {
+                                            ?>
+                                                <td><a class="btn btn-danger" href="users.php?restrict=1&user=<?php echo $result['user_id'] ?>">Restrict Account</a></td>
+                                                <td><button class="btn btn-success" disabled>Approve Account</button></td>
+                                            <?php
+                                            } else if ($result['account_status'] == "restricted") {
+                                            ?>
+                                                <td><button class="btn btn-danger" disabled>Restrict Account</button></td>
+                                                <td><a class="btn btn-success" href="users.php?approve=1&user=<?php echo $result['user_id'] ?>">Approve Account</a></td>
+                                            <?php
+                                            }
+                                        ?>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                    <p class="text-center">No registered user</p>
+                                <?php
+                            }
+                        ?>
                     </tbody>
+
+                    <?php
+                    // Goto searched user location
+                        if (isset($_GET['search'])){
+                            $user =$_GET['search'];
+                            $id = $con->searchuser($user);
+                            if ($id == "No result") {
+                            ?>
+                                <div class="alert alert-warning mx-auto text-center" role="alert">User Not Registered</div>
+                            <?php
+                            } else {
+                            ?>
+                                <script>
+                                    document.querySelector(".table").rows.namedItem("<?php echo $id; ?>").classList.add("bg-warning");
+                                    window.location.hash = "<?php echo $id; ?>";
+                                </script>
+                            <?php
+                            }
+                        }
+                    ?>
                 </table>
             </div>
         </div>
@@ -128,6 +199,25 @@
             console.log("pressed")
             document.querySelector('#sidebar').classList.toggle('activate');
         });
+        function run(user) {
+            let plan = document.querySelector('.new-plan-' + user);
+            if (plan.value != ""){
+                plan.style.border = "";
+                document.querySelector('.freeze-layer').style.display = 'block';
+                document.querySelector('.dialog-box').style.top = '50%';
+                document.querySelector('.dialog-box-body').textContent = `Are you sure you want to change this user plan to ${plan.value}?`;
+                document.querySelector('.btn-yes').addEventListener('click', () => {
+                    location.href = `users.php?upgrade=1&user=${user}&plan=${plan.value}`;
+                });
+                document.querySelector('.btn-no').addEventListener('click', () => {
+                    document.querySelector('.freeze-layer').style.display = '';
+                    document.querySelector('.dialog-box').style.top = '';
+                });
+            }else {
+                plan.style.border = "2px solid red";
+            }
+
+        }
     </script>
 </body>
 

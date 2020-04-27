@@ -15,9 +15,17 @@
 
     <!-- Font awesome icons -->
     <script src="../../js/all.js"></script>
-    
+
 </head>
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+    ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -44,7 +52,7 @@
                     <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
         </nav>
@@ -63,20 +71,37 @@
 
             <!-- dashboard body -->
             <div class="container-fluid">
-                <button class="btn btn-style"><a href="admin.html"><i class="fas fa-wrench mx-2"></i>Manage Admin</a></button>
+                <button class="btn btn-style"><a href="admin.php"><i class="fas fa-wrench mx-2"></i>Manage Admin</a></button>
                 <h4 class="text-center text-muted my-4">Add Admin</h4>
-                <form action="" method="POST" class="col-md-8 col-10 mx-auto">
-                    <input type="text" name="username" placeholder="UserId" required class="form-control my-3">
-                    <select name="role" class="form-control" required>
-                        <option value="">Select Role</option>
-                        <option value="Admin">Administrator</option>
-                        <option value="Contributor">Contributor</option>
-                        <option value="Finance">Financial Admin</option>
-                    </select>
-                    <input type="password" name="password" placeholder="Password" required class="form-control my-3">
-                    <input type="password" name="password" placeholder="Confirm Password" required class="form-control my-3">
+                <form action="../action/action.php" method="POST" onsubmit="return check()" class="col-md-8 col-10 mx-auto">
+                    <?php
+                        if (!empty($_GET['add'])){
+                            if ($_GET['add'] == 1) {
+                            ?>
+                                <!-- Display success message if admin is added -->
+                                <div class="alert alert-success mx-auto text-center" role="alert">Admin Successfully Registered</div>
+                            <?php
+                            } else if ($_GET['add'] == 'user_error'){
+                                ?>
+                                <!-- Display error message if username already exists -->
+                                <div class="alert alert-danger mx-auto text-center" role="alert">Username Already Exist</div>
+                            <?php
+                            } else if ($_GET['add'] == 'email_error') {
+                                ?>
+                                <!-- Display error message if email already exists -->
+                                <div class="alert alert-danger mx-auto text-center" role="alert">Email Already Exist</div>
+                            <?php
+                            }
+                        }
+                    ?>
+                    <input type="text" name="username" placeholder="Username" required class="form-control my-3">
+                    <input type="email" name="email" placeholder="Email" required class="form-control my-3">
+                    <p class="m-0 text-left small pass-msg" style="color: red; display: none;">Password too short or doesn't match</p>
+                    <input type="password" name="password" placeholder="Password" required class="form-control my-3 pass-fld">
+                    <p class="m-0 text-left small cpass-msg" style="color: red; display: none;">Password too short or doesn't match</p>
+                    <input type="password" name="cpassword" placeholder="Confirm Password" required class="form-control my-3 cpass-fld">
                     <div class="text-center">
-                        <button type="submit" class="btn btn-style">Add Admin</button>
+                        <button type="submit" name="addadmin" class="btn btn-style">Add Admin</button>
                     </div>
                 </form>
             </div>
@@ -93,6 +118,21 @@
             console.log("pressed")
             document.querySelector('#sidebar').classList.toggle('activate');
         });
+        function check(){
+            if (document.querySelector('.pass-fld').value.length > 1 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
+                document.querySelector('.pass-msg').style.display = 'none';
+                document.querySelector('.cpass-msg').style.display = 'none';
+                document.querySelector('.pass-fld').style.border = 'none';
+                document.querySelector('.cpass-fld').style.border = 'none';
+                return true;
+            } else {
+                document.querySelector('.pass-fld').style.border = '2px solid red';
+                document.querySelector('.pass-msg').style.display = '';
+                document.querySelector('.cpass-fld').style.border = '2px solid red';
+                document.querySelector('.cpass-msg').style.display = '';
+                return false;
+            }
+        }
     </script>
 </body>
 </html>

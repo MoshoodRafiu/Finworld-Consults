@@ -38,10 +38,35 @@
                 </div>
 
                 <!-- main login form -->
-                <form action="login.php" class="mx-3 my-3" method="post">
-                    <input type="email" class="form-control mt-3" required="required" name="email" placeholder="Email">
+                <form action="dashboard/action/action.php" class="mx-3 my-3" method="post">
+                    <!-- Check if user has clicked login -->
+                    <?php
+                        if (!empty($_GET['valid'])){
+                            if ($_GET['valid'] == "userlogin"){
+                            ?>
+                                <!-- Display success message if valid and redirect to dashboard -->
+                                <div class="alert alert-success mx-auto text-center" role="alert">Login Successful, Redirecting..</div>
+                            <?php
+                                session_start();
+                                header("refresh: 2; url=dashboard/user/dashboard.php");
+                            } else if ($_GET['valid'] == "adminlogin") {
+                            ?>
+                                <!-- Display error message if login not valid -->
+                                <div class="alert alert-success mx-auto text-center" role="alert">Login Successful, Redirecting..</div>
+                            <?php
+                                session_start();
+                                header("refresh: 2; url=dashboard/admin/dashboard.php");
+                            } else if ($_GET['valid'] == "failed") {
+                            ?>
+                                <!-- Display error message if login not valid -->
+                                <div class="alert alert-danger mx-auto text-center" role="alert">Invalid Login Details</div>
+                            <?php
+                            }
+                        }
+                    ?>
+                    <input type="text" class="form-control mt-3" required="required" name="useremail" placeholder="Email or Username">
                     <input type="password" class="form-control mt-3" required="required" name="password" placeholder="Password">
-                    <button type="submit" name="submit" class="form-control text-white mx-auto my-3 w-75 bg">Login</button>
+                    <button type="submit" name="login" class="form-control text-white mx-auto my-3 w-75 bg">Login</button>
                 </form>
 
                 <!--  alt links -->

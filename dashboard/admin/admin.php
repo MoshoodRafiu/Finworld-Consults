@@ -19,6 +19,16 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+        // include action.php
+        include "../action/action.php";
+    ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -45,7 +55,7 @@
                     <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
         </nav>
@@ -62,39 +72,73 @@
                 </div>
             </nav>
 
+            <!-- remove admin dialog box -->
+            <div class="freeze-layer"></div>
+            <div class="withdrawal dialog-box">
+                <div class="dialog-box-header"><h2>Confirm Your Request</h2></div>
+                <div class="dialog-box-body"><p>Are you sure you want to delete this file?</p></div>
+                <div class="dialog-box-footer">
+                    <button class="btn-no">No</button>
+                    <button class="btn-yes">Yes</button>
+                </div>
+            </div>
+
             <!-- dashboard body -->
             <div class="container-fluid">
-                <button class="btn btn-style"><a href="addadmin.html"><i class="fas fa-plus mx-2"></i>Add Admin</a></button>
+                <button class="btn btn-style"><a href="addadmin.php"><i class="fas fa-plus mx-2"></i>Add Admin</a></button>
                 <h4 class="text-center text-muted my-4">Manage Admin</h4>
+                <?php
+                // Check if cheif admin tries to delete an admin
+                if (isset($_GET['remove'])){
+                    $user = $_GET['user'];
+                    $con->removeAdmin($user);
+                    header("Location: admin.php");
+                }
+                ?>
                 <table class="table">
                     <thead>
                         <tr class="table-striped text-muted">
                             <td><b>Username</b></td>
                             <td><b>Email</b></td>
-                            <td><b>Role</b></td>
                             <td></td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Admin 1</td>
-                            <td>admin@gmail.com</td>
-                            <td>Administrator</td>
-                            <td><button class="btn btn-style">Remove</button></td>
-                        </tr>
-                        <tr>
-                            <td>Admin 2</td>
-                            <td>admin@gmail.com</td>
-                            <td>Contributor</td>
-                            <td><button class="btn btn-style">Remove</button></td>
-                        </tr>
-                        <tr>
-                            <td>Admin 3</td>
-                            <td>admin@gmail.com</td>
-                            <td>Contributor</td>
-                            <td><button class="btn btn-style">Remove</button></td>
-                        </tr>
+                    <?php
+                            $results = $con->displayallusers("admin");
+                            if ($results){
+                                foreach ($results as $result) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $result['user_name']; ?></td>
+                                        <td><?php echo $result['email']; ?></td>
+                                        <?php
+                                            if ($_SESSION['admin'] == "Dr A.Y Tino"){
+                                                if ($result['user_name'] == $_SESSION['admin']) {
+                                                    ?>
+                                                    <td><button class="btn btn-style" disabled>Remove Admin</button></td>
+                                                    <?php
+                                                }else {
+                                                    ?>
+                                                    <td><a class="btn btn-style text-white" onclick="run('<?php echo $result['user_id'] ?>')" hrref="admin.php?remove=1&user=">Remove Admin</a></td>
+                                                    <?php
+                                                }
+                                            }else {
+                                                ?>
+                                                <td><button class="btn btn-style" disabled>Remove Admin</button></td>
+                                                <?php
+                                            }
+                                        ?>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                    <p class="text-center">No registered admin</p>
+                                <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -111,6 +155,18 @@
             console.log("pressed")
             document.querySelector('#sidebar').classList.toggle('activate');
         });
+        function run(user) {
+            document.querySelector('.freeze-layer').style.display = 'block';
+            document.querySelector('.dialog-box').style.top = '50%';
+            document.querySelector('.dialog-box-body').textContent = `Are you sure you want to remove this admin?`;
+            document.querySelector('.btn-yes').addEventListener('click', () => {
+                location.href = `admin.php?remove=1&user=${user}`;
+            });
+            document.querySelector('.btn-no').addEventListener('click', () => {
+                document.querySelector('.freeze-layer').style.display = '';
+                document.querySelector('.dialog-box').style.top = '';
+            });
+        }
     </script>
 </body>
 

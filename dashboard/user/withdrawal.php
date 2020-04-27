@@ -27,6 +27,14 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['user'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+    ?>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -46,7 +54,7 @@
                         <li class="nav-item mx-2"><a class="nav-link" href="profile.php">Profile</a></li>
                         <li class="nav-item mx-2 active"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="plan.php">Change Plan</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="logout.php">Logout</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="../action/logout.php">Logout</a></li>
                     </ul>
                 </div>
             </nav>
@@ -61,6 +69,11 @@
     <!-- main page content -->
 
     <!-- withdrawal form -->
+    <?php
+        // include action
+        include "../action/action.php";
+        $result = $con->profiledetails();
+    ?>
     <div class="withdrawal  my-5 py-3 mx-auto col-lg-7 col-md-8" style="height: 70vh;">
         <h3 class="text-center main text-white p-2">FIll out the withdrawal slip</h3>
         <p class="status p-2">withdrawal is currently unavailable</p>
@@ -68,18 +81,10 @@
             <table class="w-100">
                 <tr>
                     <td class="w-25">
-                        <label for="bankname" class="mr-4">Account Name:</label>
-                    </td>
-                    <td class="w-100">
-                        <input type="text" name="acctname" class="w-75 form-control" value="USER FIRST" disabled>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-25">
                         <label class="mr-4">Account Number:</label>
                     </td>
                     <td class="w-100">
-                        <input type="text" name="actnum" class="w-75 form-control" value="01236546855" disabled>
+                        <input type="text" name="actnum" class="w-75 form-control" value="<?php echo $result['acct']; ?>" disabled>
                     </td>
                 </tr>
                 <tr>
@@ -87,7 +92,7 @@
                         <label class="mr-4">Bank Name:</label>
                     </td>
                     <td class="w-100">
-                        <input type="text" name="bankname" class="w-75 form-control" value="ACCESS BANK PLC" disabled>
+                        <input type="text" name="bankname" class="w-75 form-control" value="<?php echo $result['bank']; ?>" disabled>
                     </td>
                 </tr>
                 <tr>
@@ -95,12 +100,30 @@
                         <label class="mr-4">Amount:</label>
                     </td>
                     <td class="w-100">
-                        <input type="number" name="amount" class="w-75 form-control" placeholder="Enter Amount">
+                        <input type="number" name="amount" class="w-75 form-control" placeholder="Enter Amount"  required>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="w-100">
+                        <input type="hidden" name="id" class="w-75 form-control" value="<?php echo $result['id']; ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="w-100">
+                        <input type="hidden" name="available" class="w-75 form-control" value="<?php echo $result['available']; ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="w-100">
+                        <input type="hidden" name="plan" class="w-75 form-control" value="<?php echo $result['plan']; ?>">
                     </td>
                 </tr>
             </table>
             <div class="submit mx-auto text-center mt-3">
-                <button type="submit" class="btn w-50 text-white">Request Withdrawal</button>
+                <button type="submit" name = "withdraw" class="btn w-50 text-white">Request Withdrawal</button>
             </div>
         </form>
     </div>
@@ -115,6 +138,21 @@
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script>
+        function checkWithdrawal(){
+            let today = new Date();
+            if (today.getDay() == 1) { //6
+                document.querySelector('.status').textContent = "withdrawal is available"
+                document.querySelector('.status').classList.add("bg-success");
+                document.querySelector('.btn').disabled = false;
+            }else {
+                document.querySelector('.status').textContent = "withdrawal is currently unavailable"
+                document.querySelector('.status').classList.remove("bg-success");
+                document.querySelector('.btn').disabled = true;
+            }
+        }
+        window.onload = checkWithdrawal();
+    </script>
 </body>
 
 </html>

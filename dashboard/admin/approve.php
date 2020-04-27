@@ -19,6 +19,17 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+        // include action.php
+        include "../action/action.php";
+
+    ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -45,7 +56,7 @@
                     <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
         </nav>
@@ -69,7 +80,7 @@
                     <h2>Verify task</h2>
                 </div>
                 <div class="dialog-box-body">
-                    <img src="../../images/login-bg.jpg" alt="task" class="img img-fluid p-3">
+                    <img src="" alt="task" class="img img-fluid view p-3" style="max-height: 100%">
                 </div>
                 <div class="dialog-box-footer">
                     <button class="btn-no"><i class="fas fa-times mx-1"></i>Close</button>
@@ -77,6 +88,18 @@
             </div>
 
             <!-- dashboard body -->
+            <?php
+                // Check if admin tries to approve or decline task
+                if (isset($_GET['approve'])){
+                    $task = $_GET['task'];
+                    $user = $_GET['user'];
+                    $con->approvetask($user, $task);
+                }else if (isset($_GET['decline'])) {
+                    $task = $_GET['task'];
+                    $user = $_GET['user'];
+                    $con->declinetask($user, $task);
+                }
+            ?>
             <div class="container-fluid">
                 <h4 class="text-center text-muted my-4">Approve Tasks</h4>
                 <table class="table">
@@ -92,71 +115,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>User 1</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
-                        <tr>
-                            <td>User2</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 3</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 4</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 5</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style">view</button></td>
-                            <td><button class="btn btn-style">view</button></td>
-                            <td><button class="btn btn-style">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 6</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 7</td>
-                            <td>user@gmail.com</td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-style" onclick="run()">view</button></td>
-                            <td><button class="btn btn-success">Approve</button></td>
-                            <td><button class="btn btn-danger">Decline</button></td>
-                        </tr>
+                        <?php
+                            $results = $con->displaytasks();
+                            if ($results){
+                                foreach ($results as $result) {
+                                    $details = $con->userdetails($result['user_id']);
+                                    $username = $details["user_name"];
+                                    $email = $details["email"];
+                                ?>
+                                    <tr>
+                                        <td><?php echo $username; ?></td>
+                                        <td><?php echo $email; ?></td>
+                                        <td><button class="btn btn-style" onclick="run('<?php echo $result['task_1']; ?>')">view</button></td>
+                                        <td><button class="btn btn-style" onclick="run('<?php echo $result['task_2']; ?>')">view</button></td>
+                                        <td><button class="btn btn-style" onclick="run('<?php echo $result['task_3']; ?>')">view</button></td>
+                                        <td><a class="btn btn-success text-white" href="approve.php?approve=1&user=<?php echo $result['user_id']; ?>&task=<?php echo $result['task_id']; ?>">Approve</a></td>
+                                        <td><a class="btn btn-danger text-white" href="approve.php?decline=1&user=<?php echo $result['user_id']; ?>&task=<?php echo $result['task_id']; ?>">Decline</a></td>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                    <p class="text-center">No pending task for today</p>
+                                <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
@@ -174,6 +160,7 @@
 
         function run(name) {
             document.querySelector('.freeze-layer').style.display = 'block';
+            document.querySelector('.view').src= `../../images/submit/${name}`;
             document.querySelector('.dialog-box').style.top = '50%';
             document.querySelector('.btn-no').addEventListener('click', () => {
                 document.querySelector('.freeze-layer').style.display = '';

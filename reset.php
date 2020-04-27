@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <!-- login form -->
+    <!-- reset password form -->
     <div class="row">
         <div class="col-10 col-md-6 col-lg-4 mt-5 login mx-auto text-center">
             <div class="card my-5">
@@ -37,10 +37,17 @@
                     <h3 class="py-3">Reset Password</h3>
                 </div>
 
-                <!-- main login form -->
-                <form action="login.php" class="mx-3 my-3" method="post">
+                <!-- main reset form -->
+                <form action="dashboard/action/action.php" class="mx-3 my-3" method="post">
+                    <?php
+                        if (isset($_GET['empty'])){
+                        ?>
+                            <div class="alert alert-danger mx-auto text-center" role="alert">Email Not Registered</div>
+                        <?php
+                        }
+                    ?>
                     <input type="email" class="form-control mt-3" name="email" placeholder="Enter email">
-                    <button type="submit" name="submit" class="form-control text-white mx-auto my-3 w-75 bg">Reset</button>
+                    <button type="submit" name="reset" class="form-control text-white mx-auto my-3 w-75 bg">Reset</button>
                 </form>
 
                 <!--  alt links -->

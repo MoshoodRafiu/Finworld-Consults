@@ -18,6 +18,16 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+        // include action.php
+        include "../action/action.php";
+    ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -44,7 +54,7 @@
                     <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
         </nav>
@@ -63,8 +73,37 @@
 
             <!-- dashboard body -->
             <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn btn-style my-2">Export All Withdrawal</button>
-                <button type="button" id="sidebarCollapse" class="btn btn-style my-2">Export Approved Withdrawal</button>
+                <form action="../action/action.php" method="post"   class="d-flex justify-content-between">
+                    <button type="submit" name="exportwithdrawal" class="btn btn-style text-white m-2"><i class="fas fa-download"></i> Export Approved Withdrawals</button>
+                    <button type="submit" name="clearwithdrawal" class="btn btn-success m-2"><i class="fas fa-broom"></i> Clear Withdrawal List</button>
+                </form>
+                <?php
+                // Check if admin tries to approve or decline task
+                if (isset($_GET['approve'])){
+                    $withdrawal = $_GET['withdrawal'];
+                    $user = $_GET['user'];
+                    $amount = $_GET['amount'];
+                    $con->approvewithdrawal($user, $withdrawal, $amount);
+                    header("location: list.php");
+
+                }else if (isset($_GET['decline'])) {
+                    $withdrawal = $_GET['withdrawal'];
+                    $user = $_GET['user'];
+                    $amount = $_GET['amount'];
+                    $con->declinewithdrawal($user, $withdrawal, $amount);
+                    header("location: list.php");
+                }else if (isset($_GET['export'])){
+                ?>
+                    <!-- Display export message if approved is empty -->
+                    <div class="alert alert-warning mx-auto text-center" role="alert">No Approved Withdrawal</div>
+                <?php
+                }else if (isset($_GET['clear'])){
+                    ?>
+                        <!-- Display export message if withdrawal is emoty -->
+                        <div class="alert alert-warning mx-auto text-center" role="alert">No Pending Withdrawals</div>
+                    <?php
+                    }
+                ?>
                 <h4 class="text-center text-muted my-4">Withdrawal List</h4>
                 <table class="table">
                     <thead>
@@ -72,53 +111,55 @@
                             <td><b>Username</b></td>
                             <td><b>Email</b></td>
                             <td><b>Plan</b></td>
-                            <td><b>Total Earning</b></td>
                             <td><b>Amount</b></td>
+                            <td><b>Available Balance</b></td>
                             <td><b>Status</b></td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>User 1</td>
-                            <td>user@gmail.com</td>
-                            <td>Basic</td>
-                            <td>#4000</td>
-                            <td>#4000</td>
-                            <td>Pending</td>
-                            <td><button class="btn btn-success px-3">Approve Payment</button></td>
-                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 2</td>
-                            <td>user@gmail.com</td>
-                            <td>Basic</td>
-                            <td>#5000</td>
-                            <td>#3000</td>
-                            <td>Pending</td>
-                            <td><button class="btn btn-success px-3">Approve Payment</button></td>
-                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 3</td>
-                            <td>user@gmail.com</td>
-                            <td>Premium</td>
-                            <td>#75000</td>
-                            <td>#40000</td>
-                            <td>Pending</td>
-                            <td><button class="btn btn-success px-3">Approve Payment</button></td>
-                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
-                        </tr>
-                        <tr>
-                            <td>User 4</td>
-                            <td>user@gmail.com</td>
-                            <td>Premium</td>
-                            <td>#25000</td>
-                            <td>#20000</td>
-                            <td>Pending</td>
-                            <td><button class="btn btn-success px-3">Approve Payment</button></td>
-                            <td><button class="btn btn-danger px-3">Decline Payment</button></td>
-                        </tr>
+                        <?php
+                            $results = $con->displaywithdrawals();
+                            if ($results){
+                                foreach ($results as $result) {
+                                    $details = $con->userdetails($result['user_id']);
+                                    $username = $details["user_name"];
+                                    $email = $details["email"];
+                                ?>
+                                    <tr>
+                                        <td><?php echo $username; ?></td>
+                                        <td><?php echo $email; ?></td>
+                                        <td class="text-capitalize"><?php echo $details['plan']; ?></td>
+                                        <td>#<?php echo $result['withdrawal_amount']; ?></td>
+                                        <td>#<?php echo $details['total'] - $details['withdrawn'] ; ?></td>
+                                        <td class="text-capitalize"><?php echo $result['withdrawal_status']; ?></td>
+                                        <?php
+                                            if ($result['withdrawal_status'] == "pending"){
+                                            ?>
+                                                <td><a class="btn btn-success" href="list.php?approve=1&user=<?php echo $result['user_id']; ?>&withdrawal=<?php echo $result['withdrawal_id']; ?>&amount=<?php echo $result['withdrawal_amount']; ?>">Approve Payment</a></td>
+                                                <td><a class="btn btn-danger" href="list.php?decline=1&user=<?php echo $result['user_id']; ?>&withdrawal=<?php echo $result['withdrawal_id']; ?>&amount=<?php echo $result['withdrawal_amount']; ?>">Decline Payment</a></td>
+                                            <?php
+                                            } else if ($result['withdrawal_status'] == "approved"){
+                                            ?>
+                                                <td><button class="btn btn-success" disabled>Approve Payment</td>
+                                                <td><a class="btn btn-danger" href="list.php?decline=1&user=<?php echo $result['user_id']; ?>&withdrawal=<?php echo $result['withdrawal_id']; ?>&amount=<?php echo $result['withdrawal_amount']; ?>">Decline Payment</a></td>
+                                            <?php
+                                            } else if ($result['withdrawal_status'] == "declined"){
+                                            ?>
+                                                <td><a class="btn btn-success" href="list.php?approve=1&user=<?php echo $result['user_id']; ?>&withdrawal=<?php echo $result['withdrawal_id']; ?>&amount=<?php echo $result['withdrawal_amount']; ?>">Approve Payment</a></td>
+                                                <td><button class="btn btn-danger" disabled>Decline Payment</button></td>
+                                            <?php
+                                            }
+                                        ?>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                    <p class="text-center">No available weekly withdrawal</p>
+                                <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>

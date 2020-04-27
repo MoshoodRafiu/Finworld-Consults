@@ -27,6 +27,14 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['user'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+    ?>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -46,7 +54,7 @@
                         <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
                         <li class="nav-item"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
                         <li class="nav-item"><a class="nav-link" href="plan.php">Change Plan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../action/logout.php">Logout</a></li>
                     </ul>
                 </div>
             </nav>

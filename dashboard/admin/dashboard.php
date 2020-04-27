@@ -18,6 +18,14 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+    ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -44,7 +52,7 @@
                     <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
         </nav>
@@ -63,24 +71,45 @@
 
             <!-- dashboard body -->
             <div class="container-fluid col-8 w-75">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="../action/action.php" method="POST" enctype="multipart/form-data">
+                    <?php
+                        if (!empty($_GET['status'])){
+                            if ($_GET['status']  == "failed") {
+                            ?>
+                                <!-- Display error message if file is not image -->
+                                <div class="alert alert-danger mx-auto text-center" role="alert">Please Select an Image File</div>
+                            <?php
+                            } else if ($_GET['status']  == "success") {
+                            ?>
+                                <!-- Display success message -->
+                                <div class="alert alert-success mx-auto text-center" role="alert">Task Uploaded Successfully</div>
+                            <?php
+                            }
+                        }
+                    ?>
                     <!-- first task -->
                     <h5 class="text-center text-secondary">First Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
+                    <textarea name="tasktitle1" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
+                    <input type="text" name="inst1" class="w-100 form-control my-2" required placeholder="Task Instruction">
+                    <p class="m-0 text-left small pass-msg" style="color: red; display: none;">Please Select an image file</p>
+                    <input type="file" name="file1" class="w-100 form-control my-2 file1">
 
                     <!-- second task -->
                     <h5 class="text-center text-secondary mt-5">Second Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
+                    <textarea name="tasktitle2" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
+                    <input type="text" name="inst2" class="w-100 form-control my-2" required placeholder="Task Instruction">
+                    <p class="m-0 text-left small pass-msg" style="color: red; display: none;">Please Select an image file</p>
+                    <input type="file" name="file2" class="w-100 form-control my-2 file2">
 
                     <!-- third task -->
                     <h5 class="text-center text-secondary mt-5">Third Task</h5>
-                    <textarea name="tasktitle" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
-                    <input type="file" name="file1" class="w-100 form-control my-2">
+                    <textarea name="tasktitle3" class="w-100 form-control my-2" placeholder="Task Text"></textarea>
+                    <input type="text" name="inst3" class="w-100 form-control my-2" required placeholder="Task Instruction">
+                    <p class="m-0 text-left small pass-msg" style="color: red; display: none;">Please Select an image file</p>
+                    <input type="file" name="file3" class="w-100 form-control my-2 file3">
 
                     <div class="text-center">
-                        <button type="submit" class="my-3 btn btn-style">Upload Tasks</button>
+                        <button type="submit" name="uploadtask" class="my-3 btn btn-style">Upload Tasks</button>
                     </div>
                 </form>
             </div>

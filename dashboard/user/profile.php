@@ -27,6 +27,14 @@
 </head>
 
 <body>
+    <?php
+        // start session
+        session_start();
+        if (!isset($_SESSION['user'])) {
+            header("Location: ../../login.php");
+            exit();
+        }
+    ?>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -46,7 +54,7 @@
                         <li class="nav-item mx-2 active"><a class="nav-link" href="profile.php">Profile</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="plan.php">Change Plan</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="logout.php">Logout</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="../action/logout.php">Logout</a></li>
                     </ul>
                 </div>
             </nav>
@@ -61,19 +69,24 @@
     <!-- main page content -->
 
     <!-- profile update form -->
+    <?php
+        // include action
+        include "../action/action.php";
+        $result = $con->profiledetails();
+    ?>
     <div class="profile  my-5 mx-auto col-lg-7 py-3 col-md-8">
         <h3 class="text-center my-3 main text-white p-2">Update your profile</h3>
 
         <!-- personal infomation table -->
         <h5>Personal Information</h5>
-        <form action="" method="post">
+        <form action="" method="post" onsubmit="return check()">
             <table class="w-100">
                 <tr>
                     <td class="w-25">
                         <label class="mr-4">First Name:</label>
                     </td>
                     <td class="w-100">
-                        <input type="text" name="fname" class="w-75 form-control" value="Default Here">
+                        <input type="text" name="fname" class="w-75 form-control" value="<?php echo $result['fname']; ?>">
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +94,7 @@
                         <label class="mr-4">Last Name:</label>
                     </td>
                     <td class="w-100">
-                        <input type="text" name="lname" class="w-75 form-control" value="Default Here">
+                        <input type="text" name="lname" class="w-75 form-control" value="<?php echo $result['lname']; ?>">
                     </td>
                 </tr>
                 <tr>
@@ -89,7 +102,7 @@
                         <label class="mr-4">Username:</label>
                     </td>
                     <td class="w-100">
-                        <input type="text" name="bankname" class="w-75 form-control" value="Username" disabled>
+                        <input type="text" name="bankname" class="w-75 form-control" value="<?php echo $result['uname']; ?>" disabled>
                     </td>
                 </tr>
                 <tr>
@@ -97,7 +110,7 @@
                         <label class="mr-4">Email:</label>
                     </td>
                     <td class="w-100">
-                        <input type="email" name="bankname" class="w-75 form-control" value="abc@gmail.com" disabled>
+                        <input type="email" name="bankname" class="w-75 form-control" value="<?php echo $result['email']; ?>" disabled>
                     </td>
                 </tr>
                 <tr>
@@ -105,7 +118,7 @@
                         <label class="mr-4">Phone:</label>
                     </td>
                     <td class="w-100">
-                        <input type="tel" name="phone" class="w-75 form-control" value="09074342323" disabled>
+                        <input type="tel" name="phone" class="w-75 form-control" value="<?php echo $result['phone']; ?>" disabled>
                     </td>
                 </tr>
             </table>
@@ -115,18 +128,10 @@
             <table class="w-100">
                 <tr>
                     <td class="w-25">
-                        <label for="bankname" class="mr-4">Account Name:</label>
-                    </td>
-                    <td class="w-100">
-                        <input type="text" name="acctname" class="w-75 form-control" value="USER FIRST">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-25">
                         <label class="mr-4">Account Number:</label>
                     </td>
                     <td class="w-100">
-                        <input type="text" name="actnum" class="w-75 form-control" value="01236546855">
+                        <input type="text" name="acctnum" class="w-75 form-control" value="<?php echo $result['acct']; ?>">
                     </td>
                 </tr>
                 <tr>
@@ -134,7 +139,7 @@
                         <label class="mr-4">Bank Name:</label>
                     </td>
                     <td class="w-100">
-                        <input type="password" name="bankname" class="w-75 form-control" value="ACCESS BANK PLC">
+                        <input type="text" name="bankname" class="w-75 form-control" value="<?php echo $result['bank']; ?>">
                     </td>
                 </tr>
                 <tr>
@@ -145,31 +150,34 @@
             <table class="w-100">
                 <tr>
                     <td class="w-25">
-                        <label class="mr-4">Account Name:</label>
+                        <label class="mr-4">Old Password:</label>
                     </td>
                     <td class="w-100">
-                        <input type="password" name="pass" class="w-75 form-control">
+                        <p class="m-0 text-left small opass-msg" style="color: red; display: none;">Enter old password</p>
+                        <input type="password" name="pass" class="w-75 form-control opass-fld">
                     </td>
                 </tr>
                 <tr>
                     <td class="w-25">
-                        <label class="mr-4">Account Number:</label>
+                        <label class="mr-4">New Password:</label>
                     </td>
                     <td class="w-100">
-                        <input type="password" name="npass" class="w-75 form-control">
+                        <p class="m-0 text-left small pass-msg" style="color: red; display: none;">Password too short or doesn't match</p>
+                        <input type="password" name="npass" class="w-75 form-control pass-fld">
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-25 my-2">
-                        <label class="mr-4">Bank Name:</label>
+                    <td class="w-25">
+                        <label class="mr-4">Confirm New Password:</label>
                     </td>
                     <td class="w-100">
-                        <input type="password" name="cnpass" class="w-75 form-control">
+                        <p class="m-0 text-left small cpass-msg" style="color: red; display: none;">Password too short or doesn't match</p>
+                        <input type="password" name="cnpass" class="w-75 form-control cpass-fld">
                     </td>
                 </tr>
             </table>
             <div class="submit mx-auto text-center mt-3">
-                <button type="submit" class="btn w-50 text-white">Update Profile</button>
+                <button type="submit" name="updateprofile" class="btn w-50 text-white">Update Profile</button>
             </div>
         </form>
     </div>
@@ -183,6 +191,38 @@
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <!-- bootstrap js -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script>
+        function check(){
+            if (document.querySelector('.pass-fld').value != "" || document.querySelector('.cpass-fld').value != ""){
+                if (document.querySelector('.opass-fld').value != "") {
+                    if (document.querySelector('.pass-fld').value.length > 1 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
+                        document.querySelector('.pass-msg').style.display = 'none';
+                        document.querySelector('.cpass-msg').style.display = 'none';
+                        document.querySelector('.pass-fld').style.border = 'none';
+                        document.querySelector('.cpass-fld').style.border = 'none';
+                        document.querySelector('.opass-fld').style.border = 'none';
+                        document.querySelector('.opass-msg').style.display = 'none';
+                        return true;
+                    } else {
+                        document.querySelector('.pass-fld').style.border = '2px solid red';
+                        document.querySelector('.pass-msg').style.display = '';
+                        document.querySelector('.cpass-fld').style.border = '2px solid red';
+                        document.querySelector('.cpass-msg').style.display = '';
+                        document.querySelector('.opass-fld').style.border = 'none';
+                        document.querySelector('.opass-msg').style.display = 'none';
+                        return false;
+                    }
+                } else {
+                    document.querySelector('.opass-fld').style.border = '2px solid red';
+                    document.querySelector('.opass-msg').style.display = '';
+                    return false;
+                }
+
+            }else {
+                return true;
+            }
+        }
+    </script>
 </body>
 
 </html>
