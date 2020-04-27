@@ -187,6 +187,6 @@ form button,
     nav .navbar-nav .nav-link:hover,
     .active,
     .active:hover {
-        border: 0;
+        border: 0 !important;
     }
 }

@@ -118,6 +118,16 @@ a:focus {
     transition: all 0.3s;
 }
 
+.card {
+    background-color: rgb(8, 24, 58);
+    padding: 0;
+}
+
+.card .icon {
+    color: white;
+    text-align: center;
+}
+
 
 /*----------------------------------------------------
     VIEW DIALOG BOX 

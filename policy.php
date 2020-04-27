@@ -93,7 +93,14 @@
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
-                <h3>copyright</h3>
+                <h3>Withdrawal Policy</h3>
+                <p>
+                    Withdrawal portal is only open on saturdays. Note that both free and subscribed users can request withdrawal, and minimum withdrawal amount for all registered users is #500. Only subscribed users can withdrawal all their earnings at once, while users on free plan
+                    must have a minimum balance of #1,000 after requesting withdrawal before thier transcation can be processed.
+                </p>
+            </div>
+            <div class="mx-auto text-center col-md-5 p-3">
+                <h3>Copyright</h3>
                 <p>
                     We at Finworld Consults regard the protected innovation of others. On the off chance that you feel that your work has been replicated in a manner that comprises copyright encroachment you can keep in touch with us at he
                 </p>

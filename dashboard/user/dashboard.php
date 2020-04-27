@@ -329,7 +329,7 @@
         <div class="card col-md-5 col-10 bg-warning my-5 mx-auto">
             <div class="card-body">
                 <div class="text-center">
-                    <i class="fas fa-yen-sign icon fa-3x"></i>
+                    <i class="fas fa-hashtag icon fa-3x"></i>
                 </div>
                 <div class="text-center text mt-3">
                     <h4><b>Total Earning: </b>#<?php echo $result["total_earning"]; ?></h4>

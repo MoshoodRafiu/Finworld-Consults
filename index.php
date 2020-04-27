@@ -93,6 +93,18 @@
                     you won't win for that specific day, and your gaining will proceed with the following day after all the rules are met.
                 </p>
             </div>
+            <div class="mx-auto text-center col-md-5 p-3">
+                <h3>Who can withdraw?</h3>
+                <p>
+                    Both users on free plan and paid plans are allowed to withdraw their earning from their wallet every saturday of the week, the withdrawal stays pending until it has been approved
+                </p>
+            </div>
+            <div class="mx-auto text-center col-md-5 p-3">
+                <h3>What happens if i don't complete my daily task?</h3>
+                <p>
+                    Incase you are not available or unable to complete your daily task, kindly note that your subscription validity period is extended if you are on any of our paid plans, while the validity period remains unchanged for free plan
+                </p>
+            </div>
         </div>
         <!-- subscription  -->
         <div class="subscription mt-5">

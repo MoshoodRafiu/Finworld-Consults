@@ -52,7 +52,7 @@
                     <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
                 <li>
-                    <a href="coupon.php">Coupon <i class="fas fa-key mx-1"></i></a>
+                    <a href="record.php">Records <i class="fas fa-scroll mx-1"></i></a>
                 </li>
                 <li>
                     <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
