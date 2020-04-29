@@ -49,6 +49,9 @@
                     <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
                 <li>
+                    <a href="upgrade.php">Upgrades <i class="fas fa-caret-square-up mx-1"></i></a>
+                </li>
+                <li>
                     <a href="record.php">Records <i class="fas fa-scroll mx-1"></i></a>
                 </li>
                 <li>

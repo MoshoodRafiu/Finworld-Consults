@@ -93,7 +93,7 @@ nav .navbar-nav .nav-link:hover {
 }
 
 .dashboard .icon {
-    color: rgba(8, 24, 58, 1);
+    color: #fff;
 }
 
 .dashboard {
@@ -113,6 +113,53 @@ nav .navbar-nav .nav-link:hover {
     background-color: rgba(8, 24, 58, 1) !important;
 }
 
+.bg-color {
+    background-color: rgba(8, 24, 58, 1) !important;
+    color: #ffffff;
+}
+
+.btn-style {
+    background-color: #fff;
+    color: rgba(8, 24, 58, 1);
+}
+
+.btn-sub {
+    background-color: rgba(8, 24, 58, 1);
+    color: #fff;
+}
+
+.btn-advert {
+    background-color: rgba(8, 24, 58, 1);
+    color: #fff;
+    border-radius: 30px;
+}
+
+.advert {
+    background: url("../images/advert.png") center/cover;
+    padding: 50px 0;
+}
+
+.btn-sub:hover,
+.btn-advert:hover {
+    color: #fff;
+    background-color: rgb(13, 48, 119);
+}
+
+.bg-style {
+    background-color: whitesmoke;
+    color: rgba(8, 24, 58, 1);
+}
+
+.btn-style:hover {
+    background-color: whitesmoke;
+    color: rgba(8, 24, 58, 1);
+}
+
+.table-color {
+    background-color: rgb(13, 48, 119) !important;
+    color: #ffffff;
+}
+
 
 /* -------------------------------
             BUTTONS
@@ -124,10 +171,19 @@ nav .navbar-nav .nav-link:hover {
     color: white;
 }
 
-.card-footer button:hover,
-.dashboard button:hover {
+.card-footer button:hover {
     color: white;
     background-color: rgb(13, 48, 119);
+}
+
+.dashboard button:hover {
+    background-color: #fff;
+    color: rgba(8, 24, 58, 1);
+}
+
+.dashboard button {
+    background-color: #fff;
+    color: rgba(8, 24, 58, 1);
 }
 
 
@@ -167,15 +223,6 @@ form button,
 
 .login input:active {
     outline: none !important;
-}
-
-
-/* ------------------------------- 
-            FOOTER
-------------------------------- */
-
-.site-footer {
-    height: 20vh;
 }
 
 

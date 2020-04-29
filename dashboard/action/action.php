@@ -126,6 +126,7 @@ class Operations extends Database {
     // Upload Task function
     public function uploadtask($values){
         // extract first task from array
+        $plan = $values['plan'];
         $task1 = $values['task1'];
         $inst1 = $values['inst1'];
         $file1 = $values['file1'];
@@ -147,34 +148,80 @@ class Operations extends Database {
         $type3 = $values['type3'];
         $date = date("Y/m/d");
 
-        // Check if type is image
-        if ($this->verifytype($type1, $file1, true) && $this->verifytype($type2, $file2, true) && $this->verifytype($type3, $file3, true)) {
-            // move files to folder
-            move_uploaded_file($tmp1, "../../images/tasks/$file1");
-            move_uploaded_file($tmp2, "../../images/tasks/$file2");
-            move_uploaded_file($tmp3, "../../images/tasks/$file3");
-
-            // SQL statement
-            $sql = "INSERT INTO task (first_task, first_task_url, first_task_inst, second_task, second_task_url, second_task_inst, third_task, third_task_url, third_task_inst, date)";
-            $sql .= "VALUES (?,?,?,?,?,?,?,?,?,?)";
-
-            // Prepared statement
-            $stmp = $this->con->prepare($sql);
-            $stmp->bind_param("ssssssssss", $task1, $file1, $inst1, $task2, $file2, $inst2, $task3, $file3, $inst3, $date);
-            if ($stmp->execute()) {
-                return "success";
+        // check if first image is not empty
+        if ($file1 != ""){
+            // Check if image format is valid
+            if ($type1 == "image/jpeg" || $type1 == "image/jpg" || $type1 == "image/png") {
+                if ($type1 == "image/jpeg" || $type1 == "image/jpg"){
+                    $src = imagecreatefromjpeg($tmp1);
+                }else if ($type1 == "image/png" ){
+                    $src = imagecreatefrompng($tmp1);
+                }
+                list($width, $heigth) = getimagesize($tmp1);
+                $new_width = 400;
+                $new_heigth = (($heigth/$width) * $new_width);
+                $tmp_alt = imagecreatetruecolor($new_width, $new_heigth);
+                imagecopyresampled($tmp_alt, $src, 0,0,0,0 ,$new_width, $new_heigth, $width, $heigth);
+                imagejpeg($tmp_alt, "../../images/tasks/$file1");
+            }else {
+                return "failed";
             }
+        }
+        // Check if second file is empty
+        if ($file2 != ""){
+            // Check if image format is valid
+            if ($type2 == "image/jpeg" || $type2 == "image/jpg" || $type2 == "image/png") {
+                if ($type2 == "image/jpeg" || $type2 == "image/jpg"){
+                    $src = imagecreatefromjpeg($tmp2);
+                }else if ($type2 == "image/png" ){
+                    $src = imagecreatefrompng($tmp2);
+                }
+                list($width, $heigth) = getimagesize($tmp2);
+                $new_width = 400;
+                $new_heigth = (($heigth/$width) * $new_width);
+                $tmp_alt = imagecreatetruecolor($new_width, $new_heigth);
+                imagecopyresampled($tmp_alt, $src, 0,0,0,0 ,$new_width, $new_heigth, $width, $heigth);
+                imagejpeg($tmp_alt, "../../images/tasks/$file2");
+            }else {
+                return "failed";
+            }
+        }
+        // Check if third file is empty
+        if ($file3 != ""){
+            // Check if image format is valid
+            if ($type3 == "image/jpeg" || $type3 == "image/jpg" || $type3 == "image/png") {
+                if ($type3 == "image/jpeg" || $type3 == "image/jpg"){
+                    $src = imagecreatefromjpeg($tmp3);
+                }else if ($type3 == "image/png" ){
+                    $src = imagecreatefrompng($tmp3);
+                }
+                list($width, $heigth) = getimagesize($tmp3);
+                $new_width = 400;
+                $new_heigth = (($heigth/$width) * $new_width);
+                $tmp_alt = imagecreatetruecolor($new_width, $new_heigth);
+                imagecopyresampled($tmp_alt, $src, 0,0,0,0 ,$new_width, $new_heigth, $width, $heigth);
+                imagejpeg($tmp_alt, "../../images/tasks/$file3");
+            }else {
+                return "failed";
+            }
+        }
+        // SQL statement
+        $sql = "INSERT INTO task (plan, first_task, first_task_url, first_task_inst, second_task, second_task_url, second_task_inst, third_task, third_task_url, third_task_inst, date)";
+        $sql .= "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-        } else {
-            return "failed";
+        // Prepared statement
+        $stmp = $this->con->prepare($sql);
+        $stmp->bind_param("sssssssssss", $plan, $task1, $file1, $inst1, $task2, $file2, $inst2, $task3, $file3, $inst3, $date);
+        if ($stmp->execute()) {
+            return "success";
         }
     }
 
     // Display Tasks on Users Dashboard
-    public function displaytask(){
+    public function displaytask($plan){
         $date = date("Y/m/d");
         // SQL statement
-        $sql = "SELECT * FROM task WHERE date = '".$date."' ORDER BY task_id DESC LIMIT 1";
+        $sql = "SELECT * FROM task WHERE date = '".$date."' AND (plan = '".$plan."' OR plan = 'all') ORDER BY task_id DESC LIMIT 1";
         $result = $this->con->query($sql);
         $result = $result->fetch_assoc();
         return Array (
@@ -206,13 +253,15 @@ class Operations extends Database {
         $withdrawn = $result['withdrawn_earning'];
         $basic_expiry = $result['basic_plan_expiry'];
         $other_expiry =$result['other_plans_expiry'];
+        $status = $result['account_status'];
         return Array (
             "plan" => $plan,
             "daily_earning" => $daily_earning,
             "total_earning" => $total_earning,
             "withdrawn" => $withdrawn,
             "basic_expiry" => $basic_expiry,
-            "other_expiry" => $other_expiry
+            "other_expiry" => $other_expiry,
+            "status" => $status
         );
     }
     public function submittask($values){
@@ -229,68 +278,135 @@ class Operations extends Database {
         $tmp3 = $values["tmp3"];
         $type3 = $values["type3"];
 
-        // check if type is image
-        if ($this->verifytype($type1, $file1, false) && $this->verifytype($type2, $file2, false) && $this->verifytype($type3, $file3, false)){
-            // move files to folder
-            move_uploaded_file($tmp1, "../../images/submit/$file1");
-            move_uploaded_file($tmp2, "../../images/submit/$file2");
-            move_uploaded_file($tmp3, "../../images/submit/$file3");
-            // Get user id
-
-            // SQL statement
-            $sql = "SELECT * FROM user WHERE user_name = ? ";
-            // Prepared Statement
-            $stmt = $this->con->prepare($sql);
-            $stmt->bind_param("s", $_SESSION['user']);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $result = $result->fetch_assoc();
-            $user_id = $result['user_id'];
-            $plan = $result['plan'];
-            $expiry = $result['other_plans_expiry'];
-            $expiry++;
-            // Get task id
-
-            // SQL statement
-            $date = date("Y/m/d");
-            $sql = "SELECT * FROM task WHERE date = ? ORDER BY task_id DESC LIMIT 1";
-            // Prepared Statement
-            $stmt = $this->con->prepare($sql);
-            $stmt->bind_param("s", $date);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $result = $result->fetch_assoc();
-            $task_id = $result['task_id'];
-
-            // Check if id user already submitted task
-            $sql = "SELECT * FROM approval WHERE user_id = '".$user_id."' AND task_id = '".$task_id."' AND date = '".$date."' ";
-            $count = $this->con->query($sql);
-            if ($count->num_rows == 0){
-                // INSERT into database
-
-                // SQL statement
-                $sql = "INSERT INTO approval (task_id,user_id,task_1,task_2,task_3,date) VALUES (?,?,?,?,?,?)";
-
-                // prepared statement
-                $stmt = $this->con->prepare($sql);
-                $stmt->bind_param("iissss", $task_id,$user_id,$file1,$file2,$file3,$date);
-                // Incerement expiry date by 1 if post submitted amd user isnt Basic
-                if ($stmt->execute()){
-                    if ($plan != "basic"){
-                        // SQL statement
-                        $sql = "UPDATE user SET other_plans_expiry = '".$expiry."' WHERE user_id = '".$user_id."'";
-                        $this->con->query($sql);
-                    }
-                    return "success";
+        // check if first image is not empty
+        if ($file1 != ""){
+            // Check if image format is valid
+            if ($type1 == "image/jpeg" || $type1 == "image/jpg" || $type1 == "image/png") {
+                if ($type1 == "image/jpeg" || $type1 == "image/jpg"){
+                    $src = imagecreatefromjpeg($tmp1);
+                }else if ($type1 == "image/png" ){
+                    $src = imagecreatefrompng($tmp1);
                 }
-            } else {
-                return "exists";
+                list($width, $heigth) = getimagesize($tmp1);
+                $new_width = 350;
+                $new_heigth = (($heigth/$width) * $new_width);
+                $tmp_alt = imagecreatetruecolor($new_width, $new_heigth);
+                imagecopyresampled($tmp_alt, $src, 0,0,0,0 ,$new_width, $new_heigth, $width, $heigth);
+                imagejpeg($tmp_alt, "../../images/submit/$file1");
+            }else {
+                return "failed";
             }
+        }
+        // Check if second file is empty
+        if ($file2 != ""){
+            // Check if image format is valid
+            if ($type2 == "image/jpeg" || $type2 == "image/jpg" || $type2 == "image/png") {
+                if ($type2 == "image/jpeg" || $type2 == "image/jpg"){
+                    $src = imagecreatefromjpeg($tmp2);
+                }else if ($type2 == "image/png" ){
+                    $src = imagecreatefrompng($tmp2);
+                }
+                list($width, $heigth) = getimagesize($tmp2);
+                $new_width = 350;
+                $new_heigth = (($heigth/$width) * $new_width);
+                $tmp_alt = imagecreatetruecolor($new_width, $new_heigth);
+                imagecopyresampled($tmp_alt, $src, 0,0,0,0 ,$new_width, $new_heigth, $width, $heigth);
+                imagejpeg($tmp_alt, "../../images/submit/$file2");
+            }else {
+                return "failed";
+            }
+        }
+        // Check if third file is empty
+        if ($file3 != ""){
+            // Check if image format is valid
+            if ($type3 == "image/jpeg" || $type3 == "image/jpg" || $type3 == "image/png") {
+                if ($type3 == "image/jpeg" || $type3 == "image/jpg"){
+                    $src = imagecreatefromjpeg($tmp3);
+                }else if ($type3 == "image/png" ){
+                    $src = imagecreatefrompng($tmp3);
+                }
+                list($width, $heigth) = getimagesize($tmp3);
+                $new_width = 350;
+                $new_heigth = (($heigth/$width) * $new_width);
+                $tmp_alt = imagecreatetruecolor($new_width, $new_heigth);
+                imagecopyresampled($tmp_alt, $src, 0,0,0,0 ,$new_width, $new_heigth, $width, $heigth);
+                imagejpeg($tmp_alt, "../../images/submit/$file3");
+            }else {
+                return "failed";
+            }
+        }
+        // SQL statement
+        $sql = "SELECT * FROM user WHERE user_name = ? ";
+        // Prepared Statement
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("s", $_SESSION['user']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_assoc();
+        $user_id = $result['user_id'];
+        $plan = $result['plan'];
+        $expiry = $result['other_plans_expiry'];
+        $expiry++;
+        // Get task id
 
+        // SQL statement
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM task WHERE date = ? ORDER BY task_id DESC LIMIT 1";
+        // Prepared Statement
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("s", $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_assoc();
+        $task_id = $result['task_id'];
 
+        // Check if id user already submitted task
+        $sql = "SELECT * FROM approval WHERE user_id = '".$user_id."' AND task_id = '".$task_id."' AND date = '".$date."' ";
+        $count = $this->con->query($sql);
+        if ($count->num_rows == 0){
+            // INSERT into database
+
+            // SQL statement
+            $sql = "INSERT INTO approval (task_id,user_id,task_1,task_2,task_3,date) VALUES (?,?,?,?,?,?)";
+
+            // prepared statement
+            $stmt = $this->con->prepare($sql);
+            $stmt->bind_param("iissss", $task_id,$user_id,$file1,$file2,$file3,$date);
+            // Incerement expiry date by 1 if post submitted amd user isnt Basic
+            if ($stmt->execute()){
+                if ($plan != "basic"){
+                    // SQL statement
+                    $sql = "UPDATE user SET other_plans_expiry = '".$expiry."' WHERE user_id = '".$user_id."'";
+                    $this->con->query($sql);
+                }
+                return "success";
+            }
         } else {
+            return "exists";
+        }
+    }
+    // Upload an information
+    public function uploadinfo($info){
+        $date = date("Y/m/d");
+        // SQL statement
+        $sql = "INSERT INTO information (info_message, date) VALUES (?,?)";
+        // Prepared Statement
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("ss", $info, $date);
+        if ($stmt->execute()){
+            return "success";
+        }else {
             return "failed";
         }
+    }
+
+    // Get information
+    public function getinfo(){
+        // SQL statement
+        $sql = "SELECT * FROM information ORDER BY info_id DESC LIMIT 1";
+        $result = $this->con->query($sql);
+        $result = $result->fetch_assoc();
+        return $result['info_message'];
     }
     public function displaytasks() {
         // display all carried out tasks
@@ -306,6 +422,14 @@ class Operations extends Database {
             }
             return $array;
         }
+    }
+    // Get user id from session
+    public function getuserid(){
+        // SQL statement
+        $sql = "SELECT user_id FROM user WHERE user_name = '".$_SESSION['user']."'";
+        $value = $this->con->query($sql);
+        $value = $value->fetch_assoc();
+        return $value['user_id'];
     }
     // Generate user details from user ID
     public function userdetails($id){
@@ -477,8 +601,9 @@ class Operations extends Database {
         // display all carried out tasks
 
         //SQL statement
-        $date = date("Y/m/d");
-        $sql = "SELECT * FROM withdrawal WHERE date = '".$date."' AND payment_status = 'pending' ORDER BY withdrawal_id";
+        $today = date("Y/m/d");
+        $yesterday = date("Y/m/d", strtotime("-1 days"));
+        $sql = "SELECT * FROM withdrawal WHERE (date = '".$today."' OR date = '".$yesterday."') AND payment_status = 'pending' ORDER BY withdrawal_id";
         $result = $this->con->query($sql);
         $count = $result->num_rows;
         if ($count != 0) {
@@ -721,7 +846,7 @@ class Operations extends Database {
         }
     }
     // Upgrade Plan
-    public function upgradeplan($user, $plan) {
+    public function upgradeplan($user, $plan, $oldplan) {
         // Get earning based on plan
         if ($plan == "Tier-1"){
             $earning = 250;
@@ -732,9 +857,15 @@ class Operations extends Database {
         }else if ($plan == "Tier-4"){
             $earning = 1400;
         }else if ($plan == "Tier-5"){
-            $earning = 3000;
+            $earning = 2850;
+        }else if ($plan == "Tier-6"){
+            $earning = 5500;
         }
         $expiry = 0;
+        $date = date("Y/m/d");
+
+
+        // Update the user details
 
         // SQL statement
         $sql = "UPDATE user SET plan = ?, daily_earning = ?, other_plans_expiry = ? WHERE user_id = ?";
@@ -742,6 +873,15 @@ class Operations extends Database {
         // Prepared Statement
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("ssss", $plan ,$earning ,$expiry ,$user);
+        $stmt->execute();
+
+        // Update the upgrade table
+
+        // SQL statement
+        $sql = "INSERT INTO upgrade (user_id, admin_name, old_plan, new_plan, amount, date) VALUES (?,?,?,?,?,?)";
+        // Prepared Statement
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("ssssss", $user, $_SESSION['admin'], $oldplan, $plan, $earning, $date);
         $stmt->execute();
     }
     // get withdrawal History
@@ -832,6 +972,151 @@ class Operations extends Database {
             return "wrong";
         }
     }
+    // show records
+    public function showrecords() {
+        // Get total users
+
+        // SQL statement
+        $sql = "SELECT * FROM user WHERE special = 0";
+        $result = $this->con->query($sql);
+        $reg_users = $result->num_rows;
+
+        // Get total Admin
+
+        // SQL statement
+        $sql = "SELECT * FROM user WHERE special = 1";
+        $result = $this->con->query($sql);
+        $reg_admins = $result->num_rows;
+
+        // Get total uploaded task
+
+        // SQL statement
+        $sql = "SELECT * FROM task";
+        $result = $this->con->query($sql);
+        $tasks = $result->num_rows;
+
+        // Get total plan upgrades
+
+        // SQL statement
+        $sql = "SELECT * FROM upgrade";
+        $result = $this->con->query($sql);
+        $upgrades = $result->num_rows;
+
+        // Get total withdrawal
+
+        // SQL statement
+        $sql = "SELECT SUM(withdrawn_earning) AS withdrawal_sum FROM user";
+        $result = $this->con->query($sql);
+        $result = $result->fetch_assoc();
+        $withdrawn = $result['withdrawal_sum'];
+
+        // Get total balance
+
+        // SQL statement
+        $sql = "SELECT SUM(total_earning) AS total_sum FROM user";
+        $result = $this->con->query($sql);
+        $result = $result->fetch_assoc();
+        $total = $result['total_sum'];
+
+        // Get total sum of plan upgrades
+
+        // SQL statement
+        $sql = "SELECT SUM(total_earning) AS upgrade_sum FROM user";
+        $result = $this->con->query($sql);
+        $result = $result->fetch_assoc();
+        $totalupgrade = $result['upgrade_sum'];
+
+        // Get available earning
+        $available = $total - $withdrawn;
+
+        // return all results in array
+        return Array(
+            "reg_users" => $reg_users,
+            "reg_admins" => $reg_admins,
+            "tasks" => $tasks,
+            "upgrades" => $upgrades,
+            "withdrawn" => $withdrawn,
+            "total" => $total,
+            "available" => $available,
+            "totalupgrade" => $totalupgrade
+        );
+    }
+    // show all upgrades
+    public function displayupgrades() {
+        // display all carried out tasks
+
+        //SQL statement
+        $date = date("y/m/d");
+        $sql = "SELECT * FROM upgrade WHERE date = '".$date."' ORDER BY upgrade_id";
+        $result = $this->con->query($sql);
+        $count = $result->num_rows;
+        if ($count != 0) {
+            while ($row = $result->fetch_assoc()){
+                $array[] = $row;
+            }
+            return $array;
+        }
+    }
+    public function filterresults($date, $status, $type) {
+        // Check for conditions
+        if ($status == "all"){
+            // SQL statement
+            $sql = "SELECT * FROM ".$type." WHERE date = ? ORDER BY ".$type."_id";
+            // Prepared statement
+            $stmt = $this->con->prepare($sql);
+            $stmt->bind_param("s", $date);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        }else{
+            // SQL statements
+            if ($status == "approved"){
+                $sql = "SELECT * FROM ".$type." WHERE date = ? AND ".$type."_status = ? ORDER BY ".$type."_id";
+            }else if ($status == "declined"){
+                $sql = "SELECT * FROM ".$type." WHERE date = ? AND ".$type."_status = ? ORDER BY ".$type."_id";
+            }else if ($status == "pending"){
+                $sql = "SELECT * FROM ".$type." WHERE date = ? AND ".$type."_status = ? ORDER BY ".$type."_id";
+            }
+            // Prepared statement
+            $stmt = $this->con->prepare($sql);
+            $stmt->bind_param("ss", $date, $status);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        }
+        // Check if its not empty
+        if ($result->num_rows > 0){
+            while ($results = $result->fetch_assoc()){
+                $array[] = $results;
+            }
+            return $array;
+        }
+    }
+    public function filterupgrades($admin, $date){
+        if ($admin == "All"){
+            // SQL statement
+            $sql = "SELECT * FROM upgrade WHERE date = ? ORDER BY upgrade_id";
+            // Prepared statement
+            $stmt = $this->con->prepare($sql);
+            $stmt->bind_param("s", $date);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        }else{
+            // SQL statements
+            $sql = "SELECT * FROM upgrade WHERE date = ? AND admin_name = ? ORDER BY upgrade_id";
+
+            // Prepared statement
+            $stmt = $this->con->prepare($sql);
+            $stmt->bind_param("ss", $date, $admin);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        }
+        // Check if its not empty
+        if ($result->num_rows > 0){
+            while ($results = $result->fetch_assoc()){
+                $array[] = $results;
+            }
+            return $array;
+        }
+    }
 
 }
 
@@ -854,13 +1139,14 @@ if (isset($_POST['register'])) {
         "question" => $_POST['question'],
         "answer" => $_POST['answer']
     );
-    if ($con->register($values) == "success"){
+    $new = $con->register($values);
+    if ($new == "success"){
         header("Location: ../../register.php?registered=1");
-    } else if ($con->register($values) == "username_error") {
+    } else if ($new == "username_error") {
         header("Location: ../../register.php?registered=username_error");
-    } else if ($con->register($values) == "email_error") {
+    } else if ($new == "email_error") {
         header("Location: ../../register.php?registered=email_error");
-    } else if ($con->register($values) == "acct_error") {
+    } else if ($new == "acct_error") {
         header("Location: ../../register.php?registered=acct_error");
     }
 }
@@ -869,9 +1155,10 @@ if (isset($_POST['register'])) {
 if (isset($_POST['login'])) {
     $useremail = $_POST['useremail'];
     $password = $_POST['password'];
-    if ($con->login($useremail, $password) == "user"){
+    $new = $con->login($useremail, $password);
+    if ($new == "user"){
         header("Location: ../../login.php?valid=userlogin");
-    } else if ($con->login($useremail, $password) == "admin") {
+    } else if ($new == "admin") {
         header("Location: ../../login.php?valid=adminlogin");
     } else {
         header("Location: ../../login.php?valid=failed");
@@ -882,6 +1169,7 @@ if (isset($_POST['login'])) {
 if (isset($_POST['uploadtask'])){
     $values = Array(
         // first task
+        "plan" => $_POST['plan'],
         "task1" => $_POST['tasktitle1'],
         "inst1" => $_POST['inst1'],
         "file1" => $_FILES['file1']['name'],
@@ -900,10 +1188,20 @@ if (isset($_POST['uploadtask'])){
         "tmp3" => $_FILES['file3']['tmp_name'],
         "type3" => $_FILES['file3']['type']
     );
-    if ($con->uploadtask($values) == "failed") {
+    $new = $con->uploadtask($values);
+    if ($new == "failed") {
         header("Location: ../admin/dashboard.php?status=failed");
-    }else if ($con->uploadtask($values) == "success") {
+    }else if ($new == "success") {
         header("Location: ../admin/dashboard.php?status=success");
+    }
+}
+if (isset($_POST['uploadinfo'])){
+    $info = $_POST['info'];
+    $new = $con->uploadinfo($info);
+    if ($new == "success"){
+        header("Location: ../admin/dashboard.php?info=success");
+    }else if ($new == "failed"){
+        header("Location: ../admin/dashboard.php?info=failed");
     }
 }
 if (isset($_POST['submittask'])) {
@@ -921,14 +1219,16 @@ if (isset($_POST['submittask'])) {
         "tmp3" => $_FILES['task3']['tmp_name'],
         "type3" => $_FILES['task3']['type']
     );
-    if ($con->submittask($values) == "success") {
+    $new = $con->submittask($values);
+    if ($new == "success") {
         echo "<div class=\"alert alert-success mx-auto text-center col-md-10 mt-5\" role=\"alert\">Task Submitted Successfully</div>";
-    } else if ($con->submittask($values) == "failed") {
+    } else if ($new == "failed") {
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-10 mt-5\" role=\"alert\">Please Select an Image File</div>";
-    }  else if ($con->submittask($values) == "exists") {
+    }  else if ($new == "exists") {
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-10 mt-5\" role=\"alert\">You Have Already Submitted Today's Task</div>";
     }
 }
+
 if (isset($_POST['updateprofile'])){
     $values = Array (
         "fname" => $_POST['fname'],
@@ -940,9 +1240,10 @@ if (isset($_POST['updateprofile'])){
         "pass" => $_POST['pass'],
         "npass" => $_POST['npass']
     );
-    if ($con->updateprofile($values) == "success"){
+    $new = $con->updateprofile($values);
+    if ($new == "success"){
         echo "<div class=\"alert alert-success mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">Profile Updated Successfully</div>";
-    }else if ($con->updateprofile($values) == "failed"){
+    }else if ($new == "failed"){
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">Old Password Incorrect</div>";
     }
 }
@@ -951,13 +1252,14 @@ if (isset($_POST['withdraw'])){
     $userid = $_POST['id'];
     $available = $_POST['available'];
     $plan = $_POST['plan'];
-    if ($con->withdrawal($userid, $amount, $available, $plan) == "success"){
+    $new = $con->withdrawal($userid, $amount, $available, $plan);
+    if ($new == "success"){
         echo "<div class=\"alert alert-success mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">Withdrawal Request Successful, Please Do Not Resend</div>";
-    }else if ($con->withdrawal($userid, $amount, $available, $plan) == "invalid"){
+    }else if ($new == "invalid"){
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">Invalid Withdrawal Request Due To Low Balance Or Invalid Amount</div>";
-    }else if ($con->withdrawal($userid, $amount, $available, $plan) == "failed"){
+    }else if ($new == "failed"){
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">You Already Requested Withdrawal For This Week</div>";
-    }else if ($con->withdrawal($userid, $amount, $available, $plan) == "error"){
+    }else if ($new == "error"){
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">Your Balance Must Not Be Less Than #1,000 For Basic Plan</div>";
     }
 }
@@ -965,11 +1267,12 @@ if (isset($_POST['addadmin'])){
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if ($con->addadmin($username, $email, $password) == "success"){
+    $new = $con->addadmin($username, $email, $password);
+    if ($new == "success"){
         header("Location: ../admin/addadmin.php?add=1");
-    }else if ($con->addadmin($username, $email, $password) == "user_error"){
+    }else if ($new == "user_error"){
         header("Location: ../admin/addadmin.php?add=user_error");
-    }else if ($con->addadmin($username, $email, $password) == "email_error"){
+    }else if ($new == "email_error"){
         header("Location: ../admin/addadmin.php?add=email_error");
     }
 }
@@ -994,9 +1297,10 @@ if (isset($_POST['reset'])){
 if (isset($_POST['updatepassword'])){
     $answer = $_POST['answer'];
     $password = $_POST['password'];
-    if ($con->updatepassword($answer, $password) == "wrong"){
+    $new = $con->updatepassword($answer, $password);
+    if ($new == "wrong"){
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-12\" role=\"alert\">Wrong Provided Answer</div>";
-    }if ($con->updatepassword($answer, $password) == "success"){
+    }if ($new == "success"){
         echo "<div class=\"alert alert-success mx-auto text-center col-md-12\" role=\"alert\">Password Updated Successfully, Redirecting..</div>";
         header("refresh: 2; url= dashboard/action/logout.php");
     }

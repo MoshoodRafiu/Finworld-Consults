@@ -51,6 +51,9 @@
                     <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
                 <li>
+                    <a href="upgrade.php">Upgrades <i class="fas fa-caret-square-up mx-1"></i></a>
+                </li>
+                <li>
                     <a href="record.php">Records <i class="fas fa-scroll mx-1"></i></a>
                 </li>
                 <li>
@@ -95,8 +98,9 @@
                     header("Location: users.php");
                 }else if (isset($_GET['upgrade'])) {
                     $user = $_GET['user'];
-                    $plan = $_GET['plan'];
-                    $result = $con->upgradeplan($user, $plan);
+                    $oldplan = $_GET['oldplan'];
+                    $newplan = $_GET['newplan'];
+                    $result = $con->upgradeplan($user, $newplan, $oldplan);
                     header("Location: users.php");
                 }
             ?>
@@ -109,6 +113,7 @@
                 <table class="table">
                     <thead>
                         <tr class="table-striped text-muted">
+                            <td>#</td>
                             <td><b>Username</b></td>
                             <td><b>Email</b></td>
                             <td><b>Available Earning</b></td>
@@ -124,14 +129,17 @@
                         <?php
                             $results = $con->displayallusers("user");
                             if ($results){
+                                $id = 0;
                                 foreach ($results as $result) {
+                                    $id++;
                                 ?>
                                     <tr id="<?php echo $result['user_id'] ?>">
+                                        <td><?php echo $id ?></td>
                                         <td><?php echo $result['user_name']; ?></td>
                                         <td><?php echo $result['email']; ?></td>
-                                        <td>#<?php echo $result['total_earning'] - $result['withdrawn_earning']; ?></td>
+                                        <td>#<?php echo number_format($result['total_earning'] - $result['withdrawn_earning']); ?></td>
                                         <td class="text-capitalize"><?php echo $result['account_status']; ?></td>
-                                        <td class="text-capitalize"><?php echo $result['plan']; ?></td>
+                                        <td class="text-capitalize old-plan-<?php echo $result['user_id'] ?>"><?php echo $result['plan']; ?></td>
                                         <td><select name="plan" class="form-control new-plan-<?php echo $result['user_id'] ?>">
                                             <option value="">Select Plan</option>
                                             <option value="Tier-1">Tier-1</option>
@@ -139,6 +147,7 @@
                                             <option value="Tier-3">Tier-3</option>
                                             <option value="Tier-4">Tier-4</option>
                                             <option value="Tier-5">Tier-5</option>
+                                            <option value="Tier-6">Tier-6</option>
                                         </select></td>
                                         <td><button class="btn btn-primary" onclick="run('<?php echo $result['user_id'] ?>')">Upgrade Account</button></td>
                                         <?php
@@ -200,21 +209,22 @@
             document.querySelector('#sidebar').classList.toggle('activate');
         });
         function run(user) {
-            let plan = document.querySelector('.new-plan-' + user);
-            if (plan.value != ""){
-                plan.style.border = "";
+            let newplan = document.querySelector('.new-plan-' + user);
+            let oldplan = document.querySelector('.old-plan-' + user);
+            if (newplan.value != "" && (newplan.value != oldplan.textContent)){
+                newplan.style.border = "";
                 document.querySelector('.freeze-layer').style.display = 'block';
                 document.querySelector('.dialog-box').style.top = '50%';
-                document.querySelector('.dialog-box-body').textContent = `Are you sure you want to change this user plan to ${plan.value}?`;
+                document.querySelector('.dialog-box-body').textContent = `Are you sure you want to change this user plan to from ${oldplan.textContent} to ${newplan.value}?`;
                 document.querySelector('.btn-yes').addEventListener('click', () => {
-                    location.href = `users.php?upgrade=1&user=${user}&plan=${plan.value}`;
+                    location.href = `users.php?upgrade=1&user=${user}&newplan=${newplan.value}&oldplan=${oldplan.textContent}`;
                 });
                 document.querySelector('.btn-no').addEventListener('click', () => {
                     document.querySelector('.freeze-layer').style.display = '';
                     document.querySelector('.dialog-box').style.top = '';
                 });
             }else {
-                plan.style.border = "2px solid red";
+                newplan.style.border = "2px solid red";
             }
 
         }

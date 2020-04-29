@@ -55,6 +55,7 @@
                         <li class="nav-item mx-2 active"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="plan.php">Change Plan</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="../action/logout.php">Logout</a></li>
+                        <li class="nav-item mx-2"><a href="#" class="nav-link"><i class="fas fa-user mx-2"></i><?php echo $_SESSION['user']; ?></a></li>
                     </ul>
                 </div>
             </nav>
@@ -73,8 +74,15 @@
         // include action
         include "../action/action.php";
         $result = $con->profiledetails();
+        $val = $con->updateearning();
+        // Check if account has been restricted
+        if ($val['status'] == 'restricted'){
+        ?>
+            <div class="alert alert-warning text-capitalize mx-auto text-center col-lg-7 col-md-8 mt-5 mb-0" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>"
+        <?php
+        }
     ?>
-    <div class="withdrawal  my-5 py-3 mx-auto col-lg-7 col-md-8" style="height: 70vh;">
+    <div class="withdrawal  my-5 py-3 mx-auto col-lg-7 col-md-8 pb-5">
         <h3 class="text-center main text-white p-2">FIll out the withdrawal slip</h3>
         <p class="status p-2">withdrawal is currently unavailable</p>
         <form action="" method="post">
@@ -123,15 +131,39 @@
                 </tr>
             </table>
             <div class="submit mx-auto text-center mt-3">
-                <button type="submit" name = "withdraw" class="btn w-50 text-white">Request Withdrawal</button>
+                <?php
+                    if ($val['status'] == 'restricted'){
+                    ?>
+                        <button type="submit" name = "withdraw" class="btn w-50 text-white" disabled>Request Withdrawal</button>
+                    <?php
+                    }else {
+                    ?>
+                        <button type="submit" name = "withdraw" class="btn withdraw w-50 text-white">Request Withdrawal</button>
+                    <?php
+                    }
+                ?>
             </div>
         </form>
     </div>
 
 
+
     <!-- footer -->
-    <div class="site-footer mt-5 bg-dark">
-        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult 2020</div>
+    <div class="site-footer text-center mx-auto mt-5 bg-color">
+        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult <?php echo date("Y"); ?></div>
+        <div class="mx-auto d-flex justify-content-center text-center">
+            <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
+            <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+        </div><hr class="bg-white"/>
+        <div class="text-center py-3 d-flex justify-content-center mx-auto">
+            <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>
+            <p class="mx-2 small"><a href="dashboard.php" class="text-white" style="text-decoration: none">Dashboard</a></p>
+            <p class="mx-2 small"><a href="plan.php" class="text-white" style="text-decoration: none">Plan</a></p>
+            <p class="mx-2 small"><a href="profile.php" class="text-white" style="text-decoration: none">Profile</a></p>
+            <p class="mx-2 small"><a href="withdrawal.php" class="text-white" style="text-decoration: none">Withdrawal</a></p>
+        </div>
     </div>
 
     <!-- jquery -->
@@ -141,14 +173,18 @@
     <script>
         function checkWithdrawal(){
             let today = new Date();
-            if (today.getDay() == 1) { //6
+            if (today.getDay() == 2) { //6
                 document.querySelector('.status').textContent = "withdrawal is available"
                 document.querySelector('.status').classList.add("bg-success");
-                document.querySelector('.btn').disabled = false;
+                if (document.querySelector('.withdraw')){
+                    document.querySelector('.withdraw').disabled = false;
+                }
             }else {
                 document.querySelector('.status').textContent = "withdrawal is currently unavailable"
                 document.querySelector('.status').classList.remove("bg-success");
-                document.querySelector('.btn').disabled = true;
+                if (document.querySelector('.withdraw')){
+                    document.querySelector('.withdraw').disabled = true;
+                }
             }
         }
         window.onload = checkWithdrawal();

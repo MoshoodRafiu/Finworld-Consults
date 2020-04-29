@@ -96,15 +96,20 @@
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Who can withdraw?</h3>
                 <p>
-                    Both users on free plan and paid plans are allowed to withdraw their earning from their wallet every saturday of the week, the withdrawal stays pending until it has been approved
+                    Both users on free plan and paid plans are allowed to withdraw their earning from their wallet every saturday of the week.
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>What happens if i don't complete my daily task?</h3>
                 <p>
-                    Incase you are not available or unable to complete your daily task, kindly note that your subscription validity period is extended if you are on any of our paid plans, while the validity period remains unchanged for free plan
+                    Incase you are not available or unable to complete your daily task, kindly note that your subscription validity period doesn't change if you are on any of our paid plans, while the validity period remains unchanged for free plan
                 </p>
             </div>
+        </div>
+
+        <!-- Advert button -->
+        <div class="text-center my-5 advert">
+            <a href="https://wa.me/2349024432443" class="btn px-4 py-2 btn-advert"><h4>Advertise With Us</h4></a>
         </div>
         <!-- subscription  -->
         <div class="subscription mt-5">
@@ -115,13 +120,13 @@
                         <h4>Basic</h4>
                     </div>
                     <div class="card-body">
-                        <h5><strong>Free:</strong> Free</h5>
-                        <h5><strong>Earn:</strong> #120</h5>
+                        <h5><strong>Fee:</strong> Free</h5>
+                        <h5><strong>Earn:</strong> #150</h5>
                         <h5><strong>Duration:</strong> 10 Days</h5>
                         <h5><strong>Requirement:</strong> 32+ Views</h5>
                     </div>
                     <div class="card-footer">
-                        <button class="btn w-100">Subscribe</button>
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100"> Subscribe</a>
                     </div>
                 </div>
                 <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
@@ -129,13 +134,13 @@
                         <h4>Tier 1</h4>
                     </div>
                     <div class="card-body">
-                        <h5><strong>Free:</strong> #4,000</h5>
+                        <h5><strong>Fee:</strong> #4,000</h5>
                         <h5><strong>Earn:</strong> #250</h5>
                         <h5><strong>Duration:</strong> 30 Days</h5>
                         <h5><strong>Requirement:</strong> 32+ Views</h5>
                     </div>
                     <div class="card-footer">
-                        <button class="btn w-100">Subscribe</button>
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                     </div>
                 </div>
                 <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
@@ -143,13 +148,13 @@
                         <h4>Tier 2</h4>
                     </div>
                     <div class="card-body">
-                        <h5><strong>Free:</strong> #10,000</h5>
+                        <h5><strong>Fee:</strong> #10,000</h5>
                         <h5><strong>Earn:</strong> #600</h5>
                         <h5><strong>Duration:</strong> 30 Days</h5>
-                        <h5><strong>Requirement:</strong> 50+ Views</h5>
+                        <h5><strong>Requirement:</strong> 32+ Views</h5>
                     </div>
                     <div class="card-footer">
-                        <button class="btn w-100">Subscribe</button>
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                     </div>
                 </div>
             </div>
@@ -159,10 +164,10 @@
                         <h4>Tier 3</h4>
                     </div>
                     <div class="card-body">
-                        <h5><strong>Free:</strong> #15,000</h5>
+                        <h5><strong>Fee:</strong> #15,000</h5>
                         <h5><strong>Earn:</strong> #950</h5>
                         <h5><strong>Duration:</strong> 30 Days</h5>
-                        <h5><strong>Requirement:</strong> 50+ Views</h5>
+                        <h5><strong>Requirement:</strong> 40+ Views</h5>
                     </div>
                     <div class="card-footer">
                         <button class="btn w-100">Subscribe</button>
@@ -173,13 +178,13 @@
                         <h4>Tier 4</h4>
                     </div>
                     <div class="card-body">
-                        <h5><strong>Free:</strong> #25,000</h5>
+                        <h5><strong>Fee:</strong> #25,000</h5>
                         <h5><strong>Earn:</strong> #1,400</h5>
                         <h5><strong>Duration:</strong> 30 Days</h5>
-                        <h5><strong>Requirement:</strong> 75+ Views</h5>
+                        <h5><strong>Requirement:</strong> 50+ Views</h5>
                     </div>
                     <div class="card-footer">
-                        <button class="btn w-100">Subscribe</button>
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                     </div>
                 </div>
                 <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
@@ -187,13 +192,29 @@
                         <h4>Tier 5</h4>
                     </div>
                     <div class="card-body">
-                        <h5><strong>Free:</strong> #50,000</h5>
-                        <h5><strong>Earn:</strong> #3,000</h5>
+                        <h5><strong>Fee:</strong> #50,000</h5>
+                        <h5><strong>Earn:</strong> #2,850</h5>
                         <h5><strong>Duration:</strong> 30 Days</h5>
                         <h5><strong>Requirement:</strong> 100+ Views</h5>
                     </div>
                     <div class="card-footer">
-                        <button class="btn w-100">Subscribe</button>
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 6</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5><strong>Fee:</strong> #100,000</h5>
+                        <h5><strong>Earn:</strong> #5,500</h5>
+                        <h5><strong>Duration:</strong> 30 Days</h5>
+                        <h5><strong>Requirement:</strong> 150+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                     </div>
                 </div>
             </div>
@@ -216,16 +237,28 @@
                         <textarea name="message" id="message" placeholder="Message" class="w-75 my-3"></textarea>
                     </form>
                 </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn w-100">Submit</button>
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn w-75">Send</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- footer -->
-    <div class="site-footer mt-5 bg-dark">
-        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult 2020</div>
+    <div class="site-footer text-center mx-auto mt-5 bg-color">
+        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult <?php echo date("Y"); ?></div>
+        <div class="mx-auto d-flex justify-content-center text-center">
+            <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
+            <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+        </div><hr class="bg-white"/>
+        <div class="text-center py-3 d-flex justify-content-center mx-auto">
+            <p class="mx-2"><a href="index.php" class="text-white" style="text-decoration: none">Home</a></p>
+            <p class="mx-2"><a href="policy.php" class="text-white" style="text-decoration: none">Policy</a></p>
+            <p class="mx-2"><a href="login.php" class="text-white" style="text-decoration: none">Login</a></p>
+            <p class="mx-2"><a href="register.php" class="text-white" style="text-decoration: none">Register</a></p>
+        </div>
     </div>
 
     <!-- jquery -->

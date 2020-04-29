@@ -56,6 +56,7 @@
                         <li class="nav-item mx-2"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="plan.php">Change Plan</a></li>
                         <li class="nav-item mx-2"><a class="nav-link" href="../action/logout.php">Logout</a></li>
+                        <li class="nav-item mx-2"><a href="#" class="nav-link"><i class="fas fa-user mx-2"></i><?php echo $_SESSION['user']; ?></a></li>
                     </ul>
                 </div>
             </nav>
@@ -74,13 +75,15 @@
         // include action.php
         include "../action/action.php";
     ?>
-    <!-- User Details -->
-    <div class="mx-auto col-md-10 text-center mt-5 mb-4">
-        <h5>Logged in: <i class="fas fa-user mx-2"></i><?php echo $_SESSION['user']; ?></h5>
-    </div>
 
+    <!-- Information board -->
+    <?php $info = $con->getinfo() ?>
+    <div class="mt-5 col-md-10 mx-5 mx-auto text-center">
+        <h3>Information Board</h3>
+        <p class="task-instruction col-md-10 mx-auto py-3 px-2 my-1 bg-color text-left"><?php echo $info; ?></p>
+    </div>
     <!--daily task -->
-    <div class="mt-2 col-md-10 mx-auto text-center">
+    <div class="mt-5 col-md-10 mx-auto text-center">
         <h3>Today's task</h3>
         <?php
             $result = $con->updateearning();
@@ -88,62 +91,107 @@
             ?>
                 <div class="alert alert-warning mx-auto text-center col-lg-12 mt-5" role="alert"><h5>You Have Exhausted Your Free Trial, Please Upgrade Your Plan To Continue Earning</h5></div>"
             <?php
-            }else if ($result['plan'] != "basic" && $result['other_expiry'] > 30){
+            }else if ($result['plan'] != "basic" && $result['other_expiry'] == 30){
             ?>
                 <div class="alert alert-warning mx-auto text-center col-md-12 mt-5" role="alert"><h5>Your <b class="mx-1"><?php echo $result['plan']; ?></b> Plan Has Expired, Please Subscribe To Another Plan To Continue Earning</h5></div>"
             <?php
             }
+            else if ($result['status'] == 'restricted'){
+            ?>
+                <div class="alert alert-warning text-capitalize mx-auto text-center col-md-12 mt-2" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>"
+            <?php
+            }
         ?>
-        <p class="text-left bg-success text-white py-4 px-5">Please Complete the task, long press the image to save and copy the text</p>
+        <h5 class="text-left bg-success col-md-10 mx-auto text-white py-4 px-5">Please Complete the task, long press the image to save and copy the text</h5>
         <?php
-            $task = $con->displaytask();
+            $val = $con->getuserid();
+            $result = $con->userdetails($val);
+            $plan = $result['plan'];
+            $task = $con->displaytask($plan);
                 ?>
                 <!-- All Task -->
                 <div class="">
                     <!-- First Task -->
-                    <h4 class="mt-5">First Task</h4>
-                    <div class="col-md-8 mx-auto bg-info task p-3 mb-5">
-                        <?php if ($task['first_task_url'] != ""){
+                    <?php
+                        if ($task['first_task'] != "" || $task['first_task_url'] != "" || $task['first_task_inst'] != ""){
                         ?>
-                            <div class="task-image">
-                                <img src="../../images/tasks/<?php echo $task['first_task_url'] ?>" class="img img-fluid" alt="">
+                            <h4 class="mt-5">First Task</h4>
+                            <div class="col-md-8 mx-auto bg-color task px-3 py-1 mb-5">
+                                <?php if ($task['first_task_url'] != ""){
+                                ?>
+                                    <div class="task-image">
+                                        <img src="../../images/tasks/<?php echo $task['first_task_url'] ?>" class="img img-fluid" alt="">
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                                <p class="task-caption py-2"><?php echo $task['first_task'] ?></p>
+                                <p class="task-instruction py-2 px-1 my-1 bg-style small text-left"><span style="font-weight: bold; font-size:15px; margin-right: 5px;">Instruction: </span><?php echo $task['first_task_inst'] ?></p>
+                            </div>
+                        <?php
+                        }else {
+                        ?>
+                            <div class="col-md-8 mx-auto bg-color task px-3 py-4 my-5">
+                                <p>No Task Currently Available For Today, Check Back Later</p>
                             </div>
                         <?php
                         }
-                        ?>
-                        <h5 class="task-caption py-2"><?php echo $task['first_task'] ?></h5>
-                        <p class="task-instruction py-2 px-1 bg-warning text-left"><span style="font-weight: bold; font-size:18px; margin-right: 5px;">Instruction: </span><?php echo $task['first_task_inst'] ?></p>
-                    </div>
+                    ?>
 
                     <!-- Second Task -->
-                    <h4>Second Task</h4>
-                    <div class="col-md-8 mx-auto bg-info task p-3 mb-5">
-                        <?php if ($task['second_task_url'] != ""){
+                    <?php
+                        if ($task['second_task'] != "" || $task['second_task_url'] != "" || $task['second_task_inst'] != ""){
                         ?>
-                            <div class="task-image">
-                                <img src="../../images/tasks/<?php echo $task['second_task_url'] ?>" class="img img-fluid" alt="">
+                            <h4>Second Task</h4>
+                            <div class="col-md-8 mx-auto bg-color task px-3 py-1 mb-5">
+                                <?php if ($task['second_task_url'] != ""){
+                                ?>
+                                    <div class="task-image">
+                                        <img src="../../images/tasks/<?php echo $task['second_task_url'] ?>" class="img img-fluid" alt="">
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                                <p class="task-caption py-2"><?php echo $task['second_task'] ?></p>
+                                <p class="task-instruction py-2 px-1 bg-style small text-left"><span style="font-weight: bold; font-size:15px; margin-right: 5px;">Instruction: </span><?php echo $task['second_task_inst'] ?></p>
+                            </div>
+                        <?php
+                        }else {
+                        ?>
+                            <div class="col-md-8 mx-auto bg-color task px-3 py-4 mb-5">
+                                <p>No Task Currently Available For Today, Check Back Later</p>
                             </div>
                         <?php
                         }
-                        ?>
-                        <h5 class="task-caption py-2"><?php echo $task['second_task'] ?></h5>
-                        <p class="task-instruction py-2 px-1 bg-warning text-left"><span style="font-weight: bold; font-size:18px; margin-right: 5px;">Instruction: </span><?php echo $task['second_task_inst'] ?></p>
-                    </div>
+                    ?>
 
                     <!-- Third Task -->
-                    <h4>Third Task</h4>
-                    <div class="col-md-8 mx-auto bg-info task p-3 mb-5">
-                        <?php if ($task['third_task_url'] != ""){
+                    <?php
+                        if ($task['third_task'] != "" || $task['third_task_url'] != "" || $task['third_task_inst'] != ""){
                         ?>
-                            <div class="task-image">
-                                <img src="../../images/tasks/<?php echo $task['third_task_url'] ?>" class="img img-fluid" alt="">
+                            <h4>Third Task</h4>
+                            <div class="col-md-8 mx-auto bg-color task p-3 mb-5">
+                                <?php if ($task['third_task_url'] != ""){
+                                ?>
+                                    <div class="task-image">
+                                        <img src="../../images/tasks/<?php echo $task['third_task_url'] ?>" class="img img-fluid" alt="">
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                                <p class="task-caption py-2"><?php echo $task['third_task'] ?></p>
+                                <p class="task-instruction py-2 px-1 small bg-style text-left"><span style="font-weight: bold; font-size:15px; margin-right: 5px;">Instruction: </span><?php echo $task['third_task_inst'] ?></p>
+                            </div>
+                        <?php
+                        }else {
+                        ?>
+                            <div class="col-md-8 mx-auto bg-color task px-3 py-4 mb-5">
+                                <p>No Task Currently Available For Today, Check Back Later</p>
                             </div>
                         <?php
                         }
-                        ?>
-                        <h5 class="task-caption py-2"><?php echo $task['third_task'] ?></h5>
-                        <p class="task-instruction py-2 px-1 bg-warning text-left"><span style="font-weight: bold; font-size:18px; margin-right: 5px;">Instruction: </span><?php echo $task['third_task_inst'] ?></p>
-                    </div>
+                    ?>
+
                 </div>
             <?php
         ?>
@@ -152,13 +200,18 @@
     <!-- task submission -->
     <h3 class="text-center mt-5">Submit task</h3>
     <?php
+        $result = $con->updateearning();
         if (($result['plan'] == "basic") && ($result['basic_expiry'] < date("Y-m-d"))){
         ?>
             <div class="alert alert-warning mx-auto text-center col-md-8 mt-2" role="alert"><h5>You Have Exhausted Your Free Trial, Please Upgrade Your Plan To Continue Earning</h5></div>"
         <?php
-        }else if ($result['plan'] != "basic" && $result['other_expiry'] > 30){
+        }else if ($result['plan'] != "basic" && $result['other_expiry'] == 30){
         ?>
             <div class="alert alert-warning mx-auto text-center col-md-8 mt-2" role="alert"><h5>Your <b class="mx-1"><?php echo $result['plan']; ?></b> Plan Has Expired, Please Subscribe To Another Plan To Continue Earning</h5></div>"
+        <?php
+        }else if ($result['status'] == 'restricted'){
+        ?>
+            <div class="alert alert-warning text-capitalize mx-auto text-center col-md-8 mt-2" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>"
         <?php
         }
     ?>
@@ -168,11 +221,11 @@
         <input type="file" name="task1" class="form-control mb-3" required>
         <h5>Second task</h5>
         <input type="file" name="task2" class="form-control mb-3" required>
-        <h5>Second task</h5>
+        <h5>Third task</h5>
         <input type="file" name="task3" class="form-control mb-3" required>
         <div class="text-center">
             <?php
-                if (($result['plan'] == "basic" && ($result['basic_expiry'] < date("Y-m-d"))) || ($result['plan'] != "basic" && $result['other_expiry'] > 30)){
+                if (($result['plan'] == "basic" && ($result['basic_expiry'] < date("Y-m-d"))) || ($result['plan'] != "basic" && $result['other_expiry'] == 30) || $result['status'] == 'restricted' ){
                 ?>
                     <button type="submit" name="submittask" class="btn text-light" disabled>Submit Tasks</button>
                 <?php
@@ -189,7 +242,7 @@
     <div class="mx-auto text-center col-md-8 my-5">
         <h3>Task History</h3>
         <table class="table">
-        <thead class="table-warning">
+        <thead class="table-color">
             <tr>
                 <td>#</td>
                 <td>Status</td>
@@ -243,7 +296,7 @@
     <div class="mx-auto text-center col-md-8 my-5">
         <h3>Withdrawal History</h3>
         <table class="table">
-            <thead class="table-warning">
+            <thead class="table-color">
                 <tr>
                     <td>#</td>
                     <td>Amount</td>
@@ -303,78 +356,115 @@
     <div class="header mt-5 text-center">
         <h3>Account Information</h3>
     </div>
-    <div class="dashboard mt-3 row">
-        <div class="card col-md-5 bg-warning col-10 my-5 mx-auto">
-            <div class="card-body">
-                <div class="text-center">
-                    <i class="fas fa-user-shield icon fa-3x"></i>
+    <div class="dashboard mt-3">
+        <div class="row">
+            <div class="card col-md-3 bg-color col-10 m-5 mx-auto">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-user-shield icon fa-3x"></i>
+                    </div>
+                    <div class="text-center text-white text mt-3">
+                        <h4 class="text-capitalize"><b>Current Plan: </b><?php echo $result["plan"]; ?></h4>
+                        <?php
+                            if (($result['plan'] == "basic" && ($result['basic_expiry'] < date("Y-m-d"))) || ($result['plan'] != "basic" && $result['other_expiry'] == 30)){
+                                ?>
+                                    <p class="small">Expired</p>
+                                <?php
+                            }else{
+                                if ($result["plan"] == "basic"){
+                                ?>
+                                    <p class="small">Expires on <?php echo date("jS \of F Y", strtotime($result['basic_expiry'])) ?></p>
+                                <?php
+                                }else {
+                                ?>
+                                    <p class="small"><?php echo $result['other_expiry'] ?> days used, <?php echo 30-$result['other_expiry'] ?> days till plan expiry</p>
+                                <?php
+                                }
+                            }
+                        ?>
+                        <a href="plan.php" class="btn btn-style" style="text-decoration: none;">Upgrade</a>
+                    </div>
                 </div>
-                <div class="text-center text mt-3">
-                    <h4 class="text-capitalize"><b>Current Plan: </b><?php echo $result["plan"]; ?></h4>
-                    <button class="btn my-1"><a href="plan.php" class="text-white" style="text-decoration: none;">Upgrade</a></button>
+            </div>
+            <div class="card col-md-3 col-10 bg-color m-5 mx-auto">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-money-bill-wave icon fa-3x"></i>
+                    </div>
+                    <div class="text-center text-white text mt-3">
+                        <h4><b>Daily Earning: </b>#<?php echo number_format($result["daily_earning"]); ?></h4>
+                        <a href="plan.php" class="btn btn-style" style="text-decoration: none;">Upgrade</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card col-md-5 col-10 bg-warning my-5 mx-auto">
-            <div class="card-body">
-                <div class="text-center">
-                    <i class="fas fa-money-bill-wave icon fa-3x"></i>
+        <div class="row">
+            <div class="card col-md-3 col-10 bg-color my-5 mx-auto">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-money-bill icon fa-3x"></i>
+                    </div>
+                    <div class="text-center text-white text mt-3">
+                        <h4><b>Total Earning: </b>#<?php echo number_format($result["total_earning"]); ?></h4>
+                        <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Withdraw</a>
+                    </div>
                 </div>
-                <div class="text-center text mt-3">
-                    <h4><b>Daily Earning: </b>#<?php echo $result["daily_earning"]; ?></h4>
-                    <button class="btn my-1"><a href="plan.php" class="text-white" style="text-decoration: none;">Upgrade</a></button>
+            </div>
+            <div class="card col-md-3 col-10 bg-color my-5 mx-auto">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-university icon fa-3x"></i>
+                    </div>
+                    <div class="text-center text-white  text mt-3">
+                        <h4><b>Total Withdrawn: </b>#<?php echo number_format($result["withdrawn"]); ?></h4>
+                        <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Withdraw</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card col-md-5 col-10 bg-warning my-5 mx-auto">
-            <div class="card-body">
-                <div class="text-center">
-                    <i class="fas fa-hashtag icon fa-3x"></i>
+        <div class="row">
+            <div class="card col-md-3 col-10 bg-color my-5 mx-auto">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-university icon fa-3x"></i>
+                    </div>
+                    <div class="text-center text-white text mt-3">
+                        <h4><b>Available: </b>#<?php echo number_format($result["total_earning"] - $result["withdrawn"]); ?></h4>
+                        <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Withdraw</a>
+                    </div>
                 </div>
-                <div class="text-center text mt-3">
-                    <h4><b>Total Earning: </b>#<?php echo $result["total_earning"]; ?></h4>
-                    <button class="btn my-1"><a href="withdrawal.php" class="text-white" style="text-decoration: none;">Withdraw</a></button>
+            </div>
+            <div class="card col-md-3 col-10 bg-color my-5 mx-auto">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-sign-out-alt icon fa-3x"></i>
+                    </div>
+                    <div class="text-center text-white text mt-3">
+                        <h4><b>Logout</h4>
+                        <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card col-md-5 col-10 bg-warning my-5 mx-auto">
-            <div class="card-body">
-                <div class="text-center">
-                    <i class="fas fa-university icon fa-3x"></i>
-                </div>
-                <div class="text-center text mt-3">
-                    <h4><b>Total Withdrawn: </b>#<?php echo $result["withdrawn"]; ?></h4>
-                    <button class="btn my-1"><a href="withdrawal.php" class="text-white" style="text-decoration: none;">Withdraw</a></button>
-                </div>
-            </div>
-        </div>
-        <div class="card col-md-5 col-10 bg-warning my-5 mx-auto">
-            <div class="card-body">
-                <div class="text-center">
-                    <i class="fas fa-university icon fa-3x"></i>
-                </div>
-                <div class="text-center text mt-3">
-                    <h4><b>Available Balance: </b>#<?php echo $result["total_earning"] - $result["withdrawn"]; ?></h4>
-                    <button class="btn my-1"><a href="withdrawal.php" class="text-white" style="text-decoration: none;">Withdraw</a></button>
-                </div>
-            </div>
-        </div>
-        <div class="card col-md-5 col-10 bg-warning my-5 mx-auto">
-            <div class="card-body">
-                <div class="text-center">
-                    <i class="fas fa-sign-out-alt icon fa-3x"></i>
-                </div>
-                <div class="text-center text mt-3">
-                    <h4><b>Logout</h4>
-                    <button class="btn my-1"><a href="../action/logout.php" class="text-white" style="text-decoration: none;">Logout</a></button>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <!-- footer -->
-    <div class="site-footer mt-5 bg-dark">
-        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult 2020</div>
+    <div class="site-footer text-center mx-auto mt-5 bg-color">
+        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult <?php echo date("Y"); ?></div>
+        <div class="mx-auto d-flex justify-content-center text-center">
+            <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
+            <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+        </div><hr class="bg-white"/>
+        <div class="text-center py-3 d-flex justify-content-center mx-auto">
+            <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>
+            <p class="mx-2 small"><a href="dashboard.php" class="text-white" style="text-decoration: none">Dashboard</a></p>
+            <p class="mx-2 small"><a href="plan.php" class="text-white" style="text-decoration: none">Plan</a></p>
+            <p class="mx-2 small"><a href="profile.php" class="text-white" style="text-decoration: none">Profile</a></p>
+            <p class="mx-2 small"><a href="withdrawal.php" class="text-white" style="text-decoration: none">Withdrawal</a></p>
+        </div>
     </div>
 
     <!-- jquery -->

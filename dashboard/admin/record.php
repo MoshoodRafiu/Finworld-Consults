@@ -26,6 +26,8 @@
             header("Location: ../../login.php");
             exit();
         }
+        // include action.php
+        include "../action/action.php";
     ?>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -48,6 +50,9 @@
                 </li>
                 <li>
                     <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
+                </li>
+                <li>
+                    <a href="upgrade.php">Upgrades <i class="fas fa-caret-square-up mx-1"></i></a>
                 </li>
                 <li class="active">
                     <a href="record.php">Records <i class="fas fa-scroll mx-1"></i></a>
@@ -72,8 +77,8 @@
 
             <!-- dashboard body -->
             <div class="container-fluid">
-                <h3 class="text-center text-muted my-4">History</h3>
-
+                <h3 class="text-center text-muted my-5">All Records</h3>
+                <?php $result = $con->showrecords(); ?>
                 <!-- Site History -->
                 <div class="history">
                     <div class="row">
@@ -83,7 +88,7 @@
                                 <div class="icon"><i class="fas fa-user fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Registered Users</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">100,000 Users</p>
+                                    <p class="text-dark font-weight-bold"><?php echo number_format($result['reg_users']) ?> Users</p>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +98,7 @@
                                 <div class="icon"><i class="fas fa-user-cog fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Registered Admins</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">7 Admins</p>
+                                    <p class="text-dark font-weight-bold"><?php echo number_format($result['reg_admins']) ?> Admins</p>
                                 </div>
                             </div>
                         </div>
@@ -103,17 +108,17 @@
                                 <div class="icon"><i class="fas fa-tasks fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Uploaded Tasks</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">1,000 Tasks</p>
+                                    <p class="text-dark font-weight-bold"><?php echo number_format($result['tasks']) ?> Tasks</p>
                                 </div>
                             </div>
                         </div>
                         <!-- Total Upgrades -->
                         <div class="card col-md-2 mx-auto">
                             <div class="card-body">
-                                <div class="icon"><i class="fas fa-hashtag fa-3x"></i></div>
+                                <div class="icon"><i class="fas fa-caret-square-up fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Plan Upgrade</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">100 Upgrades</p>
+                                    <p class="text-dark font-weight-bold"><?php echo number_format($result['upgrades']) ?> Upgrades</p>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +130,7 @@
                                 <div class="icon"><i class="fas fa-hand-holding-usd fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Withdrawn Earning</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">#500,000</p>
+                                    <p class="text-dark font-weight-bold">#<?php echo number_format($result['withdrawn']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +140,7 @@
                                 <div class="icon"><i class="fas fa-university fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Available Earning</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">#500,000</p>
+                                    <p class="text-dark font-weight-bold">#<?php echo number_format($result['available'])  ?></p>
                                 </div>
                             </div>
                         </div>
@@ -145,17 +150,17 @@
                                 <div class="icon"><i class="fas fa-money-check-alt fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Users Earning</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">#1,000,000</p>
+                                    <p class="text-dark font-weight-bold">#<?php echo number_format($result['total']) ?></p>
                                 </div>
                             </div>
                         </div>
                         <!-- Total Upgrade Earning -->
                         <div class="card col-md-2 mx-auto">
                             <div class="card-body">
-                                <div class="icon"><i class="fas fa-hashtag fa-3x"></i></div>
+                                <div class="icon"><i class="fas fa-money-bill fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Earning From Plan Upgrade</p></div>
                                 <div class="card-footer text-center bg-light">
-                                    <p class="text-dark font-weight-bold">#100,000</p>
+                                    <p class="text-dark font-weight-bold">#<?php echo number_format($result['totalupgrade']) ?></p>
                                 </div>
                             </div>
                         </div>

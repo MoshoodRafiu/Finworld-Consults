@@ -55,6 +55,7 @@
                         <li class="nav-item"><a class="nav-link" href="withdrawal.php">Withdrawal</a></li>
                         <li class="nav-item"><a class="nav-link" href="plan.php">Change Plan</a></li>
                         <li class="nav-item"><a class="nav-link" href="../action/logout.php">Logout</a></li>
+                        <li class="nav-item mx-2"><a href="#" class="nav-link"><i class="fas fa-user mx-2"></i><?php echo $_SESSION['user']; ?></a></li>
                     </ul>
                 </div>
             </nav>
@@ -109,6 +110,10 @@
                     you won't win for that specific day, and your gaining will proceed with the following day after all the rules are met.
                 </p>
             </div>
+        </div>
+        <!-- Advert button -->
+        <div class="text-center my-5 advert">
+            <a href="https://wa.me/2349024432443" class="btn px-5 py-2 btn-advert"><h4>Advertise With Us</h4></a>
         </div>
         <!-- subscription  -->
         <div class="subscription mt-5">
@@ -228,8 +233,21 @@
     </div>
 
     <!-- footer -->
-    <div class="site-footer mt-5 bg-dark">
-        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult 2020</div>
+    <div class="site-footer text-center mx-auto mt-5 bg-color">
+        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult <?php echo date("Y"); ?></div>
+        <div class="mx-auto d-flex justify-content-center text-center">
+            <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
+            <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+        </div><hr class="bg-white"/>
+        <div class="text-center py-3 d-flex justify-content-center mx-auto">
+            <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>
+            <p class="mx-2 small"><a href="dashboard.php" class="text-white" style="text-decoration: none">Dashboard</a></p>
+            <p class="mx-2 small"><a href="plan.php" class="text-white" style="text-decoration: none">Plan</a></p>
+            <p class="mx-2 small"><a href="profile.php" class="text-white" style="text-decoration: none">Profile</a></p>
+            <p class="mx-2 small"><a href="withdrawal.php" class="text-white" style="text-decoration: none">Withdrawal</a></p>
+        </div>
     </div>
 
     <!-- jquery -->

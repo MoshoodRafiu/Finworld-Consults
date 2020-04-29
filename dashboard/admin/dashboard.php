@@ -49,6 +49,9 @@
                     <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
                 <li>
+                    <a href="upgrade.php">Upgrades <i class="fas fa-caret-square-up mx-1"></i></a>
+                </li>
+                <li>
                     <a href="record.php">Records <i class="fas fa-scroll mx-1"></i></a>
                 </li>
                 <li>
@@ -68,25 +71,59 @@
                     </button>
                 </div>
             </nav>
-
             <!-- dashboard body -->
             <div class="container-fluid col-8 w-75">
-                <form action="../action/action.php" method="POST" enctype="multipart/form-data">
-                    <?php
-                        if (!empty($_GET['status'])){
-                            if ($_GET['status']  == "failed") {
-                            ?>
-                                <!-- Display error message if file is not image -->
-                                <div class="alert alert-danger mx-auto text-center" role="alert">Please Select an Image File</div>
-                            <?php
-                            } else if ($_GET['status']  == "success") {
-                            ?>
-                                <!-- Display success message -->
-                                <div class="alert alert-success mx-auto text-center" role="alert">Task Uploaded Successfully</div>
-                            <?php
-                            }
+                <?php
+                    if (!empty($_GET['status'])){
+                        if ($_GET['status']  == "failed") {
+                        ?>
+                            <!-- Display error message if file is not image -->
+                            <div class="alert alert-danger mx-auto text-center" role="alert">Please Select an Image File</div>
+                        <?php
+                        } else if ($_GET['status']  == "success") {
+                        ?>
+                            <!-- Display success message -->
+                            <div class="alert alert-success mx-auto text-center" role="alert">Task Uploaded Successfully</div>
+                        <?php
                         }
-                    ?>
+                    }else if (!empty($_GET['info'])){
+                        if ($_GET['info']  == "failed") {
+                        ?>
+                            <!-- Display error message if file is not image -->
+                            <div class="alert alert-danger mx-auto text-center" role="alert">Error Semding Information</div>
+                        <?php
+                        } else if ($_GET['info']  == "success") {
+                        ?>
+                            <!-- Display success message -->
+                            <div class="alert alert-success mx-auto text-center" role="alert">Information Sent Successfully</div>
+                        <?php
+                        }
+                    }
+                ?>
+                <!-- Information form -->
+                <h5 class="text-center text-secondary">Upload Information</h5>
+                <form action="../action/action.php" method="post" class="mb-5">
+                    <textarea name="info" class="w-100 form-control my-2" placeholder="Enter Information" required></textarea>
+                    <div class="text-center">
+                        <button type="submit" name="uploadinfo" class="my-3 btn btn-style">Upload Information</button>
+                    </div>
+                </form>
+
+                <!-- Task Form -->
+                <form action="../action/action.php" method="POST" enctype="multipart/form-data">
+                    <!-- plans select -->
+                    <h5 class="text-center text-secondary">Select A Plan To Upload Task For</h5>
+                    <select name="plan" class="form-control mb-4 mt-1" required>
+                        <option value="">Select plan</option>
+                        <option value="all">All</option>
+                        <option value="basic">Basic</option>
+                        <option value="tier-1">Tier-1</option>
+                        <option value="tier-2">Tier-2</option>
+                        <option value="tier-3">Tier-3</option>
+                        <option value="tier-4">Tier-4</option>
+                        <option value="tier-5">Tier-5</option>
+                        <option value="tier-6">Tier-6</option>
+                    </select>
                     <!-- first task -->
                     <h5 class="text-center text-secondary">First Task</h5>
                     <textarea name="tasktitle1" class="w-100 form-control my-2" placeholder="Task Text"></textarea>

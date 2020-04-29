@@ -40,7 +40,7 @@
                 <li>
                     <a href="dashboard.php">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="approve.php">Approve Tasks <i class="fas fa-check mx-1"></i></a>
                 </li>
                 <li class="">
@@ -52,7 +52,7 @@
                 <li>
                     <a href="admin.php">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="upgrade.php">Upgrades <i class="fas fa-caret-square-up mx-1"></i></a>
                 </li>
                 <li>
@@ -104,94 +104,92 @@
                 }
             ?>
             <div class="container-fluid">
-                <h4 class="text-center text-muted my-4">Approve Tasks</h4>
+                <h4 class="text-center text-muted my-4">Plan Upgrades</h4>
                 <form action="" method="get" class="row ml-2 my-3">
-                    <select name="status" class="form-control m-1 col-md-2" required>
-                        <option value="">Select Status</option>
-                        <option value="all">All</option>
-                        <option value="approved">Approved</option>
-                        <option value="declined">Declined</option>
-                        <option value="pending">Pending</option>
+                    <select name="admin" class="form-control m-1 col-md-2" required>
+                        <option value="">Select Admin</option>
+                        <option value="All">All</option>
+                        <?php
+                            $results = $con->displayallusers("admin");
+                            if ($results){
+                                foreach ($results as $result) {
+                                ?>
+                                        <option value="<?php echo $result['user_name']; ?>"><?php echo $result['user_name']; ?></option>
+                                <?php
+                                }
+                            }
+                        ?>
                     </select>
                     <input type="date" name="date" class="form-control m-1 col-md-2" required>
-                    <button type="submit" class="btn btn-style m-1">Filter Tasks</button>
+                    <button type="submit" class="btn btn-style m-1">Filter Upgrades</button>
                 </form>
                 <table class="table">
                     <thead>
                         <tr class="table-striped text-muted">
                             <td>#</td>
+                            <td><b>Admin name</b></td>
                             <td><b>Username</b></td>
-                            <td><b>Email</b></td>
-                            <td><b>Task 1</b></td>
-                            <td><b>Task 2</b></td>
-                            <td><b>Task 3</b></td>
-                            <td>Status</td>
-                            <td></td>
-                            <td></td>
+                            <td><b>Changed From</b></td>
+                            <td><b>Changed To</b></td>
+                            <td><b>Amount Expected</b></td>
+                            <td><b>Date</b></td>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                            // Check if user tries to fiter withdrawal
-                            if (isset($_GET['date']) && isset($_GET['status'])){
+                            if (isset($_GET['date']) && isset($_GET['admin'])){
                                 $date = $_GET['date'];
-                                $status = $_GET['status'];
-                                $results = $con->filterresults($date, $status, "approval");
+                                $admin = $_GET['admin'];
+                                $results = $con->filterupgrades($admin,$date);
                                 if ($results){
-                                    ?>
-                                    <p class="text-center">Showing <?php echo $status ?> task for <?php echo date("l, jS \of F Y", strtotime($date)) ?></p>
-                                    <?php
                                     $id = 0;
+                                    ?>
+                                    <p class="text-center">Showing upgrades by <?php echo $admin ?> on <?php echo date("l, jS \of F Y", strtotime($date)) ?></p>
+                                    <?php
                                     foreach ($results as $result) {
                                         $id++;
                                         $details = $con->userdetails($result['user_id']);
                                         $username = $details["user_name"];
-                                        $email = $details["email"];
                                     ?>
                                         <tr>
                                             <td><?php echo $id ?></td>
+                                            <td><?php echo $result['admin_name']; ?></td>
                                             <td><?php echo $username; ?></td>
-                                            <td><?php echo $email; ?></td>
-                                            <td><button class="btn btn-style" onclick="run('<?php echo $result['task_1']; ?>')">view</button></td>
-                                            <td><button class="btn btn-style" onclick="run('<?php echo $result['task_2']; ?>')">view</button></td>
-                                            <td><button class="btn btn-style" onclick="run('<?php echo $result['task_3']; ?>')">view</button></td>
-                                            <td class="text-capitalize"><?php echo $result['approval_status'] ?></td>
-                                            <td><button class="btn btn-success" disabled>Approve</button></td>
-                                            <td><button class="btn btn-danger" disabled>Decline</button></td>
+                                            <td><?php echo $result['old_plan']; ?></td>
+                                            <td><?php echo $result['new_plan']; ?></td>
+                                            <td><?php echo number_format($result['amount']); ?></td>
+                                            <td><?php echo $result['date']; ?></td>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
-                                        <p class="text-center">No <?php echo $status ?> tasks for <?php echo date("l, jS \of F Y", strtotime($date)) ?></p>
+                                    <p class="text-center">No upgrades by <?php echo $admin ?> on <?php echo date("l, jS \of F Y", strtotime($date)) ?></p>
                                     <?php
                                 }
-                            }else{
-                                $results = $con->displaytasks();
+                            }else {
+                                $results = $con->displayupgrades();
                                 if ($results){
                                     $id = 0;
                                     foreach ($results as $result) {
                                         $id++;
                                         $details = $con->userdetails($result['user_id']);
                                         $username = $details["user_name"];
-                                        $email = $details["email"];
                                     ?>
                                         <tr>
                                             <td><?php echo $id ?></td>
+                                            <td><?php echo $result['admin_name']; ?></td>
                                             <td><?php echo $username; ?></td>
-                                            <td><?php echo $email; ?></td>
-                                            <td><button class="btn btn-style" onclick="run('<?php echo $result['task_1']; ?>')">view</button></td>
-                                            <td><button class="btn btn-style" onclick="run('<?php echo $result['task_2']; ?>')">view</button></td>
-                                            <td><button class="btn btn-style" onclick="run('<?php echo $result['task_3']; ?>')">view</button></td>
-                                            <td class="text-capitalize"><?php echo $result['approval_status'] ?></td>
-                                            <td><a class="btn btn-success text-white" href="approve.php?approve=1&user=<?php echo $result['user_id']; ?>&task=<?php echo $result['task_id']; ?>">Approve</a></td>
-                                            <td><a class="btn btn-danger text-white" href="approve.php?decline=1&user=<?php echo $result['user_id']; ?>&task=<?php echo $result['task_id']; ?>">Decline</a></td>
+                                            <td><?php echo $result['old_plan']; ?></td>
+                                            <td><?php echo $result['new_plan']; ?></td>
+                                            <td><?php echo number_format($result['amount']); ?></td>
+                                            <td><?php echo $result['date']; ?></td>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
-                                        <p class="text-center">No pending task for today</p>
+                                        <p class="text-center">No upgrades today</p>
                                     <?php
                                 }
                             }

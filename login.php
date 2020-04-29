@@ -48,7 +48,7 @@
                                 <div class="alert alert-success mx-auto text-center" role="alert">Login Successful, Redirecting..</div>
                             <?php
                                 session_start();
-                                header("refresh: 2; url=dashboard/user/dashboard.php");
+                                header("refresh: 1; url=dashboard/user/dashboard.php");
                             } else if ($_GET['valid'] == "adminlogin") {
                             ?>
                                 <!-- Display error message if login not valid -->

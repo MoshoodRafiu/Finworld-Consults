@@ -47,7 +47,7 @@
                                 <!-- Display success message if registered and redirect to login -->
                                 <div class="alert alert-success mx-auto text-center" role="alert">User Successfully Registered</div>
                             <?php
-                                header ("refresh: 2; url=login.php");
+                                header ("refresh: 1; url=login.php");
                             } else if ($_GET['registered'] == 'username_error'){
                                 ?>
                                 <!-- Display success message if username already exists -->

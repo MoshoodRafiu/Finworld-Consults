@@ -72,9 +72,8 @@
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Withdrawal Policy</h3>
                 <p>
-                    You must be on an active paid plan before you can withdraw. The free arrangement is to give u a brief look at how the framework functions and how you can gain.. Withdrawal isn't a piece of free arrangement highlights. Be that as it may, at that point
-                    you can pull back your winning once you move up to the paid arrangement. This arrangement is on the grounds that individuals will in general need to try things out, nobody will put resources into something they know literally nothing
-                    about, however free arrangement offers a chance to be comfortable with the framework. Thus the purpose behind the free arrangement.
+                    Withdrawal portal is only open on saturdays. Note that both free and subscribed users can request withdrawal, and minimum withdrawal amount for all registered users is #500. Only subscribed users can withdrawal all their earnings at once, while users on free plan
+                    must have a minimum balance of #1,000 after requesting withdrawal before thier transcation can be processed.
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
@@ -90,13 +89,6 @@
                 <p>
                     There are connections to outsider items or administrations in specific pieces of our site. These outsider locales have discrete and free security approaches. We in this way have no duty or obligation for the substance and exercises of these connected
                     locales.
-                </p>
-            </div>
-            <div class="mx-auto text-center col-md-5 p-3">
-                <h3>Withdrawal Policy</h3>
-                <p>
-                    Withdrawal portal is only open on saturdays. Note that both free and subscribed users can request withdrawal, and minimum withdrawal amount for all registered users is #500. Only subscribed users can withdrawal all their earnings at once, while users on free plan
-                    must have a minimum balance of #1,000 after requesting withdrawal before thier transcation can be processed.
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
@@ -123,16 +115,28 @@
                         <textarea name="message" id="message" placeholder="Message" class="w-75 my-3"></textarea>
                     </form>
                 </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn w-100">Submit</button>
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn w-75">Send</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- footer -->
-    <div class="site-footer mt-5 bg-dark">
-        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult 2020</div>
+    <div class="site-footer text-center mx-auto mt-5 bg-color">
+        <div class="copyright text-center p-3 text-white "> &copy; FinWorld Consult <?php echo date("Y"); ?></div>
+        <div class="mx-auto d-flex justify-content-center text-center">
+            <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
+            <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
+            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+        </div><hr class="bg-white"/>
+        <div class="text-center py-3 d-flex justify-content-center mx-auto">
+            <p class="mx-2"><a href="index.php" class="text-white" style="text-decoration: none">Home</a></p>
+            <p class="mx-2"><a href="policy.php" class="text-white" style="text-decoration: none">Policy</a></p>
+            <p class="mx-2"><a href="login.php" class="text-white" style="text-decoration: none">Login</a></p>
+            <p class="mx-2"><a href="register.php" class="text-white" style="text-decoration: none">Register</a></p>
+        </div>
     </div>
 
     <!-- jquery -->
