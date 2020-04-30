@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -19,11 +27,15 @@
 
 <body>
     <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['admin'])) {
-            header("Location: ../../login.php");
-            exit();
+        // include action.php
+        include "../action/action.php";
+        $adminrole = $con->getrole();
+        if ($adminrole == "withdrawal"){
+            header("Location: list.php");
+        }else if ($adminrole == "task"){
+            header("Location: approve.php");
+        }else if ($adminrole == "account"){
+            header("Location: users.php");
         }
     ?>
     <!-- dashboard page -->
@@ -72,7 +84,7 @@
                 </div>
             </nav>
             <!-- dashboard body -->
-            <div class="container-fluid col-8 w-75">
+            <div class="container-fluid col-md-8 col-10">
                 <?php
                     if (!empty($_GET['status'])){
                         if ($_GET['status']  == "failed") {

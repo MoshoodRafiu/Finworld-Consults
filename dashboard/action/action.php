@@ -113,16 +113,6 @@ class Operations extends Database {
 
         }
     }
-
-    public function verifytype($type, $file, $val) {
-        if ($type == "image/jpeg" || $type == "image/jpg" || $type == "image/png") {
-            return true;
-        }else if ($file == ""){
-            return $val;
-        } else {
-            return false;
-        }
-    }
     // Upload Task function
     public function uploadtask($values){
         // extract first task from array
@@ -703,6 +693,37 @@ class Operations extends Database {
             return $array;
         }
     }
+    // display all account upgraders
+    public function allupgraders(){
+        // SQL statement
+        $sql = "SELECT * FROM user WHERE special = 1 AND (role = 'account' OR role = 'administrator') ";
+        $result = $this->con->query($sql);
+
+        // check if there is a user
+        $count = $result->num_rows;
+        if ($count != 0) {
+            while ($row = $result->fetch_assoc()){
+                $array[] = $row;
+            }
+            return $array;
+        }
+    }
+    // Get admin role
+    public function getrole(){
+        // get user if from session
+        // SQL statement
+        $sql = "SELECT user_id FROM user WHERE user_name = '".$_SESSION['admin']."' ";
+        $value = $this->con->query($sql);
+        $value = $value->fetch_assoc();
+        $id = $value['user_id'];
+
+        //get role
+        // SQL statement
+        $sql = "SELECT * FROM user WHERE user_id = '".$id."'";
+        $value = $this->con->query($sql);
+        $value = $value->fetch_assoc();
+        return $value['role'];
+    }
     // Approve account
     public function approveuser($user){
         // SQL statement
@@ -729,7 +750,7 @@ class Operations extends Database {
         $stmt->execute();
     }
     // Add new admin
-    public function addadmin($username, $email, $password){
+    public function addadmin($username, $email, $role, $password){
         // Check if username already exist
         $sql = "SELECT * FROM user WHERE user_name = ?";
 
@@ -756,10 +777,10 @@ class Operations extends Database {
                 $special = 1;
                 $hash = password_hash($password, PASSWORD_BCRYPT, ["cost" => 8]);
                 // SQL statement
-                $sql = "INSERT INTO user (user_name, email, password, special) VALUES (?,?,?,?)";
+                $sql = "INSERT INTO user (user_name, email, role, password, special) VALUES (?,?,?,?,?)";
                 // Prepared statment
                 $stmt = $this->con->prepare($sql);
-                $stmt->bind_param("ssss", $username, $email, $hash, $special);
+                $stmt->bind_param("sssss", $username, $email, $role, $hash, $special);
                 if ($stmt->execute()){
                     return "success";
                 }
@@ -1266,8 +1287,9 @@ if (isset($_POST['withdraw'])){
 if (isset($_POST['addadmin'])){
     $username = $_POST['username'];
     $email = $_POST['email'];
+    $role = $_POST['role'];
     $password = $_POST['password'];
-    $new = $con->addadmin($username, $email, $password);
+    $new = $con->addadmin($username, $email, $role, $password);
     if ($new == "success"){
         header("Location: ../admin/addadmin.php?add=1");
     }else if ($new == "user_error"){

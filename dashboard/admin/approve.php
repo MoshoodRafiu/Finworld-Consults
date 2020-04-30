@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -20,21 +28,55 @@
 
 <body>
     <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['admin'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
         // include action.php
         include "../action/action.php";
-
+        $adminrole = $con->getrole();
+        if ($adminrole == "withdrawal"){
+            header("Location: list.php");
+        }else if ($adminrole == "account"){
+            header("Location: users.php");
+        }
     ?>
     <!-- dashboard page -->
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar" class="">
 
+        <?php
+            // Check if admin role is task manager and disable other links
+            if ($adminrole == "task"){
+            ?>
+                <ul class="list-unstyled components">
+                    <h5 class="p-3 text-center mb-5 sidebar-header">Dashboard <i class="fas fa-tachometer-alt"></i></h5>
+                    <li>
+                        <a href="dashboard.php" onclick="return false">Upload Tasks <i class="fas fa-upload mx-1"></i></a>
+                    </li>
+                    <li class="active">
+                        <a href="approve.php">Approve Tasks <i class="fas fa-check mx-1"></i></a>
+                    </li>
+                    <li class="">
+                        <a href="list.php"  onclick="return false">Withdrawal List <i class="fas fa-list mx-1"></i></a>
+                    </li>
+                    <li class="">
+                        <a href="users.php" onclick="return false">Manage Users <i class="fas fa-users mx-1"></i></a>
+                    </li>
+                    <li>
+                        <a href="admin.php" onclick="return false">Manage Admin <i class="fas fa-users-cog mx-1"></i></a>
+                    </li>
+                    <li>
+                        <a href="upgrade.php" onclick="return false">Upgrades <i class="fas fa-caret-square-up mx-1"></i></a>
+                    </li>
+                    <li>
+                        <a href="record.php" onclick="return false">Records <i class="fas fa-scroll mx-1"></i></a>
+                    </li>
+                    <li>
+                        <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
+                    </li>
+                </ul>
+            <?php
+
+            }else {
+            ?>
             <ul class="list-unstyled components">
                 <h5 class="p-3 text-center mb-5 sidebar-header">Dashboard <i class="fas fa-tachometer-alt"></i></h5>
                 <li>
@@ -46,7 +88,7 @@
                 <li class="">
                     <a href="list.php">Withdrawal List <i class="fas fa-list mx-1"></i></a>
                 </li>
-                <li>
+                <li class="">
                     <a href="users.php">Manage Users <i class="fas fa-users mx-1"></i></a>
                 </li>
                 <li>
@@ -62,6 +104,9 @@
                     <a href="../action/logout.php">Logout <i class="fas fa-sign-out-alt mx-1"></i></a>
                 </li>
             </ul>
+            <?php
+            }
+        ?>
         </nav>
 
         <!-- Page Content  -->

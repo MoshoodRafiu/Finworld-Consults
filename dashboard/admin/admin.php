@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -20,14 +28,16 @@
 
 <body>
     <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['admin'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
         // include action.php
         include "../action/action.php";
+        $adminrole = $con->getrole();
+        if ($adminrole == "withdrawal"){
+            header("Location: list.php");
+        }else if ($adminrole == "task"){
+            header("Location: approve.php");
+        }else if ($adminrole == "account"){
+            header("Location: users.php");
+        }
     ?>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -104,6 +114,7 @@
                             <td>#</td>
                             <td><b>Username</b></td>
                             <td><b>Email</b></td>
+                            <td><b>Role</b></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -121,7 +132,16 @@
                                         <td><?php echo $result['user_name']; ?></td>
                                         <td><?php echo $result['email']; ?></td>
                                         <?php
-                                            if ($_SESSION['admin'] == "Dr A.Y Tino"){
+                                            if ($result['role'] != "administrator"){
+                                            ?>
+                                                <td class="text-capitalize"><?php echo $result['role']; ?> Manager</td>
+                                            <?php
+                                            }else {
+                                            ?>
+                                                <td class="text-capitalize"><?php echo $result['role']; ?></td>
+                                            <?php
+                                            }
+                                            if ($result['role'] != "administrator"){
                                                 if ($result['user_name'] == $_SESSION['admin']) {
                                                     ?>
                                                     <td><button class="btn btn-style" disabled>Remove Admin</button></td>

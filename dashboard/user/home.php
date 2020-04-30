@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['user'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,8 +21,6 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <!-- external stylesheet -->
     <link rel="stylesheet" href="../../css/style.css">
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Kanit:ital@1&display=swap" rel="stylesheet">
     <!-- font awesome icons -->
     <script src="../../js/all.js"></script>
 
@@ -27,14 +33,6 @@
 </head>
 
 <body>
-    <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
-    ?>
     <!-- page header -->
     <header>
         <div class="header-body">

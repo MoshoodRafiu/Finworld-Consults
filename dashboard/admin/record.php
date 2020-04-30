@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -20,14 +28,16 @@
 
 <body>
     <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['admin'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
         // include action.php
         include "../action/action.php";
+        $adminrole = $con->getrole();
+        if ($adminrole == "withdrawal"){
+            header("Location: list.php");
+        }else if ($adminrole == "task"){
+            header("Location: approve.php");
+        }else if ($adminrole == "account"){
+            header("Location: users.php");
+        }
     ?>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -77,13 +87,13 @@
 
             <!-- dashboard body -->
             <div class="container-fluid">
-                <h3 class="text-center text-muted my-5">All Records</h3>
+                <h3 class="text-center text-muted mt-5">All Records</h3>
                 <?php $result = $con->showrecords(); ?>
                 <!-- Site History -->
                 <div class="history">
                     <div class="row">
                         <!-- Registered Users -->
-                        <div class="card col-md-2 mx-auto ">
+                        <div class="card col-md-2 col-8 my-3 mx-auto ">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-user fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Registered Users</p></div>
@@ -93,7 +103,7 @@
                             </div>
                         </div>
                         <!-- Registered Admin -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-user-cog fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Registered Admins</p></div>
@@ -103,7 +113,7 @@
                             </div>
                         </div>
                         <!-- Uploaded Tasks -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-tasks fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Uploaded Tasks</p></div>
@@ -113,7 +123,7 @@
                             </div>
                         </div>
                         <!-- Total Upgrades -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-caret-square-up fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Plan Upgrade</p></div>
@@ -123,9 +133,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row my-5">
+                    <div class="row">
                         <!-- Total Withdrawn Earning -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-hand-holding-usd fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Withdrawn Earning</p></div>
@@ -135,7 +145,7 @@
                             </div>
                         </div>
                         <!-- Total Available Earning -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-university fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Available Earning</p></div>
@@ -145,7 +155,7 @@
                             </div>
                         </div>
                         <!-- Total Users Earning -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-money-check-alt fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Users Earning</p></div>
@@ -155,7 +165,7 @@
                             </div>
                         </div>
                         <!-- Total Upgrade Earning -->
-                        <div class="card col-md-2 mx-auto">
+                        <div class="card col-md-2 col-8 my-3 mx-auto">
                             <div class="card-body">
                                 <div class="icon"><i class="fas fa-money-bill fa-3x"></i></div>
                                 <div><p class="text-white text-center small">Total Earning From Plan Upgrade</p></div>

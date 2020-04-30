@@ -6,7 +6,6 @@ body {
     padding: 0;
     margin: 10px;
     box-sizing: border-box;
-    font-family: 'Acme', sans-serif;
     overflow-x: hidden;
 }
 
@@ -63,7 +62,8 @@ nav .navbar-nav .nav-link:hover {
  ------------------------------- */
 
 .site-body {
-    padding: 0 30px;
+    padding: 0 10px;
+    margin: 0 !important;
 }
 
 .info,
@@ -136,7 +136,8 @@ nav .navbar-nav .nav-link:hover {
 
 .advert {
     background: url("../images/advert.png") center/cover;
-    padding: 50px 0;
+    padding: 30px 0;
+    margin: 0 !important;
 }
 
 .btn-sub:hover,

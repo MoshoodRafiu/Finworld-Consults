@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['user'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,14 +35,6 @@
 </head>
 
 <body>
-    <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
-    ?>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -104,7 +104,7 @@
     <div class="plan  my-5 mx-auto">
         <h3 class="text-center my-3 p-2">Change your plan</h3>
         <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Basic</h4>
                 </div>
@@ -118,7 +118,7 @@
                     <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Tier 1</h4>
                 </div>
@@ -132,7 +132,7 @@
                     <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Tier 2</h4>
                 </div>
@@ -148,7 +148,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Tier 3</h4>
                 </div>
@@ -162,7 +162,7 @@
                     <button class="btn w-100">Subscribe</button>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Tier 4</h4>
                 </div>
@@ -176,7 +176,7 @@
                     <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Tier 5</h4>
                 </div>
@@ -192,7 +192,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
                 <div class="card-header">
                     <h4>Tier 6</h4>
                 </div>

@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- external stylesheet -->
     <link rel="stylesheet" href="css/style.css">
-    <!-- googlr fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Kanit:ital@1&display=swap" rel="stylesheet">
     <!-- font awesome icon -->
     <script src="js/all.js"></script>
 

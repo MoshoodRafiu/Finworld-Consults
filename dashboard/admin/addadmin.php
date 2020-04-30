@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,18 +20,21 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <!-- external stylesheet -->
     <link rel="stylesheet" href="../../css/maincss.css">
-
     <!-- Font awesome icons -->
     <script src="../../js/all.js"></script>
 
 </head>
 <body>
     <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['admin'])) {
-            header("Location: ../../login.php");
-            exit();
+        // include action.php
+        include "../action/action.php";
+        $adminrole = $con->getrole();
+        if ($adminrole == "withdrawal"){
+            header("Location: list.php");
+        }else if ($adminrole == "task"){
+            header("Location: approve.php");
+        }else if ($adminrole == "account"){
+            header("Location: users.php");
         }
     ?>
     <!-- dashboard page -->
@@ -99,6 +110,13 @@
                     ?>
                     <input type="text" name="username" placeholder="Username" required class="form-control my-3">
                     <input type="email" name="email" placeholder="Email" required class="form-control my-3">
+                    <select name="role" class="form-control my-3" required>
+                        <option value="">Select Role</option>
+                        <option value="administrator">Administrator</option>
+                        <option value="task">Task Manager</option>
+                        <option value="withdrawal">Withdrawal Manager</option>
+                        <option value="account">Account Manager</option>
+                    </select>
                     <p class="m-0 text-left small pass-msg" style="color: red; display: none;">Password too short or doesn't match</p>
                     <input type="password" name="password" placeholder="Password" required class="form-control my-3 pass-fld">
                     <p class="m-0 text-left small cpass-msg" style="color: red; display: none;">Password too short or doesn't match</p>

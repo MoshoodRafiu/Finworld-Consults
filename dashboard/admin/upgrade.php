@@ -1,3 +1,11 @@
+<?php
+    // start session
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -20,15 +28,16 @@
 
 <body>
     <?php
-        // start session
-        session_start();
-        if (!isset($_SESSION['admin'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
         // include action.php
         include "../action/action.php";
-
+        $adminrole = $con->getrole();
+        if ($adminrole == "withdrawal"){
+            header("Location: list.php");
+        }else if ($adminrole == "task"){
+            header("Location: approve.php");
+        }else if ($adminrole == "account"){
+            header("Location: users.php");
+        }
     ?>
     <!-- dashboard page -->
     <div class="wrapper">
@@ -110,7 +119,7 @@
                         <option value="">Select Admin</option>
                         <option value="All">All</option>
                         <?php
-                            $results = $con->displayallusers("admin");
+                            $results = $con->allupgraders();
                             if ($results){
                                 foreach ($results as $result) {
                                 ?>

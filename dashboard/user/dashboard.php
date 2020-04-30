@@ -1,3 +1,12 @@
+<?php
+    // start session
+    session_start();
+
+    if (!isset($_SESSION['user'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,8 +22,6 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <!-- external stylesheet -->
     <link rel="stylesheet" href="../../css/style.css">
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Kanit:ital@1&display=swap" rel="stylesheet">
     <!-- font awesome icons -->
     <script src="../../js/all.js"></script>
 
@@ -27,15 +34,6 @@
 </head>
 
 <body>
-    <?php
-        // start session
-        session_start();
-
-        if (!isset($_SESSION['user'])) {
-            header("Location: ../../login.php");
-            exit();
-        }
-    ?>
     <!-- page header -->
     <header>
         <div class="header-body">
@@ -82,26 +80,29 @@
         <h3>Information Board</h3>
         <p class="task-instruction col-md-10 mx-auto py-3 px-2 my-1 bg-color text-left"><?php echo $info; ?></p>
     </div>
-    <!--daily task -->
-    <div class="mt-5 col-md-10 mx-auto text-center">
-        <h3>Today's task</h3>
+    <!-- User account message -->
+    <div class="message mt-3 col-md-10 mx-5 mx-auto">
         <?php
             $result = $con->updateearning();
             if (($result['plan'] == "basic") && ($result['basic_expiry'] < date("Y-m-d"))){
             ?>
-                <div class="alert alert-warning mx-auto text-center col-lg-12 mt-5" role="alert"><h5>You Have Exhausted Your Free Trial, Please Upgrade Your Plan To Continue Earning</h5></div>"
+                <div class="alert alert-warning mx-auto text-center col-md-10 mt-2" role="alert"><h5>You Have Exhausted Your Free Trial, Please Upgrade Your Plan To Continue Earning</h5></div>
             <?php
             }else if ($result['plan'] != "basic" && $result['other_expiry'] == 30){
             ?>
-                <div class="alert alert-warning mx-auto text-center col-md-12 mt-5" role="alert"><h5>Your <b class="mx-1"><?php echo $result['plan']; ?></b> Plan Has Expired, Please Subscribe To Another Plan To Continue Earning</h5></div>"
+                <div class="alert alert-warning mx-auto text-center col-md-10 mt-2" role="alert"><h5>Your <b class="mx-1"><?php echo $result['plan']; ?></b> Plan Has Expired, Please Subscribe To Another Plan To Continue Earning</h5></div>
             <?php
             }
             else if ($result['status'] == 'restricted'){
             ?>
-                <div class="alert alert-warning text-capitalize mx-auto text-center col-md-12 mt-2" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>"
+                <div class="alert alert-warning text-capitalize mx-auto text-center col-md-10 mt-2" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>
             <?php
             }
         ?>
+    </div>
+    <!--daily task -->
+    <div class="mt-5 col-md-10 mx-auto text-center">
+        <h3>Today's task</h3>
         <h5 class="text-left bg-success col-md-10 mx-auto text-white py-4 px-5">Please Complete the task, long press the image to save and copy the text</h5>
         <?php
             $val = $con->getuserid();
@@ -203,15 +204,15 @@
         $result = $con->updateearning();
         if (($result['plan'] == "basic") && ($result['basic_expiry'] < date("Y-m-d"))){
         ?>
-            <div class="alert alert-warning mx-auto text-center col-md-8 mt-2" role="alert"><h5>You Have Exhausted Your Free Trial, Please Upgrade Your Plan To Continue Earning</h5></div>"
+            <div class="alert alert-warning mx-auto text-center col-md-8 mt-2" role="alert"><h5>You Have Exhausted Your Free Trial, Please Upgrade Your Plan To Continue Earning</h5></div>
         <?php
         }else if ($result['plan'] != "basic" && $result['other_expiry'] == 30){
         ?>
-            <div class="alert alert-warning mx-auto text-center col-md-8 mt-2" role="alert"><h5>Your <b class="mx-1"><?php echo $result['plan']; ?></b> Plan Has Expired, Please Subscribe To Another Plan To Continue Earning</h5></div>"
+            <div class="alert alert-warning mx-auto text-center col-md-8 mt-2" role="alert"><h5>Your <b class="mx-1"><?php echo $result['plan']; ?></b> Plan Has Expired, Please Subscribe To Another Plan To Continue Earning</h5></div>
         <?php
         }else if ($result['status'] == 'restricted'){
         ?>
-            <div class="alert alert-warning text-capitalize mx-auto text-center col-md-8 mt-2" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>"
+            <div class="alert alert-warning text-capitalize mx-auto text-center col-md-8 mt-2" role="alert"><h5>Your account has been restricted for some reasons, Please contact the admin for clarification</h5></div>
         <?php
         }
     ?>
@@ -263,17 +264,17 @@
                                 // check if withdrawal is pending
                                 if ($results['approval_status'] == 'pending'){
                                 ?>
-                                    <td><span class="bg-warning text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
+                                    <td><span class="bg-warning btn w-50 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
                                 <?php
                                 // check if withdrawal has been approved
                                 }else if ($results['approval_status'] == 'approved'){
                                 ?>
-                                    <td><span class="bg-success text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
+                                    <td><span class="bg-success btn w-50 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
                                 <?php
                                 // check if withdrawal has been declined
                                 }else if ($results['approval_status'] == 'declined'){
                                 ?>
-                                    <td><span class="bg-danger text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
+                                    <td><span class="bg-danger btn w-50 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
                                 <?php
                                 }
                                 ?>
@@ -283,7 +284,7 @@
                         }
                     } else {
                         ?>
-                            <p class="text-center">No Withdrawals Yet</p>
+                            <p class="text-center">No Task Yet</p>
                         <?php
                     }
                 ?>
@@ -319,22 +320,22 @@
                                 // check if withdrawal is pending
                                 if ($results['withdrawal_status'] == 'pending'){
                                 ?>
-                                    <td><span class="bg-warning text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
+                                    <td><span class="bg-warning btn text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
                                 <?php
                                 // Check if user was paid
                                 }else if ($results['withdrawal_status'] == 'approved' && $results['payment_status'] == 'cleared'){
                                     ?>
-                                        <td><span class="bg-success text-capitalize text-white p-2 px-4">Paid</span></td>
+                                        <td><span class="bg-success btn w-50 text-capitalize text-white p-2 px-4">Paid</span></td>
                                     <?php
                                 // check if withdrawal has been approved
                                 }else if ($results['withdrawal_status'] == 'approved'){
                                 ?>
-                                    <td><span class="bg-success text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
+                                    <td><span class="bg-success btn w-50 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
                                 <?php
                                 // check if withdrawal has been declined
                                 }else if ($results['withdrawal_status'] == 'declined'){
                                 ?>
-                                    <td><span class="bg-danger text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
+                                    <td><span class="bg-danger btn w-50 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
                                 <?php
                                 }
                                 ?>
@@ -441,7 +442,7 @@
                     </div>
                     <div class="text-center text-white text mt-3">
                         <h4><b>Logout</h4>
-                        <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Logout</a>
+                        <a href="../action/logout.php" class="btn btn-style" style="text-decoration: none;">Logout</a>
                     </div>
                 </div>
             </div>
