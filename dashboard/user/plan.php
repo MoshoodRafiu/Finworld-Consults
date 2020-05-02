@@ -73,142 +73,119 @@
 
     <div class="plan-details col-10 text-center mx-auto my-5">
         <p>
-            Browse your plan on this page, click subscribe and you'll be redirected to our Whatsapp page to purchase your coupon. After your Coupon has been generated, paste your coupon in the field below to activate your upgrade
+            Browse our awesome plans on this page, click subscribe and you'll be redirected to our agents whatsapp page where your account will be automatically update after payment has been confirmed.
         </p>
     </div>
-    <!-- plan upgrade form -->
-    <div class="plan-form col-md-8 mx-auto my-3">
-        <h3 class="text-center mb-3">Enter you coupon to upgrade your plan</h3>
-        <form action="" method="post" class="text-center mx-auto">
-            <table class="text-center mx-auto w-100">
-                <tr>
-                    <td><input type="text" name="coupon" class="form-control" placeholder="Enter you coupon" required></td>
-                    <td>
-                        <select name="plan" class=" form-control" required>
-                            <option value="">Select Plan</option>
-                            <option value="Tier-1">Tier-1</option>
-                            <option value="Tier-2">Tier-2</option>
-                            <option value="Tier-3">Tier-3</option>
-                            <option value="Tier-4">Tier-4</option>
-                            <option value="Tier-5">Tier-5</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-            <div class="text-center my-2">
-                <button type="submit" class="btn btn-style text-white  ">Change plan</button>
-            </div>
-        </form>
-    </div>
+
     <!-- subscription plan -->
     <div class="plan  my-5 mx-auto">
         <h3 class="text-center my-3 p-2">Change your plan</h3>
         <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Basic</h4>
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Basic</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong> Free</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN150 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 10 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 32+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100" onclick="return false" > Not Available</a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> Free</h5>
-                    <h5><strong>Earn:</strong> #150</h5>
-                    <h5><strong>Duration:</strong> 10 Days</h5>
-                    <h5><strong>Requirement:</strong> 32+ Views</h5>
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 1</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong> NGN4,000</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN250 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 30 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 32+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
-                </div>
-            </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Tier 1</h4>
-                </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> #4,000</h5>
-                    <h5><strong>Earn:</strong> #250</h5>
-                    <h5><strong>Duration:</strong> 30 Days</h5>
-                    <h5><strong>Requirement:</strong> 32+ Views</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
-                </div>
-            </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Tier 2</h4>
-                </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> #10,000</h5>
-                    <h5><strong>Earn:</strong> #600</h5>
-                    <h5><strong>Duration:</strong> 30 Days</h5>
-                    <h5><strong>Requirement:</strong> 32+ Views</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Tier 3</h4>
-                </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> #15,000</h5>
-                    <h5><strong>Earn:</strong> #950</h5>
-                    <h5><strong>Duration:</strong> 30 Days</h5>
-                    <h5><strong>Requirement:</strong> 40+ Views</h5>
-                </div>
-                <div class="card-footer">
-                    <button class="btn w-100">Subscribe</button>
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 2</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong>NGN10,000</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN600 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 30 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 32+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Tier 4</h4>
+            <div class="row">
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 3</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong> NGN15,000</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN950 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 30 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 40+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> #25,000</h5>
-                    <h5><strong>Earn:</strong> #1,400</h5>
-                    <h5><strong>Duration:</strong> 30 Days</h5>
-                    <h5><strong>Requirement:</strong> 50+ Views</h5>
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 4</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong> NGN25,000</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN1,400 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 30 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 50+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 5</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong> NGN50,000</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN2,850 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 30 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 100+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
                 </div>
             </div>
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Tier 5</h4>
-                </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> #50,000</h5>
-                    <h5><strong>Earn:</strong> #2,850</h5>
-                    <h5><strong>Duration:</strong> 30 Days</h5>
-                    <h5><strong>Requirement:</strong> 100+ Views</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="sub-plan mx-auto text-center col-lg-3 col-10 my-3 card">
-                <div class="card-header">
-                    <h4>Tier 6</h4>
-                </div>
-                <div class="card-body">
-                    <h5><strong>Fee:</strong> #100,000</h5>
-                    <h5><strong>Earn:</strong> #5,500</h5>
-                    <h5><strong>Duration:</strong> 30 Days</h5>
-                    <h5><strong>Requirement:</strong> 150+ Views</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+            <div class="row">
+                <div class="sub-plan mx-auto text-center col-lg-3 col-sm-10 my-3 card">
+                    <div class="card-header">
+                        <h4>Tier 6</h4>
+                    </div>
+                    <div class="card-body text-left mx-auto">
+                        <h5><strong class="mr-1">Fee:</strong> NGN100,000</h5>
+                        <h5><strong class="mr-1">Earn:</strong> NGN 5,500 Daily</h5>
+                        <h5><strong class="mr-1">Duration:</strong> 30 Days</h5>
+                        <h5><strong class="mr-1">Requirement:</strong> 150+ Views</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/2348179271291" class="btn btn-sub w-100">Subscribe</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- footer -->
     <div class="site-footer text-center mx-auto mt-5 bg-color">
@@ -217,7 +194,7 @@
             <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
             <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
             <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
-            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+            <div><a href="mailto:finworldconsults@gmail.com" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
         </div><hr class="bg-white"/>
         <div class="text-center py-3 d-flex justify-content-center mx-auto">
             <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>

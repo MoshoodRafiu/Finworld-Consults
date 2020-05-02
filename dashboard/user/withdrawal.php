@@ -153,7 +153,7 @@
             <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
             <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
             <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
-            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+            <div><a href="mailto:finworldconsults@gmail.com" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
         </div><hr class="bg-white"/>
         <div class="text-center py-3 d-flex justify-content-center mx-auto">
             <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>

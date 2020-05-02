@@ -171,7 +171,7 @@
                         if ($task['third_task'] != "" || $task['third_task_url'] != "" || $task['third_task_inst'] != ""){
                         ?>
                             <h4>Third Task</h4>
-                            <div class="col-md-8 mx-auto bg-color task p-3 mb-5">
+                            <div class="col-md-8 mx-auto bg-color task px-3 py-1 mb-5">
                                 <?php if ($task['third_task_url'] != ""){
                                 ?>
                                     <div class="task-image">
@@ -264,17 +264,17 @@
                                 // check if withdrawal is pending
                                 if ($results['approval_status'] == 'pending'){
                                 ?>
-                                    <td><span class="bg-warning btn w-50 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
+                                    <td><span class="bg-warning btn w-100 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
                                 <?php
                                 // check if withdrawal has been approved
                                 }else if ($results['approval_status'] == 'approved'){
                                 ?>
-                                    <td><span class="bg-success btn w-50 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
+                                    <td><span class="bg-success btn w-100 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
                                 <?php
                                 // check if withdrawal has been declined
                                 }else if ($results['approval_status'] == 'declined'){
                                 ?>
-                                    <td><span class="bg-danger btn w-50 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
+                                    <td><span class="bg-danger btn w-100 text-capitalize text-white p-2"><?php echo $results['approval_status']; ?></span></td>
                                 <?php
                                 }
                                 ?>
@@ -320,22 +320,22 @@
                                 // check if withdrawal is pending
                                 if ($results['withdrawal_status'] == 'pending'){
                                 ?>
-                                    <td><span class="bg-warning btn text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
+                                    <td><span class="bg-warning btn w-100 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
                                 <?php
                                 // Check if user was paid
                                 }else if ($results['withdrawal_status'] == 'approved' && $results['payment_status'] == 'cleared'){
                                     ?>
-                                        <td><span class="bg-success btn w-50 text-capitalize text-white p-2 px-4">Paid</span></td>
+                                        <td><span class="bg-success btn w-100 text-capitalize text-white p-2 px-4">Paid</span></td>
                                     <?php
                                 // check if withdrawal has been approved
                                 }else if ($results['withdrawal_status'] == 'approved'){
                                 ?>
-                                    <td><span class="bg-success btn w-50 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
+                                    <td><span class="bg-success btn w-100 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
                                 <?php
                                 // check if withdrawal has been declined
                                 }else if ($results['withdrawal_status'] == 'declined'){
                                 ?>
-                                    <td><span class="bg-danger btn w-50 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
+                                    <td><span class="bg-danger btn w-100 text-capitalize text-white p-2"><?php echo $results['withdrawal_status']; ?></span></td>
                                 <?php
                                 }
                                 ?>
@@ -393,7 +393,7 @@
                         <i class="fas fa-money-bill-wave icon fa-3x"></i>
                     </div>
                     <div class="text-center text-white text mt-3">
-                        <h4><b>Daily Earning: </b>#<?php echo number_format($result["daily_earning"]); ?></h4>
+                        <h4><b>Daily Earning: </b>NGN<?php echo number_format($result["daily_earning"]); ?></h4>
                         <a href="plan.php" class="btn btn-style" style="text-decoration: none;">Upgrade</a>
                     </div>
                 </div>
@@ -406,7 +406,7 @@
                         <i class="fas fa-money-bill icon fa-3x"></i>
                     </div>
                     <div class="text-center text-white text mt-3">
-                        <h4><b>Total Earning: </b>#<?php echo number_format($result["total_earning"]); ?></h4>
+                        <h4><b>Total Earning: </b>NGN<?php echo number_format($result["total_earning"]); ?></h4>
                         <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Withdraw</a>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
                         <i class="fas fa-university icon fa-3x"></i>
                     </div>
                     <div class="text-center text-white  text mt-3">
-                        <h4><b>Total Withdrawn: </b>#<?php echo number_format($result["withdrawn"]); ?></h4>
+                        <h4><b>Total Withdrawn: </b>NGN<?php echo number_format($result["withdrawn"]); ?></h4>
                         <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Withdraw</a>
                     </div>
                 </div>
@@ -430,7 +430,7 @@
                         <i class="fas fa-university icon fa-3x"></i>
                     </div>
                     <div class="text-center text-white text mt-3">
-                        <h4><b>Available: </b>#<?php echo number_format($result["total_earning"] - $result["withdrawn"]); ?></h4>
+                        <h4><b>Available: </b>NGN<?php echo number_format($result["total_earning"] - $result["withdrawn"]); ?></h4>
                         <a href="withdrawal.php" class="btn btn-style" style="text-decoration: none;">Withdraw</a>
                     </div>
                 </div>
@@ -457,7 +457,7 @@
             <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
             <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
             <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
-            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+            <div><a href="mailto:finworldconsults@gmail.com" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
         </div><hr class="bg-white"/>
         <div class="text-center py-3 d-flex justify-content-center mx-auto">
             <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>

@@ -123,7 +123,7 @@
     </div>
     <script>
         function check(){
-            if (document.querySelector('.pass-fld').value.length > 1 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
+            if (document.querySelector('.pass-fld').value.length > 7 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
                 document.querySelector('.pass-msg').style.display = 'none';
                 document.querySelector('.cpass-msg').style.display = 'none';
                 document.querySelector('.pass-fld').style.border = 'none';

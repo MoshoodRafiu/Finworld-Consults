@@ -25,13 +25,6 @@
 </head>
 
 <body>
-    <?php
-        session_start();
-        if (!isset($_SESSION['reset'])){
-            header("Location: reset.php");
-            exit();
-        }
-    ?>
     <!-- change password form -->
     <div class="row">
         <div class="col-10 col-md-6 col-lg-4 mt-5 login mx-auto text-center">
@@ -47,7 +40,11 @@
                     <?php
                         // include action.php
                         include "dashboard/action/action.php";
-                        $result = $con->userdetails($_SESSION['reset']);
+                        // Get user details
+                        if (isset($_GET['resetid'])){
+                            $id = $_GET['resetid'];
+                            $result = $con->userdetails($id);
+                        }
                     ?>
                     <input type="email" class="form-control mt-3" name="email" value="<?php echo $result['email'] ?>" disabled>
                     <textarea name="question" class="w-100 form-control mt-3" disabled><?php echo $result['question'];  ?></textarea>
@@ -64,7 +61,7 @@
     <script>
         function check(){
             if (document.querySelector('.pass-fld').value != "" || document.querySelector('.cpass-fld').value != ""){
-                if (document.querySelector('.pass-fld').value.length > 1 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
+                if (document.querySelector('.pass-fld').value.length > 7 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
                     document.querySelector('.pass-msg').style.display = 'none';
                     document.querySelector('.cpass-msg').style.display = 'none';
                     document.querySelector('.pass-fld').style.border = 'none';

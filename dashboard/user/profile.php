@@ -188,7 +188,7 @@
             <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
             <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
             <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
-            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+            <div><a href="mailto:finworldconsults@gmail.com" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
         </div><hr class="bg-white"/>
         <div class="text-center py-3 d-flex justify-content-center mx-auto">
             <p class="mx-2 small"><a href="home.php" class="text-white" style="text-decoration: none">Home</a></p>
@@ -207,7 +207,7 @@
         function check(){
             if (document.querySelector('.pass-fld').value != "" || document.querySelector('.cpass-fld').value != ""){
                 if (document.querySelector('.opass-fld').value != "") {
-                    if (document.querySelector('.pass-fld').value.length > 1 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
+                    if (document.querySelector('.pass-fld').value.length > 7 && document.querySelector('.pass-fld').value == document.querySelector('.cpass-fld').value) {
                         document.querySelector('.pass-msg').style.display = 'none';
                         document.querySelector('.cpass-msg').style.display = 'none';
                         document.querySelector('.pass-fld').style.border = 'none';

@@ -952,7 +952,7 @@ class Operations extends Database {
     // Reset Pssword
     public function resetpassword($email){
         // SQL statement
-        $sql = "SELECT * FROM user WHERE email = ?";
+        $sql = "SELECT * FROM user WHERE email = ? AND special = 0";
         // Prepared Statement
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("s", $email);
@@ -960,15 +960,15 @@ class Operations extends Database {
         $results = $stmt->get_result();
         $result = $results->fetch_assoc();
         if ($results->num_rows > 0){
-            session_start();
-            $_SESSION['reset'] = $result['user_id'];
-            header("Location: ../../change.php");
+            // get user id
+            $id = $result['user_id'];
+            header("Location: ../../change.php?resetid=".$id);
         }else {
             return "empty";
         }
     }
     // Update Password
-    public function updatepassword($answer, $password){
+    public function updatepassword($id, $answer, $password){
         $password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 8]);
         // Get the answer
 
@@ -976,7 +976,7 @@ class Operations extends Database {
         $sql = "SELECT * FROM user WHERE user_id = ?";
         // Prepared Statement
         $stmt = $this->con->prepare($sql);
-        $stmt->bind_param("s", $_SESSION['reset']);
+        $stmt->bind_param("s", $id);
         $stmt->execute();
         $result = $stmt->get_result();
         $result = $result->fetch_assoc();
@@ -985,7 +985,7 @@ class Operations extends Database {
             $sql = "UPDATE user SET password = ? WHERE user_id = ?";
             // Prepared Statement
             $stmt = $this->con->prepare($sql);
-            $stmt->bind_param("ss", $password, $_SESSION['reset']);
+            $stmt->bind_param("ss", $password, $id);
             if ($stmt->execute()){
                 return "success";
             }
@@ -1042,7 +1042,7 @@ class Operations extends Database {
         // Get total sum of plan upgrades
 
         // SQL statement
-        $sql = "SELECT SUM(total_earning) AS upgrade_sum FROM user";
+        $sql = "SELECT SUM(amount) AS upgrade_sum FROM upgrade";
         $result = $this->con->query($sql);
         $result = $result->fetch_assoc();
         $totalupgrade = $result['upgrade_sum'];
@@ -1149,16 +1149,16 @@ $con = new Operations();
 // Check if user registers
 if (isset($_POST['register'])) {
     $values = Array(
-        "first_name" => $_POST['fname'],
-        "last_name" => $_POST['lname'],
-        "user_name" => $_POST['uname'],
-        "email" => $_POST['email'],
-        "phone" => $_POST['phone'],
-        "password" => $_POST['password'],
-        "acct_num" => $_POST['acctnum'],
-        "bank_name" => $_POST['bname'],
-        "question" => $_POST['question'],
-        "answer" => $_POST['answer']
+        "first_name" => htmlspecialchars($_POST['fname']),
+        "last_name" => htmlspecialchars($_POST['lname']),
+        "user_name" => htmlspecialchars($_POST['uname']),
+        "email" => htmlspecialchars($_POST['email']),
+        "phone" => htmlspecialchars($_POST['phone']),
+        "password" => htmlspecialchars($_POST['password']),
+        "acct_num" => htmlspecialchars($_POST['acctnum']),
+        "bank_name" => htmlspecialchars($_POST['bname']),
+        "question" => htmlspecialchars($_POST['question']),
+        "answer" => htmlspecialchars($_POST['answer'])
     );
     $new = $con->register($values);
     if ($new == "success"){
@@ -1174,8 +1174,8 @@ if (isset($_POST['register'])) {
 
 // Check if user logins
 if (isset($_POST['login'])) {
-    $useremail = $_POST['useremail'];
-    $password = $_POST['password'];
+    $useremail = htmlspecialchars($_POST['useremail']);
+    $password = htmlspecialchars($_POST['password']);
     $new = $con->login($useremail, $password);
     if ($new == "user"){
         header("Location: ../../login.php?valid=userlogin");
@@ -1190,20 +1190,20 @@ if (isset($_POST['login'])) {
 if (isset($_POST['uploadtask'])){
     $values = Array(
         // first task
-        "plan" => $_POST['plan'],
-        "task1" => $_POST['tasktitle1'],
+        "plan" => htmlspecialchars($_POST['plan']),
+        "task1" => htmlspecialchars($_POST['tasktitle1']),
         "inst1" => $_POST['inst1'],
         "file1" => $_FILES['file1']['name'],
         "tmp1" => $_FILES['file1']['tmp_name'],
         "type1" => $_FILES['file1']['type'],
         // second task
-        "task2" => $_POST['tasktitle2'],
+        "task2" => htmlspecialchars($_POST['tasktitle2']),
         "inst2" => $_POST['inst2'],
         "file2" => $_FILES['file2']['name'],
         "tmp2" => $_FILES['file2']['tmp_name'],
         "type2" => $_FILES['file2']['type'],
         // thirs task
-        "task3" => $_POST['tasktitle3'],
+        "task3" => htmlspecialchars($_POST['tasktitle3']),
         "inst3" => $_POST['inst3'],
         "file3" => $_FILES['file3']['name'],
         "tmp3" => $_FILES['file3']['tmp_name'],
@@ -1217,7 +1217,7 @@ if (isset($_POST['uploadtask'])){
     }
 }
 if (isset($_POST['uploadinfo'])){
-    $info = $_POST['info'];
+    $info = htmlspecialchars($_POST['info']);
     $new = $con->uploadinfo($info);
     if ($new == "success"){
         header("Location: ../admin/dashboard.php?info=success");
@@ -1252,14 +1252,14 @@ if (isset($_POST['submittask'])) {
 
 if (isset($_POST['updateprofile'])){
     $values = Array (
-        "fname" => $_POST['fname'],
-        "lname" => $_POST['lname'],
-        "acctnum" => $_POST['acctnum'],
-        "bankname" => $_POST['bankname'],
-        "acctnum" => $_POST['acctnum'],
-        "bankname" => $_POST['bankname'],
-        "pass" => $_POST['pass'],
-        "npass" => $_POST['npass']
+        "fname" => htmlspecialchars($_POST['fname']),
+        "lname" => htmlspecialchars($_POST['lname']),
+        "acctnum" => htmlspecialchars($_POST['acctnum']),
+        "bankname" => htmlspecialchars($_POST['bankname']),
+        "acctnum" => htmlspecialchars($_POST['acctnum']),
+        "bankname" => htmlspecialchars($_POST['bankname']),
+        "pass" => htmlspecialchars($_POST['pass']),
+        "npass" => htmlspecialchars($_POST['npass'])
     );
     $new = $con->updateprofile($values);
     if ($new == "success"){
@@ -1269,10 +1269,10 @@ if (isset($_POST['updateprofile'])){
     }
 }
 if (isset($_POST['withdraw'])){
-    $amount = $_POST['amount'];
-    $userid = $_POST['id'];
-    $available = $_POST['available'];
-    $plan = $_POST['plan'];
+    $amount = htmlspecialchars($_POST['amount']);
+    $userid = htmlspecialchars($_POST['id']);
+    $available = htmlspecialchars($_POST['available']);
+    $plan = htmlspecialchars($_POST['plan']);
     $new = $con->withdrawal($userid, $amount, $available, $plan);
     if ($new == "success"){
         echo "<div class=\"alert alert-success mx-auto text-center col-md-8 col-lg-7 mt-5\" role=\"alert\">Withdrawal Request Successful, Please Do Not Resend</div>";
@@ -1285,10 +1285,10 @@ if (isset($_POST['withdraw'])){
     }
 }
 if (isset($_POST['addadmin'])){
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $role = $_POST['role'];
-    $password = $_POST['password'];
+    $username = htmlspecialchars($_POST['username']);
+    $email = htmlspecialchars($_POST['email']);
+    $role = htmlspecialchars($_POST['role']);
+    $password = htmlspecialchars($_POST['password']);
     $new = $con->addadmin($username, $email, $role, $password);
     if ($new == "success"){
         header("Location: ../admin/addadmin.php?add=1");
@@ -1311,15 +1311,17 @@ if (isset($_POST['clearwithdrawal'])){
     }
 }
 if (isset($_POST['reset'])){
-    $email = $_POST['email'];
-    if ($con->resetpassword($email)  == "empty"){
+    $email = htmlspecialchars($_POST['email']);
+    $new = $con->resetpassword($email);
+    if ($new  == "empty"){
         header("Location: ../../reset.php?empty=1");
     }
 }
 if (isset($_POST['updatepassword'])){
-    $answer = $_POST['answer'];
-    $password = $_POST['password'];
-    $new = $con->updatepassword($answer, $password);
+    $answer = htmlspecialchars($_POST['answer']);
+    $password = htmlspecialchars($_POST['password']);
+    $id = htmlspecialchars($_GET['resetid']);
+    $new = $con->updatepassword($id, $answer, $password);
     if ($new == "wrong"){
         echo "<div class=\"alert alert-danger mx-auto text-center col-md-12\" role=\"alert\">Wrong Provided Answer</div>";
     }if ($new == "success"){

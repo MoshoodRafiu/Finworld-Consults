@@ -52,19 +52,16 @@
         <div class="info my-3 row">
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Terms and conditions</h3>
-                <p>The accompanying Terms and Conditions control your client on this brand. You concur that you have peruse and comprehend the terms and condition that your utilization on Finworld Consults will be dependent upon the standards set down. These
-                    Terms and Conditions might be adjusted whenever by Finworld Consults Administrative. If it's not too much trouble audit them now and again since your continuous use is dependent upon the terms and conditions as changed. Your proceeded
-                    with cooperation in Finworld Consults after such change will be esteemed to be your acknowledgment of any such adjustment. On the off chance that you don't consent to these Terms and Conditions, kindly don't enlist to turn into a client
-                    of Finworld Consults. Clients must make a deal to avoid manhandling their benefits by acting in a way conflicting with this Agreement.
+                <p>The accompanying Terms and Conditions govern your membership with this brand. You agree that you have read and comprehended the terms and conditions and that your membership with Finworld Consults will be dependent upon these standards set down. These Terms and Conditions might be reviewed by Finworld Consults. Your continued participation with Finworld Consults after such review shall be deemed to be your acceptance. On the off chance that you don't consent to these Terms and Conditions, kindly don't enroll to become a member of Finworld Consults Brand. Members must avoid maximizing their benefits in a way conflicting with this Agreement.
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Refund Policy</h3>
                 <p>
-                    We offer non-substantial virtual advanced commercial but we don't give any discount after an effective membership to an arrangement. It would be ideal if you note that by buying in to any of our arrangements , you consent to the particulars of the Refund
-                    Policy. NO REFUND Clients will agree to all laws, rules, and guidelines that are pertinent. Clients must recognize that they may possibly take part in Finworld Consults notice if and to the degree that such investment is allowed by
-                    such laws, rules, and guidelines. In the event that any client articles to any of the Terms and Conditions of this Agreement, or any ensuing adjustments to this understanding, or gets disappointed with the Program, such client just
-                    plan of action is to promptly suspend support in Finworld Consults
+                we currently do not issue any refund after successfully subscribing to a plan. Please note that by subscribing to any of our packages, you agree to our NO REFUND Policy.
+                Members shall adhere to all laws, rules, and regulations that are applicable. Members must consent that they may only participate in Finworld advertisement if such participation is permitted by such laws, rules, and regulations.
+                If any member disagrees to any of the Terms and Conditions of this Agreement, or any subsequent review to this agreement, or becomes dissatisfied with the Program, such member only alternative is to immediately discontinue membership with Finworld Consults.
+
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
@@ -77,22 +74,19 @@
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Information Disclosure</h3>
                 <p>
-                    We don't sell, exchange, or in any case move to outside gatherings your Personally Identifiable Information except if we furnish clients with early notification. This does exclude site facilitating accomplices and different gatherings who help us in working
-                    our site, directing our business, or serving our clients, insofar as those gatherings consent to keep this data classified. We may likewise discharge data when it's discharge is suitable to agree to the law, uphold our site approaches,
-                    or ensure our own or others' privileges, property or wellbeing. Notwithstanding, non-by and by recognizable guest data might be given to different gatherings to showcasing, promotin
+                We don't sell, exchange, or in any case give to outside agents your Personally Identifiable Information. We may likewise release data when it's   agrees to the law, uphold our site methods, or ensures effective promotion showcasing.
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Advertising Companies</h3>
                 <p>
-                    There are connections to outsider items or administrations in specific pieces of our site. These outsider locales have discrete and free security approaches. We in this way have no duty or obligation for the substance and exercises of these connected
-                    locales.
+                There are links to outsider services and partners on specific parts of our site. These outsider partners might have free and strict security approaches. We however have no duty or obligation to compensate or be held liable for the breach in quality of service of these connected partners.
                 </p>
             </div>
             <div class="mx-auto text-center col-md-5 p-3">
                 <h3>Copyright</h3>
                 <p>
-                    We at Finworld Consults regard the protected innovation of others. On the off chance that you feel that your work has been replicated in a manner that comprises copyright encroachment you can keep in touch with us at he
+                We at Finworld Consults regard the protected innovation of others. On the off chance that you feel that your work has been replicated in a manner that comprises copyright encroachment you can keep in touch with us at help@finworldconsults.com
                 </p>
             </div>
         </div>
@@ -127,7 +121,7 @@
             <div><a href="#" class="text-white"><i class="fab fa-facebook fa-2x mx-3"></i></a></div>
             <div><a href="#" class="text-white"><i class="fab fa-twitter fa-2x mx-3"></i></a></div>
             <div><a href="https://wa.me/2349024432443" class="text-white"><i class="fab fa-whatsapp fa-2x mx-3"></i></a></div>
-            <div><a href="#" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
+            <div><a href="mailto:finworldconsults@gmail.com" class="text-white"><i class="fas fa-envelope fa-2x mx-3"></i></a></div>
         </div><hr class="bg-white"/>
         <div class="text-center py-3 d-flex justify-content-center mx-auto">
             <p class="mx-2"><a href="index.php" class="text-white" style="text-decoration: none">Home</a></p>
